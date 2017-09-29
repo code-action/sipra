@@ -18,7 +18,6 @@ class CreateEstudiantesTable extends Migration
             $table->string('carne',10);
             $table->string('nombre',25);
             $table->string('apellido',25);
-            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

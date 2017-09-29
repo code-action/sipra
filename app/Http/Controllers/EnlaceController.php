@@ -48,26 +48,56 @@ class EnlaceController extends Controller
       }
       for($a=0;$a<$request['cantidad'];$a++){ //de acuerdo a la cantidad de carné se recorre el arreglo creado
       $valor='carne'.(String)$a; //se crea cadena carne + número para obtener nombre del campo
+      $valorn='nombre'.(String)$a;
+      $valora='apellido'.(String)$a;
       $cadv='';
       for($b=0;$b<$a;$b++){
         $cadv=$cadv.'|different:carne'.(String)$b;//se recorren todos los carné y se aplica la validación de que no sean iguales
       }
-      $val[$valor]='required|size:7|unique:enlaces,nf_carne'.$cadv;//se agregan las validaciones para ese campo
+      $val[$valor]='required|size:7|unique:enlaces,nf_carne'.$cadv;//se agregan las validaciones para campo carne
+      $val[$valorn]='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';//Validaciones campo nombre
+      $val[$valora]='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';//Validaciones campo apellid
       $cad1=$valor.'.required';// campo * validaciones para crear los mensajes required
       $cad2=$valor.'.size';// campo * validaciones para crear los mensajes size.
       $cad3=$valor.'.different';
       $cad4=$valor.'.unique';
+
+      $cadn1=$valorn.'.required';
+      $cadn2=$valorn.'.min';
+      $cadn3=$valorn.'.regex';
+
+      $cada1=$valora.'.required';
+      $cada2=$valora.'.min';
+      $cada3=$valora.'.regex';
+
       $men[$cad1]='El campo carné es requerido';
       $men[$cad2]='El campo carné debe contener 7 caracteres';
       $men[$cad3]='El carné ya fue digitado en un campo anterior';
       $men[$cad4]='Este carné esta registrado en otro proyecto';
+
+      $men[$cadn1]='El campo nombre es requerido';
+      $men[$cadn2]='El campo nombre debe contener nínimo 3 caracteres';
+      $men[$cadn3]='El campo nombre requiere solamente letras';
+
+      $men[$cada1]='El campo apellido es requerido';
+      $men[$cada2]='El campo apellido debe contener nínimo 3 caracteres';
+      $men[$cada3]='El campo apellido requiere solamente letras';
     }
     $this->validate($request,$val,$men);
     for($a=0;$a<$request['cantidad'];$a++){
       $valor='carne'.(String)$a;
+      $valorn='nombre'.(String)$a;
+      $valora='apellido'.(String)$a;
       Enlace::create([
         'f_proyecto'=>$id,
         'nf_carne'=>$request[$valor],
+      ]);
+
+      Estudiante::create([
+        'carne'=>$request[$valor],
+        'nombre'=>$request[$valorn],
+        'apellido'=>$request[$valora],
+
       ]);
     }
     return redirect('/proyecto')->with('mensaje','Registro Guardado');

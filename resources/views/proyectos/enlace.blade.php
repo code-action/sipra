@@ -16,10 +16,13 @@
 
   <input name="cantidad" type="hidden" value='{{$tit['cantidad']}}'>
   <input name="id" type="hidden" value='{{$tit['id']}}'>
+
   @for($a=0;$a<$tit['cantidad'];$a++)
-    <?php $valor='carne'.(String)$a;?>
+    <?php $valor='carne'.(String)$a;
+          $valorn='nombre'.(String)$a;
+          $valora='apellido'.(String)$a;
+    ?>
       @include('proyectos.formularios.enlaceform')
-  </div>
 @endfor
 </div>
     <a class="btn btn-default" href="/sipra/public/proyecto">Registrar en otro momento</a>

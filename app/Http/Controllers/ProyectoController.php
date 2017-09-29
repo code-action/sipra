@@ -76,7 +76,8 @@ class ProyectoController extends Controller
      */
     public function edit($id)
     {
-        //
+       $proyecto=Proyecto::find($id);
+       return view('proyectos.edit',compact('proyecto'));
     }
 
     /**
@@ -88,7 +89,55 @@ class ProyectoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $m['titulo.required']='El campo título es obligatorio';
+      $m['titulo.unique']='Título registrado, ingrese otro';
+      $m['titulo.min']='El campo título debe contener 30 caracteres mínimo';
+      $m['titulo.max']='El campo título debe contener 250 caracteres máximo';
+
+      $m['cantidad.required']='El N° de estudiantes es obligatorio';
+      $m['cantidad.integer']='El campo debe contener solamente números';
+
+      $m['anio.integer']='El campo debe contener solamente números';
+      $m['anio.required']='El campo año es obligatorio';
+      $m['anio.not_in']='Seleccione una opción válida';
+
+      $m['f_carrera.required']='El campo carrera es obligatorio';
+      $m['f_carrera.not_in']='Seleccione una opción válida';
+
+        $proyecto=proyecto::find($id);
+        if($request->vc=='no'){
+          $request->cantidad=$proyecto->cantidad;
+        }
+        $v1=$v2=$v3=$v4=0;
+        if($request->titulo==$proyecto->titulo){
+          $v1=1;
+        }else{
+          $val['titulo']='required|unique:proyectos|min:30|max:250';
+        }
+        if($request->cantidad==$proyecto->cantidad){
+          $v2=1;
+        }else{
+          $val['cantidad']='required|integer';
+        }
+        if($request->anio==$proyecto->anio){
+          $v3=1;
+        }else{
+          $val['anio']='integer|required|not_in:0';
+        }
+        if($request->f_carrera==$proyecto->f_carrera){
+          $v4=1;
+        }else{
+          $val['f_carrera']='integer|required|not_in:0';
+        }
+        if($v1==1 && $v2==1 && $v3==1 && $v4==1){
+          return redirect('/carrera')->with('mensaje','No hay cambios');
+        }else{
+          $this->validate($request,$val,$m);
+          $proyecto->fill($request->all());
+          $proyecto->save();
+          //Bitacora::bitacora('Modificación de carrera: '.$request['nombre']);
+          return redirect('/proyecto')->with('mensaje','Registro actualizado');
+        }
     }
 
     /**

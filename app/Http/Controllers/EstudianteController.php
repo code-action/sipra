@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Estudiante;
 use App\Bitacora;
 use App\Enlace;
+use App\Proyecto;
 use App\Http\Requests\EstudianteRequest;
 
 class EstudianteController extends Controller
@@ -18,10 +19,10 @@ class EstudianteController extends Controller
      */
     public function index(Request $request)
     {
-      $state = $request->get('estado');
+      //$state = $request->get('estado');
       $nombre = $request->get('nombre');
-      $estudiantes= Estudiante::buscar($nombre,$state);
-      return view('estudiantes.index',compact('estudiantes','state','nombre'));
+      $estudiantes= Estudiante::buscar($nombre);
+      return view('estudiantes.index',compact('estudiantes','nombre'));
     }
 
     /**
@@ -29,9 +30,10 @@ class EstudianteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('estudiantes.create');
+        $id_proy=$request['id'];
+        return view('estudiantes.create',compact('id_proy'));
     }
 
     /**
@@ -42,9 +44,16 @@ class EstudianteController extends Controller
      */
     public function store(EstudianteRequest $request)
     {
+      $proy=Proyecto::find($request['id_proy']);
+      $proy->cantidad=$proy->cantidad+1;
+      $proy->save();
+      Enlace::create([
+        'f_proyecto'=>$request['id_proy'],
+        'nf_carne'=>$request['carne'],
+      ]);
       Estudiante::create($request->all());
       Bitacora::bitacora('Nuevo estudiante agregado, carné: '.$request['carne']);
-      return redirect('/estudiante')->with('mensaje','Registro Guardado');
+      return redirect('/proyecto')->with('mensaje','Registro Guardado');
     }
 
     /**

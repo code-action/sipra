@@ -9,6 +9,7 @@
 				<?php $bandera=1;?>
 				@include('estudiantes.formularios.formulario')
 				<input name="bandera" type="hidden" value="1">
+				<input name="id_proy" type="hidden" value="{{$id_proy}}">
 				<a class="btn btn-default" href="/sipra/public/estudiante?estado=1">Cancelar</a>
 				{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
 				{!!Form::close()!!}
