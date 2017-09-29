@@ -23,10 +23,11 @@
           <thead>
           <tr>
           @if(!$cam)
-            <th><a href="/sipra/public/estudiante/create"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Nuevo</span></a></th>
+            <!--<th><a href="/sipra/public/estudiante/create"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Nuevo</span></a></th>-->
           @else
-            <th>Número</th>
+            <!--<th>Número</th>-->
           @endif
+            <th>Número</th>
             <th>Carné</th>
             <th>Nombre</th>
             <th>Apellido</th>

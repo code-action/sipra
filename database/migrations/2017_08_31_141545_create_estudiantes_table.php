@@ -18,8 +18,6 @@ class CreateEstudiantesTable extends Migration
             $table->string('carne',10);
             $table->string('nombre',25);
             $table->string('apellido',25);
-            $table->integer('f_carrera')->unsigned();
-            $table->foreign('f_carrera')->references('id')->on('carreras');
             $table->boolean('estado')->default(true);
             $table->timestamps();
         });

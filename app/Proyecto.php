@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proyecto extends Model
 {
-    protected $fillable = ['titulo','cantidad','anio'];
+    protected $fillable = ['titulo','cantidad','anio','f_carrera'];
 
 
     public static function buscar($titulo){

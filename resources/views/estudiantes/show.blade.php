@@ -14,15 +14,6 @@
           <td><b>{{$est->apellido}}</b></td>
         </tr>
         <tr>
-          <td>Carrera:</td>
-          <td><b><?php
-          use App\Carrera;
-          $car=Carrera::nombreCarrera($est->f_carrera);
-          ?>{{$car}}
-        </b>
-      </td>
-        </tr>
-        <tr>
           <td>Estado:</td>
           <td>
             <b>

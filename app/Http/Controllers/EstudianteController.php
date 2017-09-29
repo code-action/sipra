@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Estudiante;
 use App\Bitacora;
+use App\Enlace;
 use App\Http\Requests\EstudianteRequest;
 
 class EstudianteController extends Controller
@@ -81,15 +82,15 @@ class EstudianteController extends Controller
     public function update(Request $request, $id)
     {
         $est=Estudiante::find($id);
-        if($request['carne']==$est['carne']){
-          $val['carne']='required|min:7|max:7';
-        }
-        else{
+        $cc=0;
+        $carnea=$est->carne;
+        if($request['carne']!=$est['carne']){
+          $cc=1;
           $val['carne']='required|min:7|max:7|unique:estudiantes';
         }
         $val['nombre']='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';
         $val['apellido']='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';
-        $val['f_carrera']='integer|required|not_in:0';
+        //$val['f_carrera']='integer|required|not_in:0';
 
         $m['carne.required']='El campo carné es obligatorio';
         $m['carne.min']='El campo carné debe contener 7 caracteres mínimo';
@@ -101,19 +102,30 @@ class EstudianteController extends Controller
         $m['apellido.required']='El campo apellido es obligatorio';
         $m['apellido.min']='El campo apellido debe contener 3 caracteres mínimo';
         $m['apellido.regex']='El campo apellido requiere solamente letras';
-        $m['f_carrera.required']='El campo carrera es obligatorio';
-        $m['f_carrera.not_in']='Seleccione una opción válida';
+      //  $m['f_carrera.required']='El campo carrera es obligatorio';
+      //  $m['f_carrera.not_in']='Seleccione una opción válida';
 
 
 
-        if($request['carne']==$est['carne'] && $request['nombre']==$est['nombre'] && $request['apellido']==$est['apellido'] && $request['f_carrera']==$est['f_carrera']){
+        if($request['carne']==$est['carne'] && $request['nombre']==$est['nombre'] && $request['apellido']==$est['apellido']){
           return redirect('/estudiante')->with('mensaje','No hay cambios');
         }else{
           $this->validate($request,$val,$m);
           $est->fill($request->all());
           $est->save();
+
+          if($cc==1){
+            $enlace=Enlace::where('nf_carne','=',$carnea)->get();
+            foreach($enlace as $e){
+              $e->nf_carne=$request['carne'];
+              $proy=$e->f_proyecto;
+              $e->save();
+
+            }
+
+          }
           Bitacora::bitacora('Modificación de estudiante carné: '.$request['carne']);
-          return redirect('/estudiante')->with('mensaje','Registro actualizado');
+          return redirect('/proyecto/'.(String)$proy)->with('mensaje','Registro actualizado');
         }
     }
 

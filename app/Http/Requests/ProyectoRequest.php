@@ -27,6 +27,7 @@ class ProyectoRequest extends FormRequest
         return [
             'titulo'=>'required|unique:proyectos|min:30|max:250',
             'cantidad'=>'required|integer',
+            'f_carrera'=>'integer|required|not_in:0',
             'anio'=>'integer|required|not_in:0',
         ];
     }
@@ -43,6 +44,9 @@ class ProyectoRequest extends FormRequest
         'anio.integer'=>'El campo debe contener solamente números',
         'anio.required'=>'El campo año es obligatorio',
         'anio.not_in'=>'Seleccione una opción válida',
+
+        'f_carrera.required'=>'El campo carrera es obligatorio',
+        'f_carrera.not_in'=>'Seleccione una opción válida',
 
       ];
     }

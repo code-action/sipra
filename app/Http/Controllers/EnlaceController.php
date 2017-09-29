@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Proyecto;
 use App\Enlace;
 use App\Documento;
+use App\Estudiante;
 use App\Http\Requests\EnlaceRequest;
 
 class EnlaceController extends Controller
@@ -29,7 +30,7 @@ class EnlaceController extends Controller
     public function create(Request $request)
     {
       $tit=Proyecto::find($request['id']);
-      return view('documentos.enlace',compact('tit'))->with('mensaje','Registro guardado');
+      return view('proyectos.enlace',compact('tit'))->with('mensaje','Registro guardado');
 
     }
 
@@ -122,8 +123,21 @@ class EnlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($carne)
     {
-        //
+        $enlaces=Enlace::where('nf_carne','=',$carne)->get();
+        foreach($enlaces as $enlace){
+          $id_proy=$enlace->f_proyecto;
+          Enlace::destroy($enlace->id);
+
+        }
+        $estudiantes=Estudiante::where('carne','=',$carne)->get();
+        foreach($estudiantes as $estudiante){
+          Estudiante::destroy($estudiante->id);
+        }
+    $proy=Proyecto::find($id_proy);
+    $proy['cantidad']=$proy['cantidad']-1;
+    $proy->save();
+    return redirect('/proyecto/'.(String)$id_proy)->with('mensaje','Registro Guardado');
     }
 }

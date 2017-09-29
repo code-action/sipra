@@ -18,6 +18,8 @@ class CreateProyectosTable extends Migration
             $table->string('titulo',255);
             $table->integer('cantidad');
             $table->integer('anio');
+            $table->integer('f_carrera')->unsigned();
+            $table->foreign('f_carrera')->references('id')->on('carreras');
             $table->timestamps();
         });
     }

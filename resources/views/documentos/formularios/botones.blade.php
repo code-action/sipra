@@ -31,7 +31,7 @@ $t=$t_doc;
         } else {
       swal({   title: 'El Registro se mantiene',type:'info',
       text: 'Se Cerrará en 2 Segundos',   timer: 2000,
-      showConfirmButton: false });} });"><i class="fa fa-plus-circle "></i></button>
+      showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
     {!!Form::close()!!}
   @endforeach
 @endif

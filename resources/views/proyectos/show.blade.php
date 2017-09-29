@@ -21,9 +21,28 @@
             @endif
             @foreach ($carnes as $c)
               <?php $est=Estudiante::nombreEstudiante($c->nf_carne);?>
-              <p><b>{{$c->nf_carne.":"}}
+              <p><b>{{$c->nf_carne.":  "}}
+                &nbsp;&nbsp;
                 @if($est!="NE")
+                  {!!Form::open(['route'=>['enlace.destroy',$c->nf_carne],'method'=>'DELETE','class'=>'form-inline'])!!}
                   {{$est}}
+                  &nbsp;&nbsp;
+                  @if(count($carnes)>1)
+                  <button class="btn btn-danger btn-sm" type="button" onClick="return swal({
+                    title: '¿Desea eliminar el documento?',
+                    text: 'Ya no estara disponible !',   type: 'warning',
+                    showCancelButton: true,   confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Si, enviar!',
+                    cancelButtonText: 'No, Cancelar!',   closeOnConfirm: true,
+                    closeOnCancel: false }, function(isConfirm){
+                    if (isConfirm) { submit();
+                        swal('Deleted!', 'El Registro enviado', 'success');
+                      } else {
+                    swal({   title: 'El Registro se mantiene',type:'info',
+                    text: 'Se Cerrará en 2 Segundos',   timer: 2000,
+                    showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
+                    {!!Form::close()!!}
+                  @endif
                 @else
                   <?php $cad='/sipra/public/estudiante/create?carne='.$c->nf_carne?>
                   <a href="{{$cad}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;"> Agregar estudiante</span></a>

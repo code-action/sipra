@@ -27,7 +27,7 @@ class EstudianteRequest extends FormRequest
             'carne'=>'required|min:7|max:7|unique:estudiantes',
             'nombre'=>'required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/',
             'apellido'=>'required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/',
-            'f_carrera'=>'integer|required|not_in:0',
+            //'f_carrera'=>'integer|required|not_in:0',
         ];
     }
 
@@ -46,8 +46,8 @@ class EstudianteRequest extends FormRequest
           'apellido.min'=>'El campo apellido debe contener 3 caracteres mínimo',
           'apellido.regex'=>'El campo apellido requiere solamente letras',
 
-          'f_carrera.required'=>'El campo carrera es obligatorio',
-          'f_carrera.not_in'=>'Seleccione una opción válida',
+          //'f_carrera.required'=>'El campo carrera es obligatorio',
+          //'f_carrera.not_in'=>'Seleccione una opción válida',
         ];
     }
 }
