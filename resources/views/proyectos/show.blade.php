@@ -10,9 +10,12 @@
           <td><b>{{$proy->titulo}}</b></td>
         </tr>
         <tr>
-          <td>N° de estudiantes: {{$proy->cantidad}}</td>
+          <td>N° de estudiantes: {{$proy->cantidad}}
+            <a href="/sipra/public/estudiante/create?id={{$proy->id}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Agregar</span></a>
+          </td>
           <?php use App\Enlace;
                 use App\Estudiante;
+                use App\Carrera;
           $carnes=Enlace::proyCarnes($proy->id);
            ?>
           <td>
@@ -21,12 +24,11 @@
             @endif
             @foreach ($carnes as $c)
               <?php $est=Estudiante::nombreEstudiante($c->nf_carne);?>
-              <p><b>{{$c->nf_carne.":  "}}
-                &nbsp;&nbsp;
                 @if($est!="NE")
                   {!!Form::open(['route'=>['enlace.destroy',$c->nf_carne],'method'=>'DELETE','class'=>'form-inline'])!!}
-                  {{$est}}
-                  &nbsp;&nbsp;
+                  <div class="col-sm-9"><p><b>{{$c->nf_carne.":  "}}
+                    &nbsp;&nbsp;
+                  {{$est}}</div>
                   @if(count($carnes)>1)
                   <button class="btn btn-danger btn-sm" type="button" onClick="return swal({
                     title: '¿Desea eliminar el documento?',
@@ -51,6 +53,11 @@
             @endforeach
 
           </td>
+        </tr>
+        <tr>
+          <td>Carrera:</td>
+          <td><b>{{Carrera::nombreCarrera($proy->f_carrera)}}</b>
+      </td>
         </tr>
         <tr>
           <td>Año:</td>
