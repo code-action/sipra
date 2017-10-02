@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('plantillas.principalc');
+});*/
+Route::get('/', function () {
+    return view('auth/log');
 });
 
-Route::resource('login','LoginController');
+Route::resource('loged','LogedController');
+
 Route::resource('usuario','UserController');
 Route::resource('carrera','CarreraController');
 Route::resource('estudiante','EstudianteController');

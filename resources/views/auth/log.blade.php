@@ -10,13 +10,13 @@
     <title>SIPRA - Unidad de Proyección Social</title>
 
     <!-- Bootstrap core CSS -->
-    {!!Html::style('dash/css/bootstrap.css')!!}
+    {!!Html::style('assets/css/bootstrap.css')!!}
     <!--external css-->
-    {!!Html::style('dash/font-awesome/css/font-awesome.css')!!}
+    {!!Html::style('assets/font-awesome/css/font-awesome.css')!!}
 
     <!-- Custom styles for this template -->
-    {!!Html::style('dash/css/style.css')!!}
-    {!!Html::style('dash/css/style-responsive.css')!!}
+    {!!Html::style('assets/css/style.css')!!}
+    {!!Html::style('assets/css/style-responsive.css')!!}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,14 +34,14 @@
 	  <div id="login-page">
 	  	<div class="container">
 
-		      <form class="form-login" action="index.html">
+            {!!Form::open(['route'=>'loged.index','method'=>'POST','class'=>'form-login','autocomplete'=>'off'])!!}
 		        <h2 class="form-login-heading">ACCESO</h2>
 		        <div class="login-wrap">
-		            <input type="text" class="form-control" placeholder="Usuario" autofocus>
+		            {!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre de usuario','autofocus'=>'autofocus'])!!}
 		            <br>
-		            <input type="password" class="form-control" placeholder="Contraseña">
-
-		            <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> Aceptar</button>
+                {!!Form::password('password',['class'=>'form-control','placeholder'=>'Contraseña'])!!}
+                <br>
+                {!!Form::submit('Ingresar',['class'=>'btn btn-theme btn-block'])!!}
                 <label class="checkbox">
 		                <span class="pull-right">
 		                    <a data-toggle="modal" href="login.html#myModal"> ¿Olvido su contraseña?</a>
@@ -50,8 +50,7 @@
 		            </label>
                 <hr>
 		        </div>
-
-		      </form>
+            {!!Form::close()!!}
 
           <!-- Modal -->
           <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
@@ -79,16 +78,12 @@
 	  </div>
 
     <!-- js placed at the end of the document so the pages load faster -->
-    {!!Html::script('dash/js/jquery.js')!!}
-    {!!Html::script('dash/js/bootstrap.min.js')!!}
+    {!!Html::script('assets/js/jquery.js')!!}
+    {!!Html::script('assets/js/bootstrap.min.js')!!}
 
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-    <script type="text/javascript" src="dash/js/jquery.backstretch.min.js"></script>
-    <script>
-        $.backstretch("dash/img/login-bg.jpg", {speed: 500});
-    </script>
-
+    {!!Html::script('assets/js/jquery.backstretch.min.js')!!}
 
   </body>
 </html>

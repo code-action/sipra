@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-class LoginController extends Controller
+use Mail;
+use Auth;
+use DB;
+use Session;
+use Redirect;
+use Crypt;
+class LogedController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,8 +38,12 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+      if(Auth::attempt(['name'=>$request['name'],'password'=>$request['password']])){
+          return view('plantillas.principalc');
+      }else{
+          return redirect('/');
+      }
     }
 
     /**
