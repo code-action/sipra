@@ -1,7 +1,7 @@
 <?php use App\Enlace;?>
 @foreach ($errors->get('titulo') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">
@@ -19,7 +19,7 @@
 			@if($cantidad==0)
 @foreach ($errors->get('cantidad') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">
@@ -34,7 +34,7 @@
 @endif
 @foreach ($errors->get('f_carrera') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">
@@ -63,7 +63,7 @@
 </div>
 @foreach ($errors->get('anio') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">

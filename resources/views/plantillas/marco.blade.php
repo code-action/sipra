@@ -1,4 +1,4 @@
-@if(Auth::check())
+{{--@if(Auth::check())--}}
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -159,7 +159,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 
   </body>
 </html>
-@else
+{{--@else
   <!DOCTYPE HTML>
   <html>
   <head>
@@ -170,4 +170,4 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
   </body>
   </html>
 
-@endif
+@endif--}}

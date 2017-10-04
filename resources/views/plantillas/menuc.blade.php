@@ -3,7 +3,6 @@ Tipo::llenarTabla();
  ?>
 @extends('plantillas.marco')
 @section('menu')
-  {{--@if(Auth::user()->tipo==1)--}}
   <li class="sub-menu">
       <a href="/sipra/public/proyecto" >
           <i class="fa fa-folder-open"></i>
@@ -35,16 +34,10 @@ Tipo::llenarTabla();
   </li>
 
   <li class="sub-menu">
-      <a href="javascript:;" >
+      <a href="/sipra/public/estudiante" >
           <i class="fa fa-credit-card"></i>
           <span>Estudiantes</span>
       </a>
-      <ul class="sub">
-          <li><a  href="/sipra/public/estudiante?estado=1">Activos</a></li>
-      </ul>
-      <ul class="sub">
-          <li><a  href="/sipra/public/estudiante?estado=0">Inactivos</a></li>
-      </ul>
   </li>
   <li class="sub-menu">
       <a href="javascript:;" >

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Documento;
+use App\Proyecto;
 use App\Http\Requests\DocumentoRequest;
 
 class DocumentoController extends Controller
@@ -15,9 +16,14 @@ class DocumentoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   $t=$request['tipo'];
-        $documentos=Documento::buscar($t);
-        return view('documentos.index',compact('t','documentos'));
+    {   $tipo=$request['tipo'];
+        $titulo = $request['titulo'];
+        if(trim($titulo)!=""){
+            $proyectos= Proyecto::buscar($titulo);
+          }else{
+            $proyectos=Proyecto::orderBy('titulo')->paginate(8);
+        }
+        return view('documentos.index',compact('tipo','proyectos','titulo'));
     }
 
     /**

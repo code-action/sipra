@@ -2,7 +2,7 @@
 $t=$t_doc;
 ?>
 {!!Form::label('lplan',$a[$t_doc].':',['class'=>' col-sm-5 control-label'])!!}
-<?php $doc=Documento::where('f_tipo','=',$t_doc)->where('f_proyecto','=',$proy->id)->get();
+<?php $doc=Documento::idTipoExiste($proy->id,$t_doc);
   $cad="/sipra/public/documento/create?id=".$proy->id;
 ?>
 @if(count($doc)==0)<!-- Agregar-->

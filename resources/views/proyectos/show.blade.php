@@ -10,16 +10,20 @@
           <td><b>{{$proy->titulo}}</b></td>
         </tr>
         <tr>
-          <td>N° de estudiantes: {{$proy->cantidad}}
-            <a href="/sipra/public/estudiante/create?id={{$proy->id}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Agregar</span></a>
-          </td>
           <?php use App\Enlace;
                 use App\Estudiante;
                 use App\Carrera;
           $carnes=Enlace::proyCarnes($proy->id);
+          $conteo=count($carnes);
            ?>
+          <td>N° de estudiantes: {{$proy->cantidad}}
+            @if($conteo!=0)
+            <a href="/sipra/public/estudiante/create?id={{$proy->id}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Agregar</span></a>
+            @endif
+          </td>
+
           <td>
-            @if(count($carnes)==0)
+            @if($conteo==0)
               <a href="/sipra/public/enlace/create?id={{$proy->id}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Agregar</span></a>
             @endif
             @foreach ($carnes as $c)

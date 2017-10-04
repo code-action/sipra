@@ -14,18 +14,6 @@
           <td><b>{{$est->apellido}}</b></td>
         </tr>
         <tr>
-          <td>Estado:</td>
-          <td>
-            <b>
-            @if($est->estado==1)
-              Activo
-            @else
-              Inactivo
-            @endif
-          </b>
-          </td>
-        </tr>
-        <tr>
           <td>Fecha de creación:</td>
           <td><b>{{$est->created_at->format('d-m-Y g:i:s a')}}</b></td>
         </tr>

@@ -100,7 +100,7 @@ class EnlaceController extends Controller
 
       ]);
     }
-    return redirect('/proyecto')->with('mensaje','Registro Guardado');
+    return redirect('/enlace?doc='.(String)$id)->with('mensaje','Registro Guardado');
     }
 
     /**

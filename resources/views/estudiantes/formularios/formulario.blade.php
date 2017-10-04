@@ -1,6 +1,6 @@
 @foreach ($errors->get('carne') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">
@@ -12,7 +12,7 @@
 
 @foreach ($errors->get('nombre') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">
@@ -24,7 +24,7 @@
 
 @foreach ($errors->get('apellido') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">

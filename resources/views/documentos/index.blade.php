@@ -1,3 +1,6 @@
+<?php
+use App\Documento;
+?>
 @extends('plantillas.menuc')
 @section('contenidoPagina')
 
@@ -7,25 +10,26 @@
 
       <h4><i class="fa fa-credit-card"></i>
         <?php use App\Tipo;
-          $nomb=Tipo::nombreTipo($t);
+          $nomb=Tipo::nombreTipo($tipo);
          ?>
          Documentos:  <b>{{$nomb}}</b>
        </h4>
 
-  {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
+  {!! Form::text('titulo',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
+  <input type="hidden" name="tipo" value="{{$tipo}}">
   {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}
   {!! Form::close() !!}
   <br>
   <?php
     $cad='/sipra/public/documento/create?tipo=';
-    $tip=(String)$t;
+    $tip=(String)$tipo;
     $dir=$cad.$tip;
   ?>
 
     <table class="table table-hover">
       <thead>
       <tr>
-        <th><a href='{{$dir}}'><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Nuevo</span></a></th>
+        <th>N°</th>
         <th>Nombre</th>
         <th>Año</th>
         <th>Opciones</th>
@@ -34,23 +38,30 @@
       <?php
         $a=1;
       ?>
-      @foreach ($documentos as $doc)
-        <tbody>
+      <tbody>
+      @foreach ($proyectos as $proc)
+        <?php
+          $docs=Documento::idTipoExiste($proc->id,$tipo);
+        ?>
+        @if(count($docs)>0)
+          @foreach ($docs as $doc)
       <tr>
         <td>{{$a}}</td>
-        <td>{{$doc->nombre}}</td>
-        <td>{{$doc->anio}}</td>
-        <td>varias opciones</td>
+        <td>{{$proc->titulo}}</td>
+        <td>{{$proc->anio}}</td>
+        <td><a  class="btn btn-success btn-sm" href="/sipra/public/enlace/{{(String)$doc->id}}" target="_blank"><span class="fa fa-eye" style="color: white;"></a></td>
 
       </tr>
       <?php
         $a=$a+1;
       ?>
       @endforeach
+        @endif
+      @endforeach
       <tbody>
     </table>
     <div id="act">
-        {!! str_replace ('/?', '?', $documentos->appends(Request::only(['nombre']))->render ()) !!}
+        {!! str_replace ('/?', '?', $proyectos->appends(Request::only(['titulo','tipo']))->render ()) !!}
     </div>
     </div>
   </div>

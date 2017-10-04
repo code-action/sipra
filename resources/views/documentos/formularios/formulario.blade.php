@@ -1,6 +1,6 @@
 @foreach ($errors->get('n_acuerdo') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 @if($t==2 || $t==4)
@@ -14,7 +14,7 @@
 
 @foreach ($errors->get('archivo') as $error)
 	<div class="alert-d">
-		<br>{{$error}}
+		{{$error}}
 	</div>
 @endforeach
 <div class="form-group">
