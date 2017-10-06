@@ -158,6 +158,5 @@ class ProyectoController extends Controller
         }
         Proyecto::destroy($id);
         return redirect('/proyecto')->with('mensaje','Proyecto eliminado');
-
     }
 }

@@ -144,21 +144,6 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-      {
-  $estudiante=Estudiante::find($id);
-
-  if($estudiante['estado']==1){
-      $estudiante['estado']=0;
-      $estudiante->save();
-    Bitacora::bitacora('Estudiante enviado a inactivos: '.$estudiante['carne']);
-    return redirect('/estudiante')->with('mensaje','Nuevo registro inactivo');
-    }
-  else {
-    $estudiante['estado']=1;
-    $estudiante->save();
-    Bitacora::bitacora('Estudiante enviado a activos: '.$estudiante['carne']);
-    return redirect('/estudiante?estado=0')->with('mensaje','Nuevo registro activo');
-  }
-}
+      
     }
 }

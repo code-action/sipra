@@ -113,10 +113,7 @@ class EnlaceController extends Controller
     {
         $var=Documento::find($id);
 
-        /*header("Content-Disposition: attachment; filename=Hola.pdf");
-        header("Content-length: $var->archivo_peso");
-        header("Content-type: $var->archivo_tipo");
-        echo $var->archivo_binario;*/
+        /*header("Content-Disposition: attachment; filename=Hola.pdf"); Para descarga directa*/ 
         $contenido=stripslashes($var->archivo_binario);
         header("Content-type: $var->archivo_tipo");
         print $contenido;

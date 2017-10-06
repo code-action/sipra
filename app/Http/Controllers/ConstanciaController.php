@@ -41,8 +41,7 @@ class ConstanciaController extends Controller
     {
       $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
       $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
-      $est=Estudiante::find($request->f_estudiante);
-      $id_proy=Enlace::carneProy($est->carne);
+      $id_proy=Enlace::idEsProy($request->f_estudiante);
      try{
           Constancia::create([
             'f_estudiante'=>$request['f_estudiante'],
@@ -53,6 +52,7 @@ class ConstanciaController extends Controller
         }catch(\Exception $e){
           return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
       }
+      return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro guaradado');
     }
 
     /**
@@ -63,7 +63,10 @@ class ConstanciaController extends Controller
      */
     public function show($id)
     {
-        //
+      $var=Constancia::find($id);
+      $contenido=stripslashes($var->constancia_binario);
+      header("Content-type: $var->constancia_tipo");
+      print $contenido;
     }
 
     /**
@@ -74,7 +77,8 @@ class ConstanciaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $constancia=Constancia::find($id);
+        return view('constancias.edit',compact('constancia'));
     }
 
     /**
@@ -84,9 +88,22 @@ class ConstanciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ConstanciaRequest $request, $id)
     {
-        //
+      $constancia=Constancia::find($id);
+      $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
+      $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
+      $id_proy=Enlace::idEsProy($constancia->f_estudiante);
+
+     try{
+          $constancia->constancia_binario=$binario_contenido;
+          $constancia->constancia_tipo=$_FILES['archivo']['type'];
+          $constancia->constancia_peso=$_FILES['archivo']['size'];
+          $constancia->save();
+        }catch(\Exception $e){
+          return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
+      }
+      return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro guaradado');
     }
 
     /**
@@ -96,7 +113,9 @@ class ConstanciaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   $constancia=Constancia::find($id);
+        Constancia::destroy($id);
+        $id_proy=Enlace::idEsProy($constancia->f_estudiante);
+        return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro eliminado');
     }
 }

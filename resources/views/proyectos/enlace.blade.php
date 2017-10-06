@@ -11,7 +11,7 @@
   <div class="form-group">
     {!!Form::label('lcarne','Nombre del proyecto:',['class'=>'col-sm-2 control-label'])!!}
     <div class="col-sm-9">
-      {!!Form::textarea('titulo',$tit['titulo'],['class'=>'form-control','readonly' => 'readonly'])!!}
+      {{$tit['titulo']}}
     </div>
   </div>
 

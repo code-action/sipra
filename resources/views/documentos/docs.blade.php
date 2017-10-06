@@ -18,8 +18,12 @@ $a[4]='Acuerdo de memoria';
       <center><h4><i class="fa fa-graduation-cap"></i> Documentos del proyecto: </h4></center>
           </th>
         </thead>
+
         <tbody>
-          <tr><td><div class="form-group">{{$proy->titulo}}</div></td></tr>
+          <tr><td>
+            <div class="alert alert-info"><b>Parte 3 de 3</b> Documentos del proyecto.</div>
+            <div class="form-group">{{$proy->titulo}}</div>
+          </td></tr>
           <!--TODOS LOS DOCUMENTOS USAN EL MISMO FRAGMENTO Y CAMBIA EL TIPO DE ARCHIVO -->
           <!--Plan de trabajo social--> <?php $t_doc= 1;?>
           <tr><td>
@@ -59,7 +63,7 @@ $a[4]='Acuerdo de memoria';
                   @php
                     $constancia=Constancia::where('f_estudiante','=',$est->id)->get();
                     foreach ($constancia as $cons)
-                      $co=$cons;                    
+                      $co=$cons;
                   @endphp
                   @if(count($constancia)<1)
                   <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$est->id}}"><span class="fa fa-plus" style="color: white;"></span></a>

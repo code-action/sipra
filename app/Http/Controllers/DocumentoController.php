@@ -170,6 +170,8 @@ class DocumentoController extends Controller
      */
     public function destroy($id)
     {
+        $documento=Documento::find($id);
         Documento::destroy($id);
+        return redirect('/enlace?doc='.$documento->f_proyecto)->with('mensaje','Registro eliminado');
     }
 }

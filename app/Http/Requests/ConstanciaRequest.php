@@ -25,7 +25,7 @@ class ConstanciaRequest extends FormRequest
     {
         return [
             'archivo'=>'required|file|between:1,14800|mimes:pdf',
-            'f_estudiante'=>'required',
+            'f_estudiante'=>'required_if:bandera,1',
         ];
     }
 

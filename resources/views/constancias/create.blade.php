@@ -1,3 +1,4 @@
+<?php use App\Enlace;?>
 @extends('plantillas.menuc')
 @section('contenidoPagina')
 	<div class="col-xs-6">
@@ -11,12 +12,13 @@
 					{{$est->carne}}
 				</b>
 			 </h4></center><hr>
-
 				<?php $bandera=1;
 				?>
 				@include('constancias.formularios.formulario')
 				<input name="f_estudiante" type="hidden" value='{{$id_estudiante}}'>
-				<a class="btn btn-default" href="#"> Cancelar</a>
+				<input name="bandera" type="hidden" value='{{$bandera}}'>
+				<?php $id_p=Enlace::idEsProy($id_estudiante);?>
+      <a class="btn btn-default" href="/sipra/public/enlace?doc={{$id_p}}">Cancelar</a>
 			{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 

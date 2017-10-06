@@ -17,5 +17,10 @@ class Enlace extends Model
         return $f->f_proyecto;
       }
     }
+    public static function idEsProy($id){
+      $est=Estudiante::find($id);
+      return Enlace::carneProy($est->carne);
+
+    }
 
 }
