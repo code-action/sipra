@@ -129,9 +129,7 @@ class EstudianteController extends Controller
               $e->nf_carne=$request['carne'];
               $proy=$e->f_proyecto;
               $e->save();
-
             }
-
           }
           Bitacora::bitacora('Modificación de estudiante carné: '.$request['carne']);
           return redirect('/proyecto/'.(String)$proy)->with('mensaje','Registro actualizado');

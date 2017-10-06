@@ -27,3 +27,4 @@ Route::resource('bitacora','BitacoraController');
 Route::resource('proyecto','ProyectoController');
 Route::resource('documento','DocumentoController');
 Route::resource('enlace','EnlaceController');
+Route::resource('constancia','ConstanciaController');
