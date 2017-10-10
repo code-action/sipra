@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Estudiante;
+use App\Constancia;
 use App\Proyecto;
 use App\Http\Requests\ProyectoRequest;
 use App\Documento;
@@ -154,6 +155,11 @@ class ProyectoController extends Controller
         }
         $enlaces=Enlace::where('f_proyecto',"=",$id)->get();
         foreach($enlaces as $e){
+          $estudiantes=Estudiante::where('carne','=',$e->nf_carne)->get();
+          foreach($estudiantes as $est){
+            Constancia::where('f_estudiante','=',$est->id)->delete();
+            Estudiante::destroy($est->id);
+          }
           Enlace::destroy($e->id);
         }
         Proyecto::destroy($id);
