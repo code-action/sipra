@@ -9,6 +9,7 @@ use App\Proyecto;
 use App\Http\Requests\ProyectoRequest;
 use App\Documento;
 use App\Enlace;
+use App\Bitacora;
 
 
 class ProyectoController extends Controller
@@ -53,6 +54,7 @@ class ProyectoController extends Controller
         foreach ($titl as $t){
           $tit=$t;
         }
+        Bitacora::bitacora('Nuevo proyecto creado');
         return redirect('/enlace/create?id='.$tit['id'])->with('mensaje','Registro Guardado');
     }
 
@@ -136,7 +138,7 @@ class ProyectoController extends Controller
           $this->validate($request,$val,$m);
           $proyecto->fill($request->all());
           $proyecto->save();
-          //Bitacora::bitacora('Modificación de carrera: '.$request['nombre']);
+          Bitacora::bitacora('Proyecto editado');
           return redirect('/proyecto')->with('mensaje','Registro actualizado');
         }
     }
@@ -163,6 +165,7 @@ class ProyectoController extends Controller
           Enlace::destroy($e->id);
         }
         Proyecto::destroy($id);
+        Bitacora::bitacora('Proyecto eliminado');
         return redirect('/proyecto')->with('mensaje','Proyecto eliminado');
     }
 }

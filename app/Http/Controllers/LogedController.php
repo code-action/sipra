@@ -9,6 +9,8 @@ use DB;
 use Session;
 use Redirect;
 use Crypt;
+use App\Bitacora;
+use App\User;
 class LogedController extends Controller
 {
     /**
@@ -18,7 +20,9 @@ class LogedController extends Controller
      */
     public function index()
     {
-        //
+        Bitacora::bitacora('Salida del sistema');
+        Auth::logout();
+        return Redirect('/');
     }
 
     /**
@@ -40,9 +44,10 @@ class LogedController extends Controller
     public function store(Request $request)
     {
       if(Auth::attempt(['name'=>$request['name'],'password'=>$request['password']])){
-          return view('plantillas.principalc');
+          Bitacora::bitacora('Ingreso al sistema');
+          return redirect('/inicio');
       }else{
-          return redirect('/');
+          return redirect('/')->with('error','Usuario o contraseña incorrecta');
       }
     }
 

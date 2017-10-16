@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Documento;
 use App\Proyecto;
 use App\Http\Requests\DocumentoRequest;
+use App\Bitacora;
+use App\Tipo;
 
 class DocumentoController extends Controller
 {
@@ -83,6 +85,7 @@ class DocumentoController extends Controller
       }catch(\Exception $e){
         return redirect('/enlace?doc='.(String)$request['f_proyecto'])->with('error','Lo sentimos el documento no pudo ser registrado');
       }
+      Bitacora::bitacora('Nuevo documento en: '.Tipo::find($request['f_tipo'])->nombre);
       return redirect('/enlace?doc='.(String)$request['f_proyecto'])->with('mensaje','Registro Guardado');
     }
 
@@ -156,6 +159,7 @@ class DocumentoController extends Controller
           $doc->archivo_peso=$_FILES['archivo']['size'];
           $doc->archivo_tipo=$_FILES['archivo']['type'];
         }
+        Bitacora::bitacora('Documento editado en: '.Tipo::find($doc->f_tipo)->nombre);
         $doc->save();
         return redirect('/enlace?doc='.(String)$doc['f_proyecto'])->with('mensaje','Registro Editado');
       }
@@ -171,6 +175,7 @@ class DocumentoController extends Controller
     public function destroy($id)
     {
         $documento=Documento::find($id);
+        Bitacora::bitacora('Documento eliminado en: '.Tipo::find($docuumento->f_tipo)->nombre);
         Documento::destroy($id);
         return redirect('/enlace?doc='.$documento->f_proyecto)->with('mensaje','Registro eliminado');
     }

@@ -7,6 +7,7 @@ use App\Proyecto;
 use App\Enlace;
 use App\Documento;
 use App\Estudiante;
+use App\Bitacora;
 use App\Http\Requests\EnlaceRequest;
 
 class EnlaceController extends Controller
@@ -99,6 +100,7 @@ class EnlaceController extends Controller
         'apellido'=>$request[$valora],
 
       ]);
+      Bitacora::bitacora('Nuevo estudiante agregado, carné: '.$request[$valor]);
     }
     return redirect('/enlace?doc='.(String)$id)->with('mensaje','Registro Guardado');
     }
@@ -113,7 +115,7 @@ class EnlaceController extends Controller
     {
         $var=Documento::find($id);
 
-        /*header("Content-Disposition: attachment; filename=Hola.pdf"); Para descarga directa*/ 
+        /*header("Content-Disposition: attachment; filename=Hola.pdf"); Para descarga directa*/
         $contenido=stripslashes($var->archivo_binario);
         header("Content-type: $var->archivo_tipo");
         print $contenido;
@@ -165,6 +167,7 @@ class EnlaceController extends Controller
     $proy=Proyecto::find($id_proy);
     $proy['cantidad']=$proy['cantidad']-1;
     $proy->save();
+    Bitacora::bitacora('Estudiante eliminado, carné: '.$carne);
     return redirect('/proyecto/'.(String)$id_proy)->with('mensaje','Registro Guardado');
     }
 }
