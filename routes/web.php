@@ -13,7 +13,13 @@
 
 
 Route::get('/', function () {
-    return view('auth/log');
+  $users=DB::select('select * from users');
+  $cuenta= count($users);
+  if ($cuenta==0) {
+      return view('plantillas.primerUsuario');
+  } else {
+      return view('auth/log');
+  }
 });
 
 Route::get('/inicio', function () {
@@ -21,8 +27,7 @@ Route::get('/inicio', function () {
 });
 
 Route::get('/logout', function () {
-  Auth::logout();
-  return Redirect('/');
+  return Redirect('/loged');
 });
 
 Route::resource('loged','LogedController');

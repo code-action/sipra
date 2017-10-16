@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Bitacora;
 use App\User;
+use App\Http\Requests\UsuariocRequest;
 
 class BitacoraController extends Controller
 {
@@ -37,9 +38,19 @@ class BitacoraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsuariocRequest $request)
     {
-        //
+      $request['password']=bcrypt($request['password']);
+      User::create($request->all());
+      $arreglo=User::where('name','=',$request['name'])->get();
+      foreach ($arreglo as $fila) {
+        $id_u=$fila->id;
+      }
+      Bitacora::create([
+      'id_usuario'=>$id_u,
+      'detalle'=>'Primer usuario administrador',
+    ]);
+      return redirect('/')->with('mensaje','Registro Guardado');
     }
 
     /**

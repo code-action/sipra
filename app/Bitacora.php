@@ -17,16 +17,7 @@ public static function bitacora($detalle){
     'id_usuario'=>Auth::user()->id,
     'detalle'=>$detalle,
   ]);
-}elseif(User::count()>0){
-    $usr=User::all();
-    foreach ($usr as $u) {
-      $id=$u->id;
-    }
-    Bitacora::create([
-    'id_usuario'=>$id,
-    'detalle'=>$detalle,
-  ]);
-  }
+}
 }
 
 public static function buscar(){

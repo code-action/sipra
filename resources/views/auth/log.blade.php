@@ -17,6 +17,9 @@
     <!-- Custom styles for this template -->
     {!!Html::style('assets/css/style.css')!!}
     {!!Html::style('assets/css/style-responsive.css')!!}
+    {!!Html::style('assets/libreriaSweetAlert/sweet-alert.css')!!}
+
+    {!!Html::script('assets/libreriaSweetAlert/sweet-alert.min.js')!!}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,6 +29,18 @@
   </head>
 
   <body>
+    @if(Session::has('mensaje'))
+
+<?php $men=Session::pull('mensaje');
+echo "<script>swal('$men', 'Click al botón!', 'success')</script>";?>
+@endif
+
+@if(Session::has('error'))
+
+<?php $men=Session::pull('error');
+echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
+
+@endif
 
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT

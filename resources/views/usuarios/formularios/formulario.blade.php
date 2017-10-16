@@ -46,7 +46,11 @@
 		@if($bandera==1)
 			<option value="">[Seleccione un tipo]</option>
 			<option value="1">Administrador</option>
+			@if(!isset($primero))
 			<option value="2">Editor</option>
+		@else
+			<input type="hidden" name="primero" value="1">
+		@endif
 		@else
 			<option value="">[Seleccione un tipo]</option>
 				@if($usuario->tipo==1)
