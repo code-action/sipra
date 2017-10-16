@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Estudiante;
 use App\Enlace;
 use App\Constancia;
+use App\Bitacora;
 use App\Http\Requests\ConstanciaRequest;
 
 class ConstanciaController extends Controller

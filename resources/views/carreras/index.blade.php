@@ -41,7 +41,7 @@
             <td>{{$a}}</td>
             <td>{{ucwords($ca->codigo)}}</td>
             <td>{{ucwords($ca->nombre)}}</td>
-            <td>
+            <td style="width:25%;">
               @if(!$cam)
                 @include('carreras.formularios.baja')
               @else

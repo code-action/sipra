@@ -38,7 +38,7 @@ class LogedController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
       if(Auth::attempt(['name'=>$request['name'],'password'=>$request['password']])){
           return view('plantillas.principalc');
       }else{
