@@ -53,6 +53,7 @@ class ConstanciaController extends Controller
         }catch(\Exception $e){
           return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
       }
+      Bitacora::bitacora('Nueva constancia, estudiante: '.Estudiante::find($request['f_estudiante'])->carne);
       return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro guaradado');
     }
 
@@ -104,6 +105,7 @@ class ConstanciaController extends Controller
         }catch(\Exception $e){
           return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
       }
+      Bitacora::bitacora('Constancia editada, estudiante: '.$constancia->f_estudiante);
       return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro guaradado');
     }
 
@@ -117,6 +119,7 @@ class ConstanciaController extends Controller
     {   $constancia=Constancia::find($id);
         Constancia::destroy($id);
         $id_proy=Enlace::idEsProy($constancia->f_estudiante);
+        Bitacora::bitacora('Constancia eliminada, estudiante: '.$constancia->f_estudiante);
         return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro eliminado');
     }
 }

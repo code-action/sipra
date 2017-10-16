@@ -46,7 +46,7 @@ class UserController extends Controller
     {
       $request['password']=bcrypt($request['password']);
       User::create($request->all());
-      Bitacora::bitacora('Creación de nuevo usuario: '.$request['name']);
+      Bitacora::bitacora('Nuevo usuario creado: '.$request['name']);
       return redirect('/usuario')->with('mensaje','Registro Guardado');
     }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
       $usuario->fill($request->all());
       $usuario->save();
       }
-      Bitacora::bitacora('Actualización de usuario: '.$request['name']);
+      Bitacora::bitacora('Usuario editado: '.$request['name']);
       return redirect('/usuario')->with('mensaje','Registro Actualizado');
     }
 

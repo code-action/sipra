@@ -7,7 +7,7 @@
       <center><h4><i class="fa fa-file-pdf-o"></i> Edición para:
 				<?php use App\Tipo;
 							use App\Proyecto;
-				$ti=Tipo::nombreTipo($doc->id); ?>
+				$ti=Tipo::nombreTipo($doc->f_tipo); ?>
 				<b>
 					{{$ti}}
 				</b>

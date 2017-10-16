@@ -131,7 +131,7 @@ class EstudianteController extends Controller
               $e->save();
             }
           }
-          Bitacora::bitacora('Modificación de estudiante carné: '.$request['carne']);
+          Bitacora::bitacora('Estudiante editado carné: '.$request['carne']);
           return redirect('/proyecto/'.(String)$proy)->with('mensaje','Registro actualizado');
         }
     }
@@ -144,6 +144,6 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-      
+
     }
 }

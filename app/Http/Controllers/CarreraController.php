@@ -131,13 +131,13 @@ class CarreraController extends Controller
   if($carrera['estado']==1){
     $carrera['estado']=0;
     $carrera->save();
-    Bitacora::bitacora('Carrera enviado a inactivos: '.$carrera['nombre']);
+    Bitacora::bitacora('Carrera enviada a inactivos: '.$carrera['nombre']);
     return redirect('/carrera')->with('mensaje','Nuevo registro inactivo');
     }
   else {
     $carrera['estado']=1;
     $carrera->save();
-    Bitacora::bitacora('Carrera enviado a activos: '.$carrera['nombre']);
+    Bitacora::bitacora('Carrera enviada a activos: '.$carrera['nombre']);
     return redirect('/carrera?estado=0')->with('mensaje','Nuevo registro activo');
   }
 }
