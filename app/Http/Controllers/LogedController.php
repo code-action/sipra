@@ -32,7 +32,7 @@ class LogedController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -94,5 +94,9 @@ class LogedController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function correo(Request $request){
+        echo "Falta enviar correo";
     }
 }

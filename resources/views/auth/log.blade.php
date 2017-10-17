@@ -1,3 +1,4 @@
+@if (!Auth::check())
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,7 +50,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 	  <div id="login-page">
 	  	<div class="container">
 
-            {!!Form::open(['route'=>'loged.index','method'=>'POST','class'=>'form-login','autocomplete'=>'off'])!!}
+            {!!Form::open(['route'=>'loged.store','method'=>'POST','class'=>'form-login','autocomplete'=>'off'])!!}
 		        <h2 class="form-login-heading">ACCESO</h2>
 		        <div class="login-wrap">
 		            {!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre de usuario','autofocus'=>'autofocus'])!!}
@@ -59,7 +60,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
                 {!!Form::submit('Ingresar',['class'=>'btn btn-theme btn-block'])!!}
                 <label class="checkbox">
 		                <span class="pull-right">
-		                    <a data-toggle="modal" href="login.html#myModal"> ¿Olvido su contraseña?</a>
+		                    <a data-toggle="modal" href="login.html#myModal"> ¿Olvidó su contraseña?</a>
 
 		                </span>
 		            </label>
@@ -69,23 +70,25 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 
           <!-- Modal -->
           <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+              {!!Form::open(['url'=>'correo','method'=>'POST','class'=>'form-login','autocomplete'=>'off'])!!}
               <div class="modal-dialog">
                   <div class="modal-content">
                       <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Forgot Password ?</h4>
+                          <h4 class="modal-title">¿Olvidó su contraseña?</h4>
                       </div>
                       <div class="modal-body">
-                          <p>Enter your e-mail address below to reset your password.</p>
-                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                          <p>Ingrese su correo para restablecer la contraseña.</p>
+                          <input type="text" name="email" placeholder="Correo" autocomplete="off" class="form-control placeholder-no-fix">
 
                       </div>
                       <div class="modal-footer">
-                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                          <button class="btn btn-theme" type="button">Submit</button>
+                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+                          {!!Form::submit('Restablecer',['class'=>'btn btn-theme'])!!}
                       </div>
                   </div>
               </div>
+              {!!Form::close()!!}
           </div>
           <!-- modal -->
 
@@ -102,3 +105,14 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 
   </body>
 </html>
+@else
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta http-equiv="refresh" content="0; URL=/sipra/public/inicio">
+    </head>
+    <body>
+    </body>
+  </html>
+@endif

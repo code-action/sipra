@@ -30,6 +30,7 @@ Route::get('/logout', function () {
   return Redirect('/loged');
 });
 
+Route::post('correo','LogedController@correo');
 Route::resource('loged','LogedController');
 Route::resource('usuario','UserController');
 Route::resource('carrera','CarreraController');

@@ -95,7 +95,7 @@ class ProyectoController extends Controller
       $m['titulo.required']='El campo título es obligatorio';
       $m['titulo.unique']='Título registrado, ingrese otro';
       $m['titulo.min']='El campo título debe contener 30 caracteres mínimo';
-      $m['titulo.max']='El campo título debe contener 250 caracteres máximo';
+      $m['titulo.max']='El campo título debe contener 400 caracteres máximo';
 
       $m['cantidad.required']='El N° de estudiantes es obligatorio';
       $m['cantidad.integer']='El campo debe contener solamente números';
@@ -115,7 +115,7 @@ class ProyectoController extends Controller
         if($request->titulo==$proyecto->titulo){
           $v1=1;
         }else{
-          $val['titulo']='required|unique:proyectos|min:30|max:250';
+          $val['titulo']='required|unique:proyectos|min:30|max:400';
         }
         if($request->cantidad==$proyecto->cantidad){
           $v2=1;

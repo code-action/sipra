@@ -8,8 +8,8 @@ class Tipo extends Model
 {
   protected $fillable = ['nombre','id'];
     public static function llenarTabla(){
-      $nombre=array("Memorias","Acuerdo de Memoria","Planes","Acuerdo de plan","Constancia");
-      $correlativo=array("3","4","1","2","5");
+      $nombre=array("Memorias","Acuerdo de Memoria","Planes","Acuerdo de plan");
+      $correlativo=array("3","4","1","2");
       $cuenta = Tipo::count();
       if($cuenta == 0){
       for($a=0;$a<count($nombre);$a++){
