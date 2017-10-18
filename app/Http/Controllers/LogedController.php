@@ -11,6 +11,7 @@ use Redirect;
 use Crypt;
 use App\Bitacora;
 use App\User;
+use Config;
 class LogedController extends Controller
 {
     /**
@@ -97,6 +98,16 @@ class LogedController extends Controller
     }
 
     public function correo(Request $request){
-        echo "Falta enviar correo";
+      Mail::send(['text'=>'mail'],['name','SIPRA'],function($message){
+        $message->to('aviarydeveloper@gmail.com','De SIPRA')->subject('Prueba de correo');
+        $message->from('cpwngrd@gmail.com','SIPRA');
+      });
+
+//       Mail::raw('This is an test e-mail', function ($message) {
+//     $message->to("aviarydeveloper@gmail.com", "someone");
+//     $message->subject("hi checking");
+//     $message->getSwiftMessage();
+// });
+dd(Config::get('mail'));
     }
 }
