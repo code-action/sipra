@@ -103,6 +103,11 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
     {!!Html::script('assets/js/jquery.backstretch.min.js')!!}
 
+    <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+    </script>
+
   </body>
 </html>
 @else
