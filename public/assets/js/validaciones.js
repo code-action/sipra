@@ -58,3 +58,16 @@ nextinput++;
 campo = '<div class="form-group"><label class="col-sm-2 control-label">Carné:</label><div class="col-sm-9"><input class="form-control" onKeyPress="return cValido( this, event,this.value);" placeholder="Número de carné"></input></div></div>';
 $("#otroB").append(campo);
 }
+
+function cambioBuscar(valor){
+  var s = document.querySelector('#titulodos');
+  var i = document.querySelector('#titulo');
+  if(valor==3){
+    s.setAttribute("style", "width:25%; display:inline");
+    i.setAttribute("style", "display:none");
+  }else{
+    i.setAttribute("style", "width:25%; display:inline");
+    s.setAttribute("style", "display:none");
+  }
+
+}

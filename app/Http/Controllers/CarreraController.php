@@ -93,14 +93,12 @@ class CarreraController extends Controller
       $b2=0;
       $ca=Carrera::find($id);
       if($request['codigo']==$ca['codigo']){
-        $validar['codigo']='required|min:6|max:6';
         $b1=1;
       }else{
         $validar['codigo']='required|min:6|max:6|unique:carreras';
       }
 
       if($request['nombre']==$ca['nombre']){
-        $validar['nombre']='required|min:8';
         $b2=1;
       }else{
         $validar['nombre']='required|min:8|unique:carreras';

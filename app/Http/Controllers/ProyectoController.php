@@ -23,7 +23,12 @@ class ProyectoController extends Controller
     {
       $titulo = $request['titulo'];
       if(trim($titulo)!=""){
+        if($request->busqueda==1){
       $proyectos= Proyecto::buscar($titulo);
+      }
+      else{
+        $proyectos=Proyecto::buscar2($titulo);
+      }
     }else{
       $proyectos=Proyecto::orderBy('titulo')->paginate(8);
     }

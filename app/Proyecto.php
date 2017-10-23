@@ -17,6 +17,14 @@ class Proyecto extends Model
         $query->where('titulo','LIKE','%'.$titulo.'%');
       }
     }
+    public static function buscar2($titulo){
+      return Proyecto::anio($titulo)->orderBy('titulo')->paginate(8);
+    }
+    public function scopeAnio($query, $titulo){
+      if (trim($titulo)!="") {
+        $query->where('anio','LIKE','%'.$titulo.'%');
+      }
+    }
     public static function buscarT($titulo){ //recibe titulo y retorna en un array el id
       $proy=Proyecto::where('titulo','=',$titulo)->get(['id']);
       return $proy;

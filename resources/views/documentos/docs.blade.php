@@ -15,13 +15,12 @@ $a[4]='Acuerdo de memoria';
       <table class="table table-hover">
         <thead>
           <th>
-      <center><h4><i class="fa fa-graduation-cap"></i> Documentos del proyecto: </h4></center>
+      <center><h4><i class="fa fa-file-pdf-o"></i> Documentos del proyecto: </h4></center>
           </th>
         </thead>
 
         <tbody>
           <tr><td>
-            <div class="alert alert-info"><b>Parte 3 de 3</b> Documentos del proyecto.</div>
             <div class="form-group">{{$proy->titulo}}</div>
           </td></tr>
           <!--TODOS LOS DOCUMENTOS USAN EL MISMO FRAGMENTO Y CAMBIA EL TIPO DE ARCHIVO -->

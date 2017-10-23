@@ -7,7 +7,6 @@
   {!!Form::open(['route'=>'enlace.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
   <div id='otroB'>
   <center><h4><i class="fa fa-graduation-cap"></i> Estudiantes que participan en el proyecto </h4></center><hr>
-  <div class="alert alert-info"><b>Parte 2 de 3</b> Datos de los estudiantes.</div>
   <div class="form-group">
     {!!Form::label('lcarne','Nombre del proyecto:',['class'=>'col-sm-2 control-label'])!!}
     <div class="col-sm-9">

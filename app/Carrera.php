@@ -27,4 +27,12 @@ class Carrera extends Model
     $c=Carrera::find($id);
     return $c->nombre;
   }
+  public static function arrayCarrera(){
+      $carreras=Carrera::get();
+      $arrayC= [];
+      foreach($carreras as $carrera){
+        $arrayC[$carrera->id]=$carrera->nombre;
+      }
+      return $arrayC;
+  }
 }
