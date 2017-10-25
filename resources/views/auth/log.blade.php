@@ -50,6 +50,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 	  <div id="login-page">
 	  	<div class="container">
 
+            {!!Form::open(['route'=>'loged.store','method'=>'POST','class'=>'form-login','autocomplete'=>'off','style'=>'filter:alpha(opacity=30); opacity:0.9;'])!!}
 		        <h2 class="form-login-heading">ACCESO</h2>
 		        <div class="login-wrap">
 		            {!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre de usuario','autofocus'=>'autofocus'])!!}
