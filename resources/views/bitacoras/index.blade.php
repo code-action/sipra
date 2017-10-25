@@ -2,7 +2,14 @@
 @section('contenidoPagina')
 			<div class="col-xs-9">
         <div class="content-panel">
-					<h4><i class="fa fa-eye"></i> Bitácora de usuarios </h4>
+					{!!Form::open(['route'=>'bitacora.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
+
+		          <h4><i class="fa fa-eye"></i> Bitácora de usuarios </h4>
+
+		      {!! Form::text('usuario',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
+		      {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}
+		      {!! Form::close() !!}
+		      <br>
         <table class="table table-hover">
           <thead>
           <tr>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use DB;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,16 @@ class Documento extends Model
     public static function idTipoExiste($id,$tipo){
       $docs=Documento::where('f_proyecto','=',$id)->where('f_tipo','=',$tipo)->get();
       return $docs;
+    }
+
+    public static function buscarUnion($tipo,$busqueda){
+      $proyectos = DB::table('proyectos')
+    ->select('proyectos.*','documentos.n_acuerdo')
+    ->join('documentos','proyectos.id','=','documentos.f_proyecto','left outer')
+    ->where('documentos.f_tipo','=',$tipo)
+    ->where('proyectos.titulo','LIKE','%'.$busqueda.'%')
+    ->orWhere('documentos.n_acuerdo', 'LIKE','%'.$busqueda.'%')
+    ->paginate(8);
+    return $proyectos;
     }
 }

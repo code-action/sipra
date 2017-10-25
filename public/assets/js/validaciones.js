@@ -65,9 +65,11 @@ function cambioBuscar(valor){
   if(valor==3){
     s.setAttribute("style", "width:25%; display:inline");
     i.setAttribute("style", "display:none");
+    $("#titulo").val("");
   }else{
     i.setAttribute("style", "width:25%; display:inline");
     s.setAttribute("style", "display:none");
+    $("#titulo").val("");
   }
 
 }

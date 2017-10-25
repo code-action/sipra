@@ -29,7 +29,9 @@ class User extends Authenticatable
      }
      public function scopeNombre($query, $nombre){
        if (trim($nombre)!="") {
-         $query->where('nombre','LIKE','%'.$nombre.'%');
+         $query->where('nombre','LIKE','%'.$nombre.'%')
+         ->orWhere('name', 'LIKE','%'.$nombre.'%')
+         ->orWhere('apellido', 'LIKE','%'.$nombre.'%');
        }
      }
      public function scopeEstado($query, $estado){

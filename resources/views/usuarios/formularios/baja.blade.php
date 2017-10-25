@@ -1,3 +1,4 @@
+@if (Auth::user()->id!=$usa->id)
 {!!Form::open(['route'=>['usuario.destroy',$usa->id],'method'=>'DELETE','class'=>'form-inline'])!!}
 @include('usuarios.formularios.botones')
 &nbsp;&nbsp;
@@ -15,3 +16,10 @@
   text: 'Se Cerrará en 2 Segundos',   timer: 2000,
   showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
 {!!Form::close()!!}
+@else
+  @include('usuarios.formularios.botones')
+  &nbsp;&nbsp;
+  <button class="btn btn-danger btn-sm" type="button" onClick="swal('No puede dar de baja a su propio usuario', 'Click al botón!', 'error')">
+    <i class="fa fa-minus-circle "></i>
+  </button>
+@endif

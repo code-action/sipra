@@ -21,19 +21,23 @@ class ProyectoController extends Controller
      */
     public function index(Request $request)
     {
-      $titulo = $request['titulo'];
-      if(trim($titulo)!=""){
-        if($request->busqueda==1){
-      $proyectos= Proyecto::buscar($titulo);
+      $titulo = $request->titulo;
+      $titulodos = $request->titulodos;
+      if(trim($request->busqueda)==""){
+        $busqueda=1;
+      }else{
+        $busqueda=$request->busqueda;
       }
-      else{
+      if($busqueda==1){
+        $proyectos= Proyecto::buscar($titulo);
+      }elseif ($busqueda==2) {
         $proyectos=Proyecto::buscar2($titulo);
+      }elseif($busqueda==3){
+        $proyectos=Proyecto::buscar3($titulodos);
+      }else{
+        $proyectos=Proyecto::orderBy('titulo')->paginate(8);
       }
-    }else{
-      $proyectos=Proyecto::orderBy('titulo')->paginate(8);
-    }
-      return view('proyectos.index',compact('proyectos','titulo'));
-
+      return view('proyectos.index',compact('proyectos','busqueda'));
     }
 
     /**

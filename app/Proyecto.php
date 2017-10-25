@@ -25,6 +25,14 @@ class Proyecto extends Model
         $query->where('anio','LIKE','%'.$titulo.'%');
       }
     }
+    public static function buscar3($f_carrera){
+      return Proyecto::f_carrera($f_carrera)->orderBy('titulo')->paginate(8);
+    }
+    public function scopeF_carrera($query, $f_carrera){
+      if (trim($f_carrera)!="") {
+        $query->where('f_carrera','=',$f_carrera);
+      }
+    }
     public static function buscarT($titulo){ //recibe titulo y retorna en un array el id
       $proy=Proyecto::where('titulo','=',$titulo)->get(['id']);
       return $proy;

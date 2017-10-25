@@ -13,7 +13,10 @@ class Estudiante extends Model
   }
   public function scopeNombre($query, $nombre){
     if (trim($nombre)!="") {
-      $query->where('nombre','LIKE','%'.$nombre.'%');
+      $query->where('nombre','LIKE','%'.$nombre.'%')
+      ->orWhere('carne', 'LIKE','%'.$nombre.'%')
+      ->orWhere('apellido', 'LIKE','%'.$nombre.'%')
+      ;
     }
   }
 

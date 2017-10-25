@@ -15,8 +15,9 @@ class BitacoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+      $usuario=$request->usuario;
       $bitacoras=Bitacora::buscar();
         $usr = new User;
         return view('bitacoras.index',compact('bitacoras','usr'));

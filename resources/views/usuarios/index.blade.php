@@ -42,7 +42,7 @@
             <td>{{ucwords($usa->apellido)}}</td>
             <td>
               @if(!$cam)
-                @include('usuarios.formularios.baja')
+                  @include('usuarios.formularios.baja')
               @else
                 @include('usuarios.formularios.alta')
               @endif

@@ -21,7 +21,8 @@ class DocumentoController extends Controller
     {   $tipo=$request['tipo'];
         $titulo = $request['titulo'];
         if(trim($titulo)!=""){
-            $proyectos= Proyecto::buscar($titulo);
+            //$proyectos= Proyecto::buscar($titulo);
+            $proyectos=Documento::buscarUnion($tipo,$titulo);
           }else{
             $proyectos=Proyecto::orderBy('titulo')->paginate(8);
         }

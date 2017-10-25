@@ -50,7 +50,6 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 	  <div id="login-page">
 	  	<div class="container">
 
-            {!!Form::open(['route'=>'loged.store','method'=>'POST','class'=>'form-login','autocomplete'=>'off'])!!}
 		        <h2 class="form-login-heading">ACCESO</h2>
 		        <div class="login-wrap">
 		            {!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre de usuario','autofocus'=>'autofocus'])!!}
@@ -70,7 +69,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 
           <!-- Modal -->
           <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-              {!!Form::open(['url'=>'correo','method'=>'POST','class'=>'form-login','autocomplete'=>'off'])!!}
+              {!!Form::open(['url'=>'correo','method'=>'POST','autocomplete'=>'off'])!!}
               <div class="modal-dialog">
                   <div class="modal-content">
                       <div class="modal-header">
