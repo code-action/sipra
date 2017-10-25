@@ -51,23 +51,24 @@ Tipo::llenarTabla();
           <li><a  href="/sipra/public/carrera?estado=0">Inactivas</a></li>
       </ul>
   </li>
-<li class="sub-menu">
-    <a href="javascript:;" >
+  @if (Auth::user()->tipo==1)
+    <li class="sub-menu">
+      <a href="javascript:;" >
         <i class="fa fa-user"></i>
         <span>Usuarios</span>
-    </a>
-    <ul class="sub">
+      </a>
+      <ul class="sub">
         <li><a  href="/sipra/public/usuario?estado=1">Activos</a></li>
-    </ul>
-    <ul class="sub">
+      </ul>
+      <ul class="sub">
         <li><a  href="/sipra/public/usuario?estado=0">Inactivos</a></li>
-    </ul>
-</li>
-
-<li class="sub-menu">
-    <a href="/sipra/public/bitacora" >
+      </ul>
+    </li>
+    <li class="sub-menu">
+      <a href="/sipra/public/bitacora" >
         <i class="fa fa-eye"></i>
         <span>Bitacora</span>
-    </a>
-</li>
+      </a>
+    </li>
+  @endif
 @endsection

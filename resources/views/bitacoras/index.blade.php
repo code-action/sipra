@@ -26,9 +26,15 @@
             <tbody>
           <tr>
             <td>{{$a}}</td>
-            <td>{{$usr->nombreUser($b->id_usuario)}}</td>
+            <td>{{$b->name}}</td>
             <td>{{ucwords($b->detalle)}}</td>
-            <td>{{$b->created_at->format('d-m-Y g:i:s a')}}</td>
+						<td style="width:20%;"><?php
+			$fecha=$b->created_at;
+			$aux1 = explode(' ', $fecha);
+			$aux = explode('-', $aux1[0]);
+			$fecha=$aux[2].'/'.$aux[1].'/'.$aux[0].' '.$aux1[1];
+		?>
+		{{$fecha}}</td>
           </tr>
           <?php
             $a=$a+1;
@@ -37,7 +43,7 @@
           <tbody>
         </table>
         <div id="act">
-            {!! str_replace ('/?', '?', $bitacoras->appends(Request::only(['created_at']))->render ()) !!}
+            {!! str_replace ('/?', '?', $bitacoras->appends(Request::only(['usuario']))->render ()) !!}
         </div>
         </div>
       </div>
