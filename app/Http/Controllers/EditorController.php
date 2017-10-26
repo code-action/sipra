@@ -121,12 +121,14 @@ class EditorController extends Controller
       }
       if($request['name']==$usuario['name'] && $request['nombre']==$usuario['nombre'] && $request['apellido']==$usuario['apellido'] && $request['email']==$usuario['email'] && $request['tipo']==$usuario['tipo']){
         if($request['password']==$usuario['password']){
+          return redirect('/inicio')->with('mensaje','No hay cambios');
         }
       }else{
       $usuario->fill($request->all());
       $usuario->save();
       }
       Bitacora::bitacora('Usuario editado: '.$request['name']);
+      return redirect('/inicio')->with('mensaje','Registro Actualizado');
     }
 
     /**
