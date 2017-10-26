@@ -70,5 +70,12 @@ Tipo::llenarTabla();
         <span>Bitacora</span>
       </a>
     </li>
+  @else
+    <li class="sub-menu">
+      <a href="/sipra/public/editor/{{Auth::user()->id}}/edit" >
+        <i class="fa fa-eye"></i>
+        <span>Datos de usuario</span>
+      </a>
+    </li>
   @endif
 @endsection

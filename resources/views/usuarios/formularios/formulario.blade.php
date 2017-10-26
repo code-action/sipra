@@ -45,19 +45,20 @@
 		<select name="tipo" class='form-control'>
 		@if($bandera==1)
 			<option value="">[Seleccione un tipo]</option>
+			@if (Auth::user()->tipo==1)
 			<option value="1">Administrador</option>
+			@endif
 			@if(!isset($primero))
 			<option value="2">Editor</option>
-		@else
+			@else
 			<input type="hidden" name="primero" value="1">
-		@endif
+			@endif
 		@else
 			<option value="">[Seleccione un tipo]</option>
 				@if($usuario->tipo==1)
 			<option value="1" selected="true">Administrador</option>
 			<option value="2" >Editor</option>
 				@else
-				<option value="1">Administrador</option>
 				<option value="2" selected="true">Editor</option>
 				@endif
 

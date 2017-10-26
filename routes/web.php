@@ -42,6 +42,7 @@ Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
   Route::resource('documento','DocumentoController');
   Route::resource('enlace','EnlaceController');
   Route::resource('constancia','ConstanciaController');
+  Route::resource('editor','EditorController');
 });
 Route::group(['middleware'=>'admin'], function(){ //SOLO ADMINISTRADOR
   Route::resource('usuario','UserController');
