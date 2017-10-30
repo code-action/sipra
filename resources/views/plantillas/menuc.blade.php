@@ -72,9 +72,9 @@ Tipo::llenarTabla();
       <ul class="sub">
         <li><a  href="/sipra/public/bitacora" >Ver</a></li>
       </ul>
-      <ul class="sub">
+      {{-- <ul class="sub">
         <li><a  href="/sipra/public/bitacora/create">Imprimir</a></li>
-      </ul>
+      </ul> --}}
     </li>
   @else
     <li class="sub-menu">

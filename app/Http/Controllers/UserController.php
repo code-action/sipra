@@ -10,6 +10,7 @@ use App\Http\Requests\UsuariouRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Bitacora;
+use Auth;
 
 class UserController extends Controller
 {
@@ -132,9 +133,10 @@ class UserController extends Controller
         $validar['email']='required|email|unique:users';
       }
       if (trim($request['password'])==''){
-       $request['password']=$usuario['password'];
+       $pw=$usuario['password'];
      }else{
        $v=1;
+       $pw=bcrypt($request['password']);
        $validar['password']= ' min:3 |required_if:bandera,1 |confirmed';
      }
 
@@ -142,8 +144,13 @@ class UserController extends Controller
           return redirect('/usuario')->with('mensaje','No hay cambios');
       }else{
         $this->validate($request,$validar,$mensaje);
-      $usuario->fill($request->all());
-      $usuario->save();
+        $anterior=$usuario->password;
+        $request['password']=$pw;
+        $usuario->fill($request->all());
+        $usuario->save();
+      if($request->password!=$anterior && Auth::user()->id==$usuario->id){
+        return redirect('/loged');
+      }
       }
       Bitacora::bitacora('Usuario editado: '.$request['name']);
       return redirect('/usuario')->with('mensaje','Registro Actualizado');
