@@ -65,10 +65,16 @@ Tipo::llenarTabla();
       </ul>
     </li>
     <li class="sub-menu">
-      <a href="/sipra/public/bitacora" >
-        <i class="fa fa-eye"></i>
-        <span>Bitacora</span>
+      <a href="javascript:;" >
+        <i class="fa fa-user"></i>
+        <span>Bitácora</span>
       </a>
+      <ul class="sub">
+        <li><a  href="/sipra/public/bitacora" >Ver</a></li>
+      </ul>
+      <ul class="sub">
+        <li><a  href="/sipra/public/bitacora/create">Imprimir</a></li>
+      </ul>
     </li>
   @else
     <li class="sub-menu">

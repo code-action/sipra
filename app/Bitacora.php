@@ -29,6 +29,14 @@ public static function buscar($usuario){
     ->orderBy('bitacoras.created_at','DESC')
     ->paginate(8);
     return $bitacora;
-    //return Bitacora::orderBy('created_at','desc')->paginate(8);
   }
+  public static function buscar2($usuario){
+    $bitacora = DB::table('bitacoras')
+      ->select('bitacoras.*','users.name')
+      ->join('users','bitacoras.id_usuario','=','users.id','left outer')
+      ->where('users.name','LIKE','%'.$usuario.'%')
+      ->orderBy('bitacoras.created_at','DESC')
+      ->get();
+      return $bitacora;
+    }
 }

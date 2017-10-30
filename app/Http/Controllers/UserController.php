@@ -83,11 +83,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $validar['nombre']='required|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/|min:3|max:30';
-      $validar['apellido']='required|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/|min:3|max:30';
-      $validar['tipo']='required';
-      $validar['password']='confirmed';
-
       $mensaje['name.required']='El campo usuario es obligatorio';
       $mensaje['name.alpha_num']='El campo usuario requiere solamente números y letras sin espacios';
       $mensaje['name.min']='El campo usuario debe contener 3 caracteres mínimo';
@@ -112,30 +107,41 @@ class UserController extends Controller
       $mensaje['email.unique']='Correo registrado, ingrese otro';
 
       $mensaje['password.confirmed']='La confirmación de contraseña debe ser igual';
+      $mensaje['password.min']='El campo contraseña debe contener 3 caracteres mínimo';
 
       $usuario=User::find($id);
+      $v=0;
       if($request['name']!=$usuario['name']){
+        $v=1;
         $validar['name']='required|alpha_num|min:3|max:15|unique:users';
-      }else{
-        $validar['name']='required|alpha_num|min:3|max:15';
+      }
+      if($request['nombre']!=$usuario['nombre']){
+        $v=1;
+        $validar['nombre']='required|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/|min:3|max:30';
+      }
+      if($request['apellido']!=$usuario['apellido']){
+        $v=1;
+        $validar['apellido']='required|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/|min:3|max:30';
+      }
+      if($request['tipo']!=$usuario['tipo']){
+        $v=1;
+        $validar['apellido']='required';
       }
       if($request['email']!=$usuario['email']){
+        $v=1;
         $validar['email']='required|email|unique:users';
-      }else{
-        $validar['email']='required|email';
       }
-      $this->validate($request,$validar,$mensaje);
-      if(!empty($request['password'])){
-        $this->validate($request, ['password' => 'min:3'],['password.min'=>'El campo contraseña debe contener 3 caracteres mínimo']);
-          $request['password']=bcrypt($request['password']);
-      }else{
-          $request['password']=$usuario['password'];
-      }
-      if($request['name']==$usuario['name'] && $request['nombre']==$usuario['nombre'] && $request['apellido']==$usuario['apellido'] && $request['email']==$usuario['email'] && $request['tipo']==$usuario['tipo']){
-        if($request['password']==$usuario['password']){
+      if (trim($request['password'])==''){
+       $request['password']=$usuario['password'];
+     }else{
+       $v=1;
+       $validar['password']= ' min:3 |required_if:bandera,1 |confirmed';
+     }
+
+      if($v==0){
           return redirect('/usuario')->with('mensaje','No hay cambios');
-        }
       }else{
+        $this->validate($request,$validar,$mensaje);
       $usuario->fill($request->all());
       $usuario->save();
       }

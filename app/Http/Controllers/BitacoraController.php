@@ -27,9 +27,11 @@ class BitacoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      $usuario=$request->usuario;
+      $bitacoras=Bitacora::buscar2($usuario);
+        return view('bitacoras.indeximprimir',compact('bitacoras','usuario'));
     }
 
     /**

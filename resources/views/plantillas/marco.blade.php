@@ -54,9 +54,9 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header black-bg" id="ocultar3">
               <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Menú"></div>
               </div>
             <!--logo start-->
             <a href="#" class="logo"><b>Unidad de Proyección Social</b></a>
@@ -74,7 +74,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
       *********************************************************************************************************************************************************** -->
       <!--sidebar start-->
       <aside>
-          <div id="sidebar"  class="nav-collapse ">
+          <div id="sidebar"  class="nav-collapse">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
 

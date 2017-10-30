@@ -59,6 +59,9 @@
 			<option value="1" selected="true">Administrador</option>
 			<option value="2" >Editor</option>
 				@else
+				@if (Auth::user()->tipo==1)
+				<option value="1">Administrador</option>
+				@endif
 				<option value="2" selected="true">Editor</option>
 				@endif
 
