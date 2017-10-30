@@ -25,6 +25,7 @@
             $a=1;
           ?>
           <tbody>
+					@if(count($estudiantes)>0)
           @foreach ($estudiantes as $st)
           <tr>
             <td>{{$a}}</td>
@@ -39,6 +40,15 @@
             $a=$a+1;
           ?>
           @endforeach
+				@else
+					<tr>
+								<td colspan="5">
+									<center>
+										No hay registros que coincidan con los términos de búsqueda indicados
+									</center>
+								</td>
+							</tr>
+				@endif
           <tbody>
         </table>
         <div id="act">

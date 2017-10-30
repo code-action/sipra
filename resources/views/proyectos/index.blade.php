@@ -38,6 +38,7 @@
         $a=1;
       ?>
       <tbody>
+        @if(count($proyectos)>0)
         @foreach ($proyectos as $proy)
           <tr>
             <td>{{$a}}</td>
@@ -50,6 +51,15 @@
             $a=$a+1;
           ?>
         @endforeach
+      @else
+        <tr>
+              <td colspan="5">
+                <center>
+                  No hay registros que coincidan con los términos de búsqueda indicados
+                </center>
+              </td>
+            </tr>
+      @endif
       </tbody>
     </table>
     <div id="act">

@@ -35,8 +35,9 @@
           <?php
             $a=1;
           ?>
+          <tbody>
+            @if(count($carreraAc)>0)
           @foreach ($carreraAc as $ca)
-            <tbody>
           <tr>
             <td>{{$a}}</td>
             <td>{{ucwords($ca->codigo)}}</td>
@@ -53,6 +54,15 @@
             $a=$a+1;
           ?>
           @endforeach
+        @else
+          <tr>
+                <td colspan="4">
+                  <center>
+                    No hay registros que coincidan con los términos de búsqueda indicados
+                  </center>
+                </td>
+              </tr>
+        @endif
           <tbody>
         </table>
         <div id="act">

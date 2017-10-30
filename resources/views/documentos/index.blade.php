@@ -42,6 +42,7 @@ use App\Documento;
         $a=1;
       ?>
       <tbody>
+      @if(count($proyectos)>0)
       @foreach ($proyectos as $proc)
         <?php
           $docs=Documento::idTipoExiste($proc->id,$tipo);
@@ -64,6 +65,19 @@ use App\Documento;
       @endforeach
         @endif
       @endforeach
+    @else
+      <tr>
+        @if ($tipo==2 || $tipo==4)
+          <td colspan="5">
+          @else
+            <td colspan="4">
+        @endif
+              <center>
+                No hay registros que coincidan con los términos de búsqueda indicados
+              </center>
+            </td>
+          </tr>
+    @endif
       <tbody>
     </table>
     <div id="act">
