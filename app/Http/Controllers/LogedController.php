@@ -98,16 +98,39 @@ class LogedController extends Controller
     }
 
     public function correo(Request $request){
-      Mail::send(['text'=>'mail'],['name','SIPRA'],function($message){
-        $message->to('aviarydeveloper@gmail.com','De SIPRA')->subject('Prueba de correo');
-        $message->from('cpwngrd@gmail.com','SIPRA');
-      });
+      mail($request['email'], "Recuperar contraseña","Hola");
+      $count=0;
+      $usuario= User::where('email', '=',$request['email'])->get();
+      foreach ($usuario as $us) {
+          $u=$us->name;
+          $c=$us->password;
+          $count=$count+1;
+      }
 
-//       Mail::raw('This is an test e-mail', function ($message) {
-//     $message->to("aviarydeveloper@gmail.com", "someone");
-//     $message->subject("hi checking");
-//     $message->getSwiftMessage();
-// });
-dd(Config::get('mail'));
+      if($count==1){
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+      $cad = "";
+      for($i=0;$i<12;$i++)
+      {
+          $cad .= substr($str,rand(0,62),1);
+      }
+
+    DB::beginTransaction();
+     DB::table('users')
+          ->where('email',$request['email'])
+          ->update([
+          'password'=>bcrypt($cad),
+          ]);
+
+      $mensaje='Su usuario es: '.$u.' Su contraseña es :'.$cad;
+      mail($request['email'], "Sistema Informático para el resguardo de archivos (SIPRA):Recuperar contraseña", $mensaje);
+
+      DB::commit();
+      return redirect('/')->with('mensaje','Usuario y nueva contraseña enviados');
+      }
+      else{
+
+          return redirect('/')->with('error','Ningún usuario registrado con ese correo');
+      }
     }
 }

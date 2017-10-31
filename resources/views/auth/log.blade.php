@@ -105,7 +105,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 
     <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
     <script>
-        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+        $.backstretch("assets/img/logo-centro2.png", {speed: 500});
     </script>
 
   </body>
