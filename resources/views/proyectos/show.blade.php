@@ -16,15 +16,15 @@
           $carnes=Enlace::proyCarnes($proy->id);
           $conteo=count($carnes);
            ?>
-          <td>N° de estudiantes: {{$proy->cantidad}}
+          <td style="width: 20%">N° de estudiantes: {{$proy->cantidad}}
             @if($conteo!=0)
-            <a href="/sipra/public/estudiante/create?id={{$proy->id}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Agregar</span></a>
+            <a href="/sipra/public/estudiante/create?id={{$proy->id}}">Agregar</a>
             @endif
           </td>
 
           <td>
             @if($conteo==0)
-              <a href="/sipra/public/enlace/create?id={{$proy->id}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Agregar</span></a>
+              <a href="/sipra/public/enlace/create?id={{$proy->id}}">Agregar</a>
             @endif
             @foreach ($carnes as $c)
               <?php $est=Estudiante::nombreEstudiante($c->nf_carne);?>
@@ -51,7 +51,7 @@
                   @endif
                 @else
                   <?php $cad='/sipra/public/estudiante/create?carne='.$c->nf_carne?>
-                  <a href="{{$cad}}"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;"> Agregar estudiante</span></a>
+                  <a href="{{$cad}}">Agregar estudiante</a>
                 @endif
               </b></p>
             @endforeach

@@ -32,7 +32,7 @@ class Carrera extends Model
     return $c->nombre;
   }
   public static function arrayCarrera(){
-      $carreras=Carrera::get();
+      $carreras=Carrera::nombre('')->estado('1')->orderBy('nombre')->get();
       $arrayC= [];
       foreach($carreras as $carrera){
         $arrayC[$carrera->id]=$carrera->nombre;

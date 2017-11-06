@@ -10,7 +10,7 @@ $a[4]='Acuerdo de memoria';
 @extends('plantillas.menuc')
 @section('contenidoPagina')
   <!-- Recibe una variable $did que contiene el id de el último documento ingresado -->
-  <div class="col-xs-6">
+  <div class="col-xs-9">
 		<div class="form-panel">
       <table class="table table-hover">
         <thead>

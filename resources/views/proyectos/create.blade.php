@@ -5,7 +5,6 @@
 
 			{!!Form::open(['route'=>'proyecto.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
 			<center><h4><i class="fa fa-folder-open"></i> Nuevo proyecto </h4></center><hr>
-			<div class="alert alert-info"><b>Parte 1 de 3</b> Datos básicos del proyecto.</div>
 				<?php $bandera=1;?>
 				@include('proyectos.formularios.formulario')
 				<input name="bandera" type="hidden" value="1">

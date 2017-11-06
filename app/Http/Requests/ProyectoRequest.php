@@ -25,7 +25,7 @@ class ProyectoRequest extends FormRequest
     public function rules()
     {
         return [
-            'titulo'=>'required|unique:proyectos|min:30|max:400',
+            'titulo'=>'required|unique:proyectos|min:30|max:600',
             'cantidad'=>'required|integer',
             'f_carrera'=>'integer|required|not_in:0',
             'anio'=>'integer|required|not_in:0',
@@ -36,7 +36,7 @@ class ProyectoRequest extends FormRequest
         'titulo.required'=>'El campo título es obligatorio',
         'titulo.unique'=>'Título registrado, ingrese otro',
         'titulo.min'=>'El campo título debe contener 30 caracteres mínimo',
-        'titulo.max'=>'El campo título debe contener 400 caracteres máximo',
+        'titulo.max'=>'El campo título debe contener 600 caracteres máximo',
 
         'cantidad.required'=>'El N° de estudiantes es obligatorio',
         'cantidad.integer'=>'El campo debe contener solamente números',
