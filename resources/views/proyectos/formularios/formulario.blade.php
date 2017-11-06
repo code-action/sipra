@@ -43,7 +43,7 @@
 		<select class="form-control" name="f_carrera">
 			<option value='0'>[Seleccione una opción]</option>
 		  <?php use App\Carrera;
-			$carr=Carrera::Buscar(null,'1');?>
+			$carr=Carrera::TodasCarrera(null,'1');?>
 			@if($bandera==1)
 			@foreach ($carr as $c)
 				<option value='{{$c->id}}'>{{$c->nombre}}</option>

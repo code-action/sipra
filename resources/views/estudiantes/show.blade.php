@@ -1,3 +1,6 @@
+@php
+  use App\Estudiante;
+@endphp
 @extends('plantillas.menuc')
 @section('contenidoPagina')
   <div class="col-xs-6">
@@ -12,6 +15,10 @@
         <tr>
           <td>Apellido:</td>
           <td><b>{{$est->apellido}}</b></td>
+        </tr>
+        <tr>
+          <td>Carrera:</td>
+          <td><b>{{Estudiante::carreraEstudiante($est->carne)}}</b></td>
         </tr>
         <tr>
           <td>Fecha de creación:</td>

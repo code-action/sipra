@@ -29,7 +29,7 @@
           @foreach ($bitacoras as $b)
           <tr>
             <td>{{$a}}</td>
-            <td>{{$b->name}}</td>
+            <td>{{$b->nombre." ".$b->apellido}}</td>
             <td>{{ucwords($b->detalle)}}</td>
 						<td style="width:20%;"><?php
 			$fecha=$b->created_at;

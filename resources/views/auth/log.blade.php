@@ -51,7 +51,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 	  	<div class="container">
 
             {!!Form::open(['route'=>'loged.store','method'=>'POST','class'=>'form-login','autocomplete'=>'off','style'=>'filter:alpha(opacity=30); opacity:0.9;'])!!}
-		        <h2 class="form-login-heading">ACCESO</h2>
+		        <h2 class="form-login-heading">INICIAR SESIÓN</h2>
 		        <div class="login-wrap">
 		            {!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre de usuario','autofocus'=>'autofocus'])!!}
 		            <br>
@@ -101,12 +101,12 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-    {!!Html::script('assets/js/jquery.backstretch.min.js')!!}
+    {{-- {!!Html::script('assets/js/jquery.backstretch.min.js')!!}
 
     <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
     <script>
-        $.backstretch("assets/img/logo-centro2.png", {speed: 500});
-    </script>
+        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+    </script> --}}
 
   </body>
 </html>

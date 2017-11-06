@@ -22,7 +22,7 @@
           <thead>
           <tr>
           @if(!$cam)
-            <th><a href="/sipra/public/usuario/create"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Nuevo</span></a></th>
+            <th><a href="/sipra/public/usuario/create">Nuevo</a></th>
           @else
             <th>Número</th>
           @endif

@@ -42,4 +42,12 @@ class Estudiante extends Model
       }
     }
   }
+  public static function carreraEstudiante($carne){
+    $enlaces=Enlace::where('nf_carne','=',$carne)->get();
+    foreach ($enlaces as $enlace) {
+      $id_proy=$enlace->f_proyecto;
+    }
+    $proy=Proyecto::find($id_proy);
+    return Carrera::nombreCarrera($proy->f_carrera);
+  }
 }

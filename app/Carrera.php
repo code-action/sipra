@@ -8,6 +8,9 @@ class Carrera extends Model
 {
   protected $fillable = ['codigo','nombre','horas','estado'];
 
+  public static function TodasCarrera($nombre,$estado){
+    return Carrera::nombre($nombre)->estado($estado)->orderBy('nombre')->get();
+  }
   public static function buscar($nombre,$estado){
     return Carrera::nombre($nombre)->estado($estado)->orderBy('nombre')->paginate(8);
   }
@@ -36,4 +39,5 @@ class Carrera extends Model
       }
       return $arrayC;
   }
+
 }

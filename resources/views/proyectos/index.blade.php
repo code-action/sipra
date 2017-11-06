@@ -27,7 +27,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th><a href="/sipra/public/proyecto/create"><span class="glyphicon glyphicon-plus" style="color: #37b6de; margin: 0px 5px 0px 0px;">Nuevo</span></a></th>
+          <th><a href="/sipra/public/proyecto/create">Nuevo</a></th>
           <th>Título</th>
           <th>Carrera</th>
           <th>Año</th>
