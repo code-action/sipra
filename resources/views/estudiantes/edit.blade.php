@@ -4,7 +4,7 @@
 		<div class="form-panel">
 
       {!! Form::model($estudiante,['route'=>['estudiante.update',$estudiante->id],'method'=>'PUT','autocomplete'=>'off','class'=>'form-horizontal style-form']) !!}
-      <center><h4><i class="fa fa-credit-card"></i> Modificar Estudiante </h4></center><hr>
+      <center><h4><i class="fa fa-book"></i> Modificar Estudiante </h4></center><hr>
 				<?php $bandera=2;?>
 				@include('estudiantes.formularios.formulario')
         <input name="bandera" type="hidden" value="2">

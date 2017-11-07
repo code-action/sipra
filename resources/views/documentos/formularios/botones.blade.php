@@ -13,7 +13,7 @@ $t=$t_doc;
     {!!Form::open(['route'=>['documento.destroy',$p->id],'method'=>'DELETE','class'=>'form-inline'])!!}
 
     <!-- Ver-->
-    <a  class="btn btn-success btn-sm" href="/sipra/public/enlace/{{(String)$p->id}}" target="_blank"><span class="fa fa-eye" style="color: white;"></a>
+    <a  class="btn btn-success btn-sm" href="/sipra/public/enlace/{{(String)$p->id}}" target="_blank"><span class="fa fa-info-circle" style="color: white;"></a>
       &nbsp;&nbsp;
         <!-- Editar-->
     <a  class="btn btn-primary btn-sm" href="/sipra/public/documento/{{(String)$p->id}}/edit"><span class="fa fa-pencil" style="color: white;"></a>
@@ -31,7 +31,7 @@ $t=$t_doc;
         } else {
       swal({   title: 'El Registro se mantiene',type:'info',
       text: 'Se Cerrará en 2 Segundos',   timer: 2000,
-      showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
+      showConfirmButton: false });} });"><i class="fa fa-trash-o "></i></button>
     {!!Form::close()!!}
   @endforeach
 @endif

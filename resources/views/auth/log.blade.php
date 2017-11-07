@@ -98,7 +98,6 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
     <!-- js placed at the end of the document so the pages load faster -->
     {!!Html::script('assets/js/jquery.js')!!}
     {!!Html::script('assets/js/bootstrap.min.js')!!}
-
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
     {{-- {!!Html::script('assets/js/jquery.backstretch.min.js')!!}

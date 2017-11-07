@@ -8,7 +8,7 @@ use App\Documento;
     <div class="content-panel">
   {!!Form::open(['route'=>'documento.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
 
-      <h4><i class="fa fa-credit-card"></i>
+      <h4><i class="fa fa-file"></i>
         <?php use App\Tipo;
           $nomb=Tipo::nombreTipo($tipo);
          ?>
@@ -56,7 +56,7 @@ use App\Documento;
           <td style="width:20%;">{{$doc->n_acuerdo}}</td>
         @endif
         <td>{{$proc->anio}}</td>
-        <td><a  class="btn btn-success btn-sm" href="/sipra/public/enlace/{{(String)$doc->id}}" target="_blank"><span class="fa fa-eye" style="color: white;"></a></td>
+        <td><a  class="btn btn-success btn-sm" href="/sipra/public/enlace/{{(String)$doc->id}}" target="_blank"><span class="fa fa-info-circle" style="color: white;"></a></td>
 
       </tr>
       <?php

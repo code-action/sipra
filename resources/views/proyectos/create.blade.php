@@ -1,6 +1,6 @@
 @extends('plantillas.menuc')
 @section('contenidoPagina')
-	<div class="col-xs-6">
+	<div class="col-xs-9">
 		<div class="form-panel">
 
 			{!!Form::open(['route'=>'proyecto.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}

@@ -4,7 +4,7 @@
 		<div class="form-panel">
 
 			{!!Form::open(['route'=>'estudiante.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
-			<center><h4><i class="fa fa-credit-card"></i> Nuevo estudiante </h4></center><hr>
+			<center><h4><i class="fa fa-book"></i> Nuevo estudiante </h4></center><hr>
 
 				<?php $bandera=1;?>
 				@include('estudiantes.formularios.formulario')

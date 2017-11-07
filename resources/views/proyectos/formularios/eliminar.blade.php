@@ -14,5 +14,5 @@
     } else {
   swal({   title: 'El Registro se mantiene',type:'info',
   text: 'Se Cerrará en 2 Segundos',   timer: 2000,
-  showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
+  showConfirmButton: false });} });"><i class="fa fa-trash-o "></i></button>
 {!!Form::close()!!}

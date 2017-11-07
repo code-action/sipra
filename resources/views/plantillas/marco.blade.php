@@ -78,9 +78,10 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
 
-              	  <p class="centered"><a href="#">{!!Html::image('assets/img/ups-logo.jpg','',array('class'=>'img-circle','width'=>'60'))!!}</a></p>
-              	  <h5 class="centered">SIPRA</h5>
-
+              	  <p class="centered"><a href="/sipra/public/inicio">{!!Html::image('assets/img/ups-logo.jpg','',array('class'=>'img-circle','width'=>'60'))!!}</a></p>
+              	  <h4 class="centered" style="color: white;">SIPRA</h4>
+                  <center><font style="color: #d8d8d8;" size="3">Bienvenid@: {{Auth::user()->nombre}} {{Auth::user()->apellido}}</font></center>
+                    <br>
                     @yield('menu')
               </ul>
               <!-- sidebar menu end-->
@@ -90,10 +91,8 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
       <center>
       <section id="main-content">
       	<section class="wrapper">
-          <div class="row mt">
 @yield('contenidoPagina')
       <!--footer start-->
-    </div>
     </section>
   </section>
   </center>

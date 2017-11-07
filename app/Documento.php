@@ -30,4 +30,8 @@ class Documento extends Model
     ->paginate(8);
     return $proyectos;
     }
+
+    public static function contador($id){
+      return Documento::where('f_proyecto','=',$id)->count();
+    }
 }

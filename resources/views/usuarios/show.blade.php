@@ -1,6 +1,6 @@
 @extends('plantillas.menuc')
 @section('contenidoPagina')
-  <div class="col-xs-6">
+  <div class="col-xs-9">
     <div class="content-panel">
 
       <table class="table table-striped table-advance table-hover">

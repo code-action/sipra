@@ -127,12 +127,11 @@ class EstudianteController extends Controller
             $enlace=Enlace::where('nf_carne','=',$carnea)->get();
             foreach($enlace as $e){
               $e->nf_carne=$request['carne'];
-              $proy=$e->f_proyecto;
               $e->save();
             }
           }
           Bitacora::bitacora('Estudiante editado carné: '.$request['carne']);
-          return redirect('/proyecto/'.(String)$proy)->with('mensaje','Registro actualizado');
+          return redirect('/estudiante/')->with('mensaje','Registro actualizado');
         }
     }
 

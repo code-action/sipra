@@ -15,7 +15,7 @@ $a[4]='Acuerdo de memoria';
       <table class="table table-hover">
         <thead>
           <th>
-      <center><h4><i class="fa fa-file-pdf-o"></i> Documentos del proyecto: </h4></center>
+      <center><h4><i class="fa fa-file"></i> Documentos del proyecto: </h4></center>
           </th>
         </thead>
 

@@ -3,11 +3,11 @@
 @endphp
 @extends('plantillas.menuc')
 @section('contenidoPagina')
-  <div class="col-xs-6">
+  <div class="col-xs-9">
     <div class="content-panel">
 
-      <table class="table table-striped table-advance table-hover">
-        <h4><i class="fa fa-user"></i> Datos estudiante carné: <b>{{$est->carne}}</b></h4>
+      <table class="table table-hover">
+        <h4><i class="fa fa-book"></i> Datos estudiante carné: <b>{{$est->carne}}</b></h4>
         <tr>
           <td>Nombre:</td>
           <td><b>{{$est->nombre}}</b></td>

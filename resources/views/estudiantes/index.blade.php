@@ -4,7 +4,7 @@
         <div class="content-panel">
       {!!Form::open(['route'=>'estudiante.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
 
-          <h4><i class="fa fa-credit-card"></i> Estudiantes</h4>
+          <h4><i class="fa fa-book"></i> Estudiantes</h4>
 
       {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
       {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}

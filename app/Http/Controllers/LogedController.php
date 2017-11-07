@@ -45,8 +45,13 @@ class LogedController extends Controller
     public function store(Request $request)
     {
       if(Auth::attempt(['name'=>$request['name'],'password'=>$request['password']])){
-          Bitacora::bitacora('Ingreso al sistema');
-          return redirect('/inicio');
+          if(Auth::user()->estado!=0){
+            Bitacora::bitacora('Ingreso al sistema');
+            return redirect('/inicio');
+          }else{
+            Auth::logout();
+            return redirect('/')->with('error','Usuario inactivo');
+          }
       }else{
           return redirect('/')->with('error','Usuario o contraseña incorrecta');
       }

@@ -11,7 +11,7 @@ Tipo::llenarTabla();
   </li>
   <li class="sub-menu">
       <a href="javascript:;" >
-          <i class="fa fa-file-pdf-o"></i>
+          <i class="fa fa-file"></i>
           <span>Documentos</span>
       </a>
       <?php
@@ -35,7 +35,7 @@ Tipo::llenarTabla();
 
   <li class="sub-menu">
       <a href="/sipra/public/estudiante" >
-          <i class="fa fa-credit-card"></i>
+          <i class="fa fa-book"></i>
           <span>Estudiantes</span>
       </a>
   </li>
@@ -66,16 +66,10 @@ Tipo::llenarTabla();
         </ul>
       </li>
       <li class="sub-menu">
-        <a href="javascript:;" >
-          <i class="fa fa-user"></i>
+        <a href="/sipra/public/bitacora" >
+          <i class="fa fa-archive"></i>
           <span>Bitácora</span>
         </a>
-        <ul class="sub">
-          <li><a  href="/sipra/public/bitacora" >Ver</a></li>
-        </ul>
-        {{-- <ul class="sub">
-        <li><a  href="/sipra/public/bitacora/create">Imprimir</a></li>
-      </ul> --}}
     </li>
   @else
     <li class="sub-menu">

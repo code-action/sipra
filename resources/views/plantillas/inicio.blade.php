@@ -1,9 +1,42 @@
+@php
+  $sin=0;
+  $medio=0;
+  $completo=0;
+@endphp
 @extends('plantillas.menuc')
 @section('contenidoPagina')
   <div class="col-xs-9">
     <div class="content-panel">
-      <h4><i class="fa fa-file-pdf-o"></i> Avisos</h4>
+      {!!Html::image('assets/img/ups-logo.jpg','',array('class'=>'img-circle'))!!}
+      <br>
     </div>
-  </div>
 
+      <div class="showback">
+      @php
+        $proyectos=App\Proyecto::orderBy('titulo')->get();
+
+      foreach ($proyectos as $proyecto){
+          $conteo=App\Documento::contador($proyecto->id);
+        if ($conteo==0){
+          $sin=$sin+1;
+          //echo "<a href='#'><div class='alert alert-danger'><b>No se encontró ningún documento en proyecto: </b>".$proyecto->titulo."</div></a>";
+        }elseif($conteo<4){
+          $medio=$medio+1;
+          //echo "<a href='/sipra/public/enlace?doc=".$proyecto->id."'><div class='alert alert-warning'><b>No cuenta con todos los archivos completos: </b>".$proyecto->titulo."</div></a>";
+        }elseif($conteo==4){
+          $completo=$completo+1;
+        }
+      }
+      if($sin>0){
+        echo "<a href='#'><div class='alert alert-danger'>No se encontró ningún documento en <b>".$sin."</b> proyecto/s. </div></a>";
+      }
+      if($medio>0){
+        echo "<a href='#'><div class='alert alert-warning'>Hay <b>".$sin."</b> proyecto/s que no tiene/n los documentos completos. </div></a>";
+      }
+      if($completo>0){
+        echo "<a href='#'><div class='alert alert-success'>Hay <b>".$completo."</b> proyecto/s con los documentos completos. </div></a>";
+      }
+      @endphp
+</div>
+  </div>
 @endsection

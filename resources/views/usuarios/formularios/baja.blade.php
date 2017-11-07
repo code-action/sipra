@@ -14,12 +14,12 @@
     } else {
   swal({   title: 'El Registro se mantiene',type:'info',
   text: 'Se Cerrará en 2 Segundos',   timer: 2000,
-  showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
+  showConfirmButton: false });} });"><i class="fa fa-times"></i></button>
 {!!Form::close()!!}
 @else
   @include('usuarios.formularios.botones')
   &nbsp;&nbsp;
   <button class="btn btn-danger btn-sm" type="button" onClick="swal('No puede dar de baja a su propio usuario', 'Click al botón!', 'error')">
-    <i class="fa fa-minus-circle "></i>
+    <i class="fa fa-times"></i>
   </button>
 @endif

@@ -4,7 +4,7 @@
       $editar=$cad.(string)$usa->id."/edit";
 ?>
 <a class="btn btn-success btn-sm" href="{{$ver}}">
-  <span class="fa fa-eye" style="color: white;"></span>
+  <span class="fa fa-info-circle" style="color: white;"></span>
 </a>
 &nbsp;&nbsp;
 <a class="btn btn-primary btn-sm" href="{{$editar}}">

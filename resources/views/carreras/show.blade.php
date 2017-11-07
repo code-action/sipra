@@ -1,37 +1,35 @@
 @extends('plantillas.menuc')
 @section('contenidoPagina')
-  <div class="col-xs-6">
+  <div class="col-xs-9">
     <div class="content-panel">
 
-      <table class="table table-striped table-advance table-hover">
+      <table class="table table-hover">
         <h4><i class="fa fa-graduation-cap"></i> Datos carrera: <b>{{$ca->codigo}}</b></h4>
         <tr>
-          <td>Nombre:</td>
-          <td><b>{{ucwords($ca->nombre)}}</b></td>
+          <td><b>Nombre:</b></td>
+          <td>{{ucwords($ca->nombre)}}</td>
         </tr>
         <tr>
-          <td>Horas requeridas:</td>
-          <td><b>{{$ca->horas}}</b></td>
+          <td><b>Horas requeridas:</b></td>
+          <td>{{$ca->horas}}</td>
         </tr>
         <tr>
-          <td>Estado:</td>
+          <td><b>Estado:</b></td>
           <td>
-            <b>
             @if($ca->estado==1)
               Activa
             @else
               Inactiva
             @endif
-          </b>
           </td>
         </tr>
         <tr>
-          <td>Fecha de creación:</td>
-          <td><b>{{$ca->created_at->format('d-m-Y g:i:s a')}}</b></td>
+          <td><b>Fecha de creación:</b></td>
+          <td>{{$ca->created_at->format('d-m-Y g:i:s a')}}</td>
         </tr>
         <tr>
-          <td>Fecha de última edición:</td>
-          <td><b>{{ $ca->updated_at->format('d-m-Y g:i:s a') }}</b></td>
+          <td><b>Fecha de última edición:</b></td>
+          <td>{{ $ca->updated_at->format('d-m-Y g:i:s a') }}</td>
         </tr>
       </table>
     </div>
