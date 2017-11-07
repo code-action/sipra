@@ -3,11 +3,11 @@
   <div class="col-xs-9">
     <div class="content-panel">
 
-      <table class="table table-striped table-advance table-hover">
+      <table class="table table-hover">
         <h4><i class="fa fa-user"></i> Datos de proyecto de servicio social:</h4>
         <tr>
-          <td>Nombre:</td>
-          <td><b>{{$proy->titulo}}</b></td>
+          <td><b>Nombre:</b></td>
+          <td>{{$proy->titulo}}</td>
         </tr>
         <tr>
           <?php use App\Enlace;
@@ -16,7 +16,7 @@
           $carnes=Enlace::proyCarnes($proy->id);
           $conteo=count($carnes);
            ?>
-          <td style="width: 20%">N° de estudiantes: {{$proy->cantidad}}
+          <td><b>N° de estudiantes:</b> {{$proy->cantidad}}
             @if($conteo!=0)
             <a href="/sipra/public/estudiante/create?id={{$proy->id}}">Agregar</a>
             @endif
@@ -30,7 +30,7 @@
               <?php $est=Estudiante::nombreEstudiante($c->nf_carne);?>
                 @if($est!="NE")
                   {!!Form::open(['route'=>['enlace.destroy',$c->nf_carne],'method'=>'DELETE','class'=>'form-inline'])!!}
-                  <div class="col-sm-9"><p><b>{{$c->nf_carne.":  "}}
+                  <div class="col-sm-9"><p>{{$c->nf_carne.":  "}}
                     &nbsp;&nbsp;
                   {{$est}}</div>
                   @if(count($carnes)>1)
@@ -53,28 +53,28 @@
                   <?php $cad='/sipra/public/estudiante/create?carne='.$c->nf_carne?>
                   <a href="{{$cad}}">Agregar estudiante</a>
                 @endif
-              </b></p>
+              </p>
             @endforeach
 
           </td>
         </tr>
         <tr>
-          <td>Carrera:</td>
-          <td><b>{{Carrera::nombreCarrera($proy->f_carrera)}}</b>
+          <td><b>Carrera:</b></td>
+          <td>{{Carrera::nombreCarrera($proy->f_carrera)}}
       </td>
         </tr>
         <tr>
-          <td>Año:</td>
-          <td><b>{{$proy->anio}}</b>
+          <td><b>Año:</b></td>
+          <td>{{$proy->anio}}
       </td>
         </tr>
         <tr>
-          <td>Fecha de creación:</td>
-          <td><b>{{$proy->created_at->format('d-m-Y g:i:s a')}}</b></td>
+          <td><b>Fecha de creación:</b></td>
+          <td>{{$proy->created_at->format('d-m-Y g:i:s a')}}</td>
         </tr>
         <tr>
-          <td>Fecha de última edición:</td>
-          <td><b>{{ $proy->updated_at->format('d-m-Y g:i:s a') }}</b></td>
+          <td><b>Fecha de última edición:</b></td>
+          <td>{{ $proy->updated_at->format('d-m-Y g:i:s a') }}</td>
         </tr>
       </table>
     </div>
