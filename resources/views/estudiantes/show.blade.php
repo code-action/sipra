@@ -7,7 +7,7 @@
     <div class="content-panel">
 
       <table class="table table-hover">
-        <h4><i class="fa fa-book"></i> Datos estudiante carné: <b>{{$est->carne}}</b></h4>
+        <h4><i class="fa fa-book"></i> Datos estudiante carné: <b>{{$est->name}}</b></h4>
         <tr>
           <td>Nombre:</td>
           <td><b>{{$est->nombre}}</b></td>
@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <td>Carrera:</td>
-          <td><b>{{Estudiante::carreraEstudiante($est->carne)}}</b></td>
+          <td><b>{{App\User::carreraEstudiante($est->id)}}</b></td>
         </tr>
         <tr>
           <td>Fecha de creación:</td>

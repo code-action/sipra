@@ -29,11 +29,11 @@ a, a:hover, a:focus {
 }
 ::selection {
 
-    background: #6c99b3;/*Color que va con footer*/
+    background: #5BAD80;/*Color que va con footer*/
     color: #fff;
 }
 ::-moz-selection {
-    background: #6c99b3;
+    background: #5BAD80;
     color: #fff;
 }
 
@@ -44,7 +44,7 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #6c99b3;
+	background: #5BAD80;
 }
 
 .modal-title {
@@ -74,7 +74,7 @@ a, a:hover, a:focus {
 /*Theme Backgrounds*/
 
 .bg-theme {
-	background-color: #6c99b3;
+	background-color: #5BAD80;
 }
 
 .bg-theme02 {
@@ -92,8 +92,8 @@ a, a:hover, a:focus {
 
 .btn-theme {
   color: #fff;
-  background-color: #6c99b3;
-  border-color: #48bcb4;
+  background-color: #5BAD80;
+  border-color: #4B966B;
 }
 .btn-theme:hover,
 .btn-theme:focus,
@@ -101,8 +101,8 @@ a, a:hover, a:focus {
 .btn-theme.active,
 .open .dropdown-toggle.btn-theme {
   color: #fff;
-  background-color: #48bcb4;
-  border-color: #48bcb4;
+  background-color: #4B966B;
+  border-color: #4B966B;
 }
 
 .btn-theme02 {
@@ -151,9 +151,9 @@ a, a:hover, a:focus {
 }
 
 .btn-clear-g {
-	color: #48bcb4;
+	color: #4B966B;
 	background: transparent;
-	border-color: #48bcb4;
+	border-color: #4B966B;
 }
 
 .btn-clear-g:hover {
@@ -206,11 +206,11 @@ hr {
 /*Exclusive Theme Colors Configuration*/
 
 .label-theme {
-	background-color: #6c99b3;
+	background-color: #5BAD80;
 }
 
 .bg-theme {
-	background-color: #6c99b3;
+	background-color: #5BAD80;
 }
 
 ul.top-menu > li > .logout {
@@ -218,10 +218,10 @@ ul.top-menu > li > .logout {
 	font-size: 12px;
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
-	border: 1px solid #64c3c2 !important;
+	border: 1px solid #4B966B !important;
 	padding: 5px 15px;
 	margin-right: 15px;
-	background: #6c99b3;
+	background: #5BAD80;
 	margin-top: 15px;
 }
 
@@ -232,7 +232,7 @@ ul.top-menu > li > .logout {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: #526573;/*Fondo*/
+    background: #527368;/*Fondo*/
 }
 
 #sidebar h5 {
@@ -325,7 +325,7 @@ ul.sidebar-menu li ul.sub li a:hover {
 }
 
 ul.sidebar-menu li ul.sub li.active a {
-    color: #6c99b3;
+    color: #5BAD80;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -364,7 +364,7 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    background: #6c99b3;
+    background: #5BAD80;
     color: #fff;
     display: block;
 
@@ -413,7 +413,7 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #86B3D0;/*Superior*/
+    background: #98D085;/*Superior*/
     border-bottom: 1px solid #C7B1AD;
 }
 
@@ -446,7 +446,7 @@ a.logo:hover, a.logo:focus {
 }
 
 a.logo span {
-    color: #6c99b3;
+    color: #446d5f;
 }
 
 
@@ -524,7 +524,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .dropdown-menu.extended li p.green {
-    background-color: #6c99b3;
+    background-color: #527368;
     color: #fff;
 }
 
@@ -728,9 +728,9 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     border-top-color: #FCB322 !important;
 }
 .notify-arrow-green {
-    border-color: transparent transparent #6c99b3;
-    border-bottom-color: #6c99b3 !important;
-    border-top-color: #6c99b3 !important;
+    border-color: transparent transparent #5BAD80;
+    border-bottom-color: #5BAD80 !important;
+    border-top-color: #5BAD80 !important;
 }
 
 
@@ -826,7 +826,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .ds a {
-	color: #6c99b3;
+	color: #5BAD80;
 }
 
 /* LINE ICONS CONFIGURATION */
@@ -922,7 +922,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     position: absolute;
     bottom: 0;
     background: #ff865c;
-    color: #6c99b3;
+    color: #5BAD80;
     width: 100%;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
@@ -1056,7 +1056,7 @@ PANELS CONFIGURATIONS
 /*Green Panel*/
 .green-panel {
 	text-align: center;
-	background: #6c99b3;
+	background: #5BAD80;
 }
 .green-panel .green-header {
 	background: #43b1a9;
@@ -1100,7 +1100,7 @@ PANELS CONFIGURATIONS
 }
 
 .white-panel i {
-	color: #6c99b3;
+	color: #5BAD80;
 	padding-right: 4px;
 	font-size: 14px;
 }
@@ -1515,7 +1515,7 @@ PANELS CONFIGURATIONS
 	font-weight: 900;
 }
 .profile-01 {
-	background: #6c99b3;
+	background: #5BAD80;
 	height: 50px;
 }
 .profile-01:hover {
@@ -1563,7 +1563,7 @@ PANELS CONFIGURATIONS
 	color: #cdcdcd;
 }
 .pr2-social a:hover {
-	color: #6c99b3;
+	color: #5BAD80;
 }
 .pr2-social i {
 	margin-top: 15px;
@@ -1619,7 +1619,7 @@ PANELS CONFIGURATIONS
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle .value a:hover, .panel.terques-chart .chart-tittle .value a.active {
-    color: #6c99b3;
+    color: #5BAD80;
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle {
@@ -1674,7 +1674,7 @@ PANELS CONFIGURATIONS
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: #6c99b3;
+  background-color: #5BAD80;
   -webkit-transition: background-color 0.4s;
   -moz-transition: background-color 0.4s;
   -o-transition: background-color 0.4s;
@@ -1694,7 +1694,7 @@ PANELS CONFIGURATIONS
 }
 
 .project:hover .photo-wrapper {
-  background-color: #6c99b3;
+  background-color: #5BAD80;
 	background-image:url(../img/zoom.png);
 	background-repeat:no-repeat;
 	background-position:center;
@@ -1937,7 +1937,7 @@ label {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #6c99b3;
+	background: #5BAD80;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -2217,7 +2217,7 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #6c99b3;
+    background: #5BAD80;
     color: #fff;
     padding: 10px 0;
 }

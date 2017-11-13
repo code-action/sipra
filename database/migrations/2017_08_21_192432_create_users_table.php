@@ -16,12 +16,14 @@ class CreateUsersTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('users', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('name');
+          $table->integer('f_proyecto')->unsigned()->nullable();
+          $table->foreign('f_proyecto')->references('id')->on('users');
+          $table->string('name'); //usuario/carné
           $table->string('nombre');
           $table->string('apellido');
-          $table->string('email');
-          $table->integer('tipo');
-          $table->string('password', 60);
+          $table->string('email')->nullable();
+          $table->integer('tipo');// 1 administrado 2 editor 3 estudiante
+          $table->string('password');
           $table->boolean('estado')->default(true);
           $table->rememberToken();
           $table->timestamps();

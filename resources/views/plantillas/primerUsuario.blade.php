@@ -34,7 +34,7 @@
               <div class="col-xs-6">
             		<div class="form-panel">
 
-            			{!!Form::open(['route'=>'bitacora.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
+            			{!!Form::open(['route'=>'auxiliar.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
             			<center><h4><i class="fa fa-user"></i> Primer usuario administrador</h4></center><hr>
 
             				<?php $bandera=1;

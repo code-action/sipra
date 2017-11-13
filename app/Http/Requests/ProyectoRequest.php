@@ -26,6 +26,7 @@ class ProyectoRequest extends FormRequest
     {
         return [
             'titulo'=>'required|unique:proyectos|min:30|max:600',
+            'n_acuerdo'=>'required|unique:proyectos|min:5',
             'cantidad'=>'required|integer',
             'f_carrera'=>'integer|required|not_in:0',
             'anio'=>'integer|required|not_in:0',
@@ -37,6 +38,10 @@ class ProyectoRequest extends FormRequest
         'titulo.unique'=>'Título registrado, ingrese otro',
         'titulo.min'=>'El campo título debe contener 30 caracteres mínimo',
         'titulo.max'=>'El campo título debe contener 600 caracteres máximo',
+
+        'n_acuerdo.required'=>'El campo n° de acuerdo es obligatorio',
+        'n_acuerdo.unique'=>'N° de acuerdo ya ha sido registrado',
+        'n_acuerdo.min'=>'El campo n° de acuerdo debe contener 5 caracteres mínimo',
 
         'cantidad.required'=>'El N° de estudiantes es obligatorio',
         'cantidad.integer'=>'El campo debe contener solamente números',

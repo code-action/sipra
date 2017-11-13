@@ -16,6 +16,7 @@ class CreateProyectosTable extends Migration
         Schema::create('proyectos', function (Blueprint $table) {
             $table->increments('id');
             $table->text('titulo');
+            $table->string('n_acuerdo');
             $table->integer('cantidad');
             $table->integer('anio');
             $table->integer('f_carrera')->unsigned();

@@ -16,7 +16,7 @@ class CreateConstanciasTable extends Migration
         Schema::create('constancias', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('f_estudiante')->unsigned();
-            $table->foreign('f_estudiante')->references('id')->on('estudiantes');
+            $table->foreign('f_estudiante')->references('id')->on('users');
             $table->binary('constancia_binario');
             $table->string('constancia_peso');
             $table->string('constancia_tipo');

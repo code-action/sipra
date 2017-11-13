@@ -2,7 +2,7 @@
       $cad='/sipra/public/estudiante/';
       $ver=$cad.(string)$st->id;
       $editar=$cad.(string)$st->id."/edit";
-      $id_p=Enlace::carneProy($st->carne);
+      $id_p=$st->f_proyecto;
       $doc="/sipra/public/enlace?doc=".(string)$id_p;
 ?>
 <a class="btn btn-success btn-sm" href="{{$ver}}">

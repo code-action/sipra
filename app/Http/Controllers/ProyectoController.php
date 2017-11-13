@@ -58,13 +58,9 @@ class ProyectoController extends Controller
      */
     public function store(ProyectoRequest $request)
     {
-        Proyecto::create($request->all());
-        $titl=Proyecto::buscarT($request['titulo']);
-        foreach ($titl as $t){
-          $tit=$t;
-        }
+        $proy=Proyecto::create($request->all());
         Bitacora::bitacora('Nuevo proyecto creado');
-        return redirect('/enlace/create?id='.$tit['id'])->with('mensaje','Registro Guardado');
+        return redirect('/enlace/create?id='.$proy['id'])->with('mensaje','Registro Guardado');
     }
 
     /**
@@ -106,6 +102,10 @@ class ProyectoController extends Controller
       $m['titulo.min']='El campo título debe contener 30 caracteres mínimo';
       $m['titulo.max']='El campo título debe contener 600 caracteres máximo';
 
+      $m['n_acuerdo.required']='El campo n° de acuerdo es obligatorio';
+      $m['n_acuerdo.unique']='N° de acuerdo ya ha sido registrado';
+      $m['n_acuerdo.min']='El campo n° de acuerdo debe contener 5 caracteres mínimo';
+
       $m['cantidad.required']='El N° de estudiantes es obligatorio';
       $m['cantidad.integer']='El campo debe contener solamente números';
 
@@ -120,11 +120,16 @@ class ProyectoController extends Controller
         if($request->vc=='no'){
           $request->cantidad=$proyecto->cantidad;
         }
-        $v1=$v2=$v3=$v4=0;
+        $v1=$v2=$v3=$v4=$v5=0;
         if($request->titulo==$proyecto->titulo){
           $v1=1;
         }else{
           $val['titulo']='required|unique:proyectos|min:30|max:600';
+        }
+        if($request->n_acuerdo==$proyecto->n_acuerdo){
+          $v5=1;
+        }else{
+          $val['n_acuerdo']='required|unique:proyectos|min:5';
         }
         if($request->cantidad==$proyecto->cantidad){
           $v2=1;
@@ -141,8 +146,8 @@ class ProyectoController extends Controller
         }else{
           $val['f_carrera']='integer|required|not_in:0';
         }
-        if($v1==1 && $v2==1 && $v3==1 && $v4==1){
-          return redirect('/carrera')->with('mensaje','No hay cambios');
+        if($v1==1 && $v2==1 && $v3==1 && $v4==1 && $v5==1){
+          return redirect('/proyecto')->with('mensaje','No hay cambios');
         }else{
           $this->validate($request,$val,$m);
           $proyecto->fill($request->all());
@@ -164,14 +169,10 @@ class ProyectoController extends Controller
         foreach($documentos as $d){
           Documento::destroy($d->id);
         }
-        $enlaces=Enlace::where('f_proyecto',"=",$id)->get();
-        foreach($enlaces as $e){
-          $estudiantes=Estudiante::where('carne','=',$e->nf_carne)->get();
-          foreach($estudiantes as $est){
+        $estudiantes=User::where('f_proyecto',"=",$id)->get();
+        foreach($estudiantes as $est){
             Constancia::where('f_estudiante','=',$est->id)->delete();
-            Estudiante::destroy($est->id);
-          }
-          Enlace::destroy($e->id);
+            User::destroy($est->id);
         }
         Proyecto::destroy($id);
         Bitacora::bitacora('Proyecto eliminado');

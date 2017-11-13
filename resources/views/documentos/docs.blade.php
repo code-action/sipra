@@ -1,6 +1,5 @@
 <?php use App\Documento;
-use App\Enlace;
-use App\Estudiante;
+use App\User;
 use App\Constancia;
 $a[1]='Plan';
 $a[2]='Acuerdo de plan';
@@ -48,32 +47,25 @@ $a[4]='Acuerdo de memoria';
         </thead>
         <tbody>
           @php
-            $carnes=Enlace::proyCarnes($proy->id);
-            $conteo=count($carnes);
+            $estudiantes=User::where('f_proyecto','=',$proy->id)->get();
           @endphp
-          @if(count($carnes)!=0)
-            @foreach ($carnes as $carne)
-              @php
-                $est=Estudiante::filaEstudiante($carne->nf_carne);
-              @endphp
-              <tr><td>{{$carne->nf_carne.": ".$est->apellido.", ".$est->nombre}}
+            @foreach ($estudiantes as $estudiante)
+              <tr><td>{{$estudiante->name.": ".$estudiante->apellido.", ".$estudiante->nombre}}
                 </td>
                 <td>
                   @php
-                    $constancia=Constancia::where('f_estudiante','=',$est->id)->get();
+                    $constancia=Constancia::where('f_estudiante','=',$estudiante->id)->get();
                     foreach ($constancia as $cons)
                       $co=$cons;
                   @endphp
                   @if(count($constancia)<1)
-                  <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$est->id}}"><span class="fa fa-plus" style="color: white;"></span></a>
+                  <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$estudiante->id}}"><span class="fa fa-plus" style="color: white;"></span></a>
                 @else
                   @include('documentos.formularios.botones2')
                 @endif
                 </td>
                 </tr>
             @endforeach
-
-          @endif
         </tbody>
       </table>
     </div>

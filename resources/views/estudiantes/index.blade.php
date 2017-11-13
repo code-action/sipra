@@ -29,7 +29,7 @@
           @foreach ($estudiantes as $st)
           <tr>
             <td>{{$a}}</td>
-            <td>{{$st->carne}}</td>
+            <td>{{$st->name}}</td>
             <td>{{$st->nombre}}</td>
             <td>{{$st->apellido}}</td>
             <td>

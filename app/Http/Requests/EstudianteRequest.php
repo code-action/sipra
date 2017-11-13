@@ -24,10 +24,9 @@ class EstudianteRequest extends FormRequest
     public function rules()
     {
         return [
-            'carne'=>'required|min:7|max:7|unique:estudiantes',
+            'carne'=>'required|min:7|max:7|unique:users,name',
             'nombre'=>'required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/',
             'apellido'=>'required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/',
-            //'f_carrera'=>'integer|required|not_in:0',
         ];
     }
 

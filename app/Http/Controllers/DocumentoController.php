@@ -49,7 +49,7 @@ class DocumentoController extends Controller
     public function store(Request $request)
     { $val['archivo']='required|file|between:1,14800|mimes:pdf';
 
-      if($request['f_tipo']==2 || $request['f_tipo']==4){
+      if($request['f_tipo']==4){
         $val['n_acuerdo']='required | unique:documentos';}
 
       $mensaje['archivo.required']='El archivo es obligatorio';
@@ -65,7 +65,7 @@ class DocumentoController extends Controller
       $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
       try{
 
-      if($request['f_tipo']==2 || $request['f_tipo']==4){
+      if($request['f_tipo']==4){
         Documento::create([
           'f_proyecto'=>$request['f_proyecto'],
           'n_acuerdo'=>$request['n_acuerdo'],
@@ -176,7 +176,7 @@ class DocumentoController extends Controller
     public function destroy($id)
     {
         $documento=Documento::find($id);
-        Bitacora::bitacora('Documento eliminado en: '.Tipo::find($docuumento->f_tipo)->nombre);
+        Bitacora::bitacora('Documento eliminado en: '.Tipo::find($documento->f_tipo)->nombre);
         Documento::destroy($id);
         return redirect('/enlace?doc='.$documento->f_proyecto)->with('mensaje','Registro eliminado');
     }

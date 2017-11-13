@@ -3,7 +3,7 @@
 		{{$error}}
 	</div>
 @endforeach
-@if($t==2 || $t==4)
+@if($t==4)
 <div class="form-group">
 	{!!Form::label('lacuerdo','N° de acuerdo:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">

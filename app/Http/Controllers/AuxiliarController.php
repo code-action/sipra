@@ -3,23 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Bitacora;
+use App\http\Requests\UsuariocRequest;
 use App\User;
-use App\Http\Requests\UsuariocRequest;
+use App\Bitacora;
 
-class BitacoraController extends Controller
+class AuxiliarController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-      $usuario=$request->usuario;
-      $bitacoras=Bitacora::buscar($usuario);
-        return view('bitacoras.index',compact('bitacoras','usuario'));
+        //
     }
 
     /**
@@ -27,11 +24,9 @@ class BitacoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-      $usuario=$request->usuario;
-      $bitacoras=Bitacora::buscar2($usuario);
-        return view('bitacoras.indeximprimir',compact('bitacoras','usuario'));
+        //
     }
 
     /**
@@ -40,9 +35,19 @@ class BitacoraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsuariocRequest $request)
     {
-      //
+      $request['password']=bcrypt($request['password']);
+      User::create($request->all());
+      $arreglo=User::where('name','=',$request['name'])->get();
+      foreach ($arreglo as $fila) {
+        $id_u=$fila->id;
+      }
+      Bitacora::create([
+      'id_usuario'=>$id_u,
+      'detalle'=>'Primer usuario administrador',
+    ]);
+      return redirect('/')->with('mensaje','Registro Guardado');
     }
 
     /**

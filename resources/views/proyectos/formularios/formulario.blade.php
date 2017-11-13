@@ -1,4 +1,4 @@
-<?php use App\Enlace;?>
+<?php use App\User;?>
 @foreach ($errors->get('titulo') as $error)
 	<div class="alert-d">
 		{{$error}}
@@ -10,9 +10,20 @@
 		{!!Form::textarea('titulo',null,['class'=>'form-control', 'placeholder'=>'Título del proyecto'])!!}
 	</div>
 </div>
+@foreach ($errors->get('n_acuerdo') as $error)
+	<div class="alert-d">
+		{{$error}}
+	</div>
+@endforeach
+<div class="form-group">
+	{!!Form::label('lacuerdo','N° de acuerdo del plan:',['class'=>'col-sm-4 control-label'])!!}
+	<div class="col-sm-7">
+		{!!Form::text('n_acuerdo',null,['class'=>'form-control', 'placeholder'=>'N° de acuerdo'])!!}
+	</div>
+</div>
 @if($bandera!=1)
-<?php $enlaces=Enlace::where('f_proyecto','=',$proyecto->id)->get();
-			$cantidad=count($enlaces);?>
+<?php $estudiantes=User::where('f_proyecto','=',$proyecto->id)->get();
+			$cantidad=count($estudiantes);?>
 @else
 	<?php $cantidad=0;?>
 @endif

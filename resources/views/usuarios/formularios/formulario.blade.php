@@ -45,9 +45,13 @@
 		<select name="tipo" class='form-control'>
 		@if($bandera==1)
 			<option value="">[Seleccione un tipo]</option>
+			@if(Auth::check())
 			@if (Auth::user()->tipo==1)
 			<option value="1">Administrador</option>
 			@endif
+		@else
+			<option value="1">Administrador</option>
+		@endif
 			@if(!isset($primero))
 			<option value="2">Editor</option>
 			@else

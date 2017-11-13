@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Proyecto;
-use App\Enlace;
+use App\Constancia;
 use App\Documento;
 use App\Estudiante;
 use App\Bitacora;
+use App\User;
 use App\Http\Requests\EnlaceRequest;
 
 class EnlaceController extends Controller
@@ -44,6 +45,7 @@ class EnlaceController extends Controller
     public function store(Request $request)
     {
       $id= $request['id']; //Id recibido del desde vista enlace corresponde a un proyecto
+      $bproy=Proyecto::find($id);
       if(Proyecto::existe($id)){
         return redirect('/proyecto')->with('mensaje','Proyecto ya tiene ingresado todos los carné');
       }
@@ -55,7 +57,7 @@ class EnlaceController extends Controller
       for($b=0;$b<$a;$b++){
         $cadv=$cadv.'|different:carne'.(String)$b;//se recorren todos los carné y se aplica la validación de que no sean iguales
       }
-      $val[$valor]='required|size:7|unique:enlaces,nf_carne'.$cadv;//se agregan las validaciones para campo carne
+      $val[$valor]='required|size:7|unique:users,name'.$cadv;//se agregan las validaciones para campo carne
       $val[$valorn]='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';//Validaciones campo nombre
       $val[$valora]='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';//Validaciones campo apellid
       $cad1=$valor.'.required';// campo * validaciones para crear los mensajes required
@@ -89,15 +91,15 @@ class EnlaceController extends Controller
       $valor='carne'.(String)$a;
       $valorn='nombre'.(String)$a;
       $valora='apellido'.(String)$a;
-      Enlace::create([
-        'f_proyecto'=>$id,
-        'nf_carne'=>$request[$valor],
-      ]);
 
-      Estudiante::create([
-        'carne'=>$request[$valor],
+      User::create([
+        'f_proyecto'=>$id,
+        'name'=>$request[$valor],
         'nombre'=>$request[$valorn],
         'apellido'=>$request[$valora],
+        'tipo'=>'3',
+        'password'=>bcrypt($bproy->n_acuerdo),
+
 
       ]);
       Bitacora::bitacora('Nuevo estudiante agregado, carné: '.$request[$valor]);
@@ -152,19 +154,18 @@ class EnlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($carne)
+    public function destroy($id)
     {
-        $enlaces=Enlace::where('nf_carne','=',$carne)->get();
-        foreach($enlaces as $enlace){
-          $id_proy=$enlace->f_proyecto;
-          Enlace::destroy($enlace->id);
-
+        $estudiante=User::find($id);
+        $carne=$estudiante->name;
+        $id_proy=$estudiante->f_proyecto;
+        $constancia=Constancia::where('f_estudiante','=',$id);
+        foreach ($constancia as $c) {
+          Constancia::destroy($c->id);
+          Bitacora::bitacora('Constancia eliminada, carné: '.$carne);
         }
-        $estudiantes=Estudiante::where('carne','=',$carne)->get();
-        foreach($estudiantes as $estudiante){
-          Estudiante::destroy($estudiante->id);
-        }
-    $proy=Proyecto::find($id_proy);
+        $proy=Proyecto::find($id_proy);
+          User::destroy($estudiante->id);
     $proy['cantidad']=$proy['cantidad']-1;
     $proy->save();
     Bitacora::bitacora('Estudiante eliminado, carné: '.$carne);

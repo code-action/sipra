@@ -10,30 +10,34 @@
           <td>{{$proy->titulo}}</td>
         </tr>
         <tr>
-          <?php use App\Enlace;
-                use App\Estudiante;
+          <td><b>N° de acuerdo del plan:</b></td>
+          <td>{{$proy->n_acuerdo}}
+      </td>
+        </tr>
+        <tr>
+          <?php use App\User;
                 use App\Carrera;
-          $carnes=Enlace::proyCarnes($proy->id);
-          $conteo=count($carnes);
+          $estudiantes=User::where('f_proyecto','=',$proy->id)->get();
+          $conteo=count($estudiantes);
            ?>
-          <td><b>N° de estudiantes:</b> {{$proy->cantidad}}
+          <td><b>N° de estudiantes:{{$proy->cantidad}}</b>
             @if($conteo!=0)
-            <a href="/sipra/public/estudiante/create?id={{$proy->id}}">Agregar</a>
+            <br>
+            <a href="/sipra/public/estudiante/create?id={{$proy->id}}" class="btn btn-info"><i class="fa fa-plus"></i></a>
             @endif
           </td>
 
           <td>
             @if($conteo==0)
-              <a href="/sipra/public/enlace/create?id={{$proy->id}}">Agregar</a>
+              <a href="/sipra/public/enlace/create?id={{$proy->id}}">Agregar datos de estudiante/s</a>
             @endif
-            @foreach ($carnes as $c)
-              <?php $est=Estudiante::nombreEstudiante($c->nf_carne);?>
-                @if($est!="NE")
-                  {!!Form::open(['route'=>['enlace.destroy',$c->nf_carne],'method'=>'DELETE','class'=>'form-inline'])!!}
-                  <div class="col-sm-9"><p>{{$c->nf_carne.":  "}}
+            @foreach ($estudiantes as $est)
+              <?php $nombre=$est->apellido.", ".$est->nombre;?>
+                  @if($conteo>1)
+                  {!!Form::open(['route'=>['enlace.destroy',$est->id],'method'=>'DELETE','class'=>'form-inline'])!!}
+                  <div class="col-sm-9"><p>{{$est->name.":  "}}
                     &nbsp;&nbsp;
-                  {{$est}}</div>
-                  @if(count($carnes)>1)
+                  {{$nombre}}</div>
                   <button class="btn btn-danger btn-sm" type="button" onClick="return swal({
                     title: '¿Desea eliminar el documento?',
                     text: 'Ya no estara disponible !',   type: 'warning',
@@ -48,11 +52,9 @@
                     text: 'Se Cerrará en 2 Segundos',   timer: 2000,
                     showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
                     {!!Form::close()!!}
+                  @else
+                    {{$nombre}}
                   @endif
-                @else
-                  <?php $cad='/sipra/public/estudiante/create?carne='.$c->nf_carne?>
-                  <a href="{{$cad}}">Agregar estudiante</a>
-                @endif
               </p>
             @endforeach
 

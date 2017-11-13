@@ -15,7 +15,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password','estado','nombre','apellido','tipo'];
+    protected $fillable = ['f_proyecto','name', 'email', 'password','estado','nombre','apellido','tipo'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -23,9 +23,15 @@ class User extends Authenticatable
      * @var array
      */
      protected $hidden = ['password', 'remember_token'];
-
+     public static function buscarEstudiantes($nombre){
+       return User::nombre($nombre)->estado(1)
+       ->where('f_proyecto','!=',null)
+       ->orderBy('name')->paginate(8);
+     }
      public static function buscar($nombre,$estado){
-       return User::nombre($nombre)->estado($estado)->orderBy('name')->paginate(8);
+       return User::nombre($nombre)->estado($estado)
+       ->where('f_proyecto','=',null)
+       ->orderBy('name')->paginate(8);
      }
      public function scopeNombre($query, $nombre){
        if (trim($nombre)!="") {
@@ -44,5 +50,10 @@ class User extends Authenticatable
      public function nombreUser($id){
        $us=User::find($id);
        return $us['name'];
+     }
+     public static function carreraEstudiante($id){
+       $estudiante=User::find($id);
+       $proy=Proyecto::find($estudiante->f_proyecto);
+       return Carrera::nombreCarrera($proy->f_carrera);
      }
 }

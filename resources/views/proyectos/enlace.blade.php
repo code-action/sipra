@@ -1,7 +1,7 @@
 @extends('plantillas.menuc')
 @section('contenidoPagina')
   <!-- Recibe una variable $did que contiene el id de el último documento ingresado -->
-  <div class="col-xs-6">
+  <div class="col-xs-9">
 		<div class="form-panel">
 
   {!!Form::open(['route'=>'enlace.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}

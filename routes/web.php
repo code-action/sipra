@@ -48,3 +48,5 @@ Route::group(['middleware'=>'admin'], function(){ //SOLO ADMINISTRADOR
   Route::resource('usuario','UserController');
     Route::resource('bitacora','BitacoraController');
 });
+
+Route::resource('auxiliar','AuxiliarController');

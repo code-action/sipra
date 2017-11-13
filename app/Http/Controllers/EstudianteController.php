@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Estudiante;
+use App\User;
 use App\Bitacora;
 use App\Enlace;
 use App\Proyecto;
@@ -21,7 +21,7 @@ class EstudianteController extends Controller
     {
       //$state = $request->get('estado');
       $nombre = $request->get('nombre');
-      $estudiantes= Estudiante::buscar($nombre);
+      $estudiantes= User::buscarEstudiantes($nombre);
       return view('estudiantes.index',compact('estudiantes','nombre'));
     }
 
@@ -47,11 +47,14 @@ class EstudianteController extends Controller
       $proy=Proyecto::find($request['id_proy']);
       $proy->cantidad=$proy->cantidad+1;
       $proy->save();
-      Enlace::create([
+      User::create([
         'f_proyecto'=>$request['id_proy'],
-        'nf_carne'=>$request['carne'],
+        'name'=>$request['carne'],
+        'nombre'=>$request['nombre'],
+        'apellido'=>$request['apellido'],
+        'tipo'=>'3',
+        'password'=>bcrypt($proy->n_acuerdo),
       ]);
-      Estudiante::create($request->all());
       Bitacora::bitacora('Nuevo estudiante agregado, carné: '.$request['carne']);
       return redirect('/proyecto')->with('mensaje','Registro Guardado');
     }
@@ -64,7 +67,7 @@ class EstudianteController extends Controller
      */
     public function show($id)
     {
-        $est=Estudiante::find($id);
+        $est=User::find($id);
 
         return view('estudiantes.show',compact('est'));
     }
@@ -77,7 +80,8 @@ class EstudianteController extends Controller
      */
     public function edit($id)
     {
-      $estudiante=Estudiante::find($id);
+      $estudiante=User::find($id);
+      $estudiante->carne=$estudiante->name;
       return view('estudiantes.edit',compact('estudiante'));
     }
 
@@ -90,12 +94,12 @@ class EstudianteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $est=Estudiante::find($id);
+        $est=User::find($id);
         $cc=0;
-        $carnea=$est->carne;
-        if($request['carne']!=$est['carne']){
+        $carnea=$est->name;
+        if($request['carne']!=$est['name']){
           $cc=1;
-          $val['carne']='required|min:7|max:7|unique:estudiantes';
+          $val['carne']='required|min:7|max:7|unique:users,name';
         }
         $val['nombre']='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';
         $val['apellido']='required|min:3|regex:/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+((\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ]*)*)+$/';
@@ -116,20 +120,13 @@ class EstudianteController extends Controller
 
 
 
-        if($request['carne']==$est['carne'] && $request['nombre']==$est['nombre'] && $request['apellido']==$est['apellido']){
+        if($request['carne']==$est['name'] && $request['nombre']==$est['nombre'] && $request['apellido']==$est['apellido']){
           return redirect('/estudiante')->with('mensaje','No hay cambios');
         }else{
           $this->validate($request,$val,$m);
           $est->fill($request->all());
+          $est->name=$request->carne;
           $est->save();
-
-          if($cc==1){
-            $enlace=Enlace::where('nf_carne','=',$carnea)->get();
-            foreach($enlace as $e){
-              $e->nf_carne=$request['carne'];
-              $e->save();
-            }
-          }
           Bitacora::bitacora('Estudiante editado carné: '.$request['carne']);
           return redirect('/estudiante/')->with('mensaje','Registro actualizado');
         }

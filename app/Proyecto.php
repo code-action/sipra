@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proyecto extends Model
 {
-    protected $fillable = ['titulo','cantidad','anio','f_carrera'];
+    protected $fillable = ['titulo','cantidad','anio','f_carrera','n_acuerdo'];
 
 
     public static function buscar($titulo){
@@ -40,8 +40,8 @@ class Proyecto extends Model
 
     public static function existe($id){ //compara la cantidad del proyecto con la cantidad ingresada
       $proy=Proyecto::find($id);
-      $enlace=Enlace::where('f_proyecto','=',$id)->get();
-      $cantidad=count($enlace);
+      $estudiantes=User::where('f_proyecto','=',$id)->get();
+      $cantidad=count($estudiantes);
       if($cantidad==$proy['cantidad']){
         return true;
       }
