@@ -22,10 +22,6 @@ Route::get('/', function () {
   }
 });
 
-Route::get('/inicio', function () {
-    return view('plantillas.inicio');
-});
-
 Route::get('/logout', function () {
   return Redirect('/loged');
 });
@@ -35,6 +31,9 @@ Route::resource('loged','LogedController');
 
 
 Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
+  Route::get('/inicio', function () {
+      return view('plantillas.inicio');
+  });
   Route::resource('carrera','CarreraController');
   Route::resource('estudiante','EstudianteController');
 
@@ -46,7 +45,10 @@ Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
 });
 Route::group(['middleware'=>'admin'], function(){ //SOLO ADMINISTRADOR
   Route::resource('usuario','UserController');
-    Route::resource('bitacora','BitacoraController');
+  Route::resource('bitacora','BitacoraController');
+});
+Route::group(['middleware'=>'estudiante'], function(){ //SOLO ESTUDIANTE
+  Route::resource('accesoEstudiante','DocumentoEstudianteController');
 });
 
 Route::resource('auxiliar','AuxiliarController');

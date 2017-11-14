@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         //rutas agregadas
         'admin' => \App\Http\Middleware\Admin::class,
         'adminedit' => \App\Http\Middleware\AdmEdit::class,
+        'estudiante' => \App\Http\Middleware\Estudiante::class,
     ];
 }

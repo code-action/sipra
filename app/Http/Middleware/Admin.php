@@ -17,6 +17,10 @@ class Admin
               return Redirect('/inicio');
               break;
 
+          case '3':
+              return Redirect('/accesoEstudiante');
+              break;
+
           default:
               return Redirect('/'); //aqui
               break;

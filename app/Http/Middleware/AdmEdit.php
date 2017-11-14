@@ -17,6 +17,9 @@ class AdmEdit
           case '2':
               //Acceso editor
               break;
+          case '3':
+              return Redirect('/accesoEstudiante');
+              break;
 
           default:
               return Redirect('/'); //aqui

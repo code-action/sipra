@@ -66,7 +66,6 @@
 				@else
 				<option value='{{$c->id}}'>{{$c->nombre}}</option>
 			@endif
-
 			@endforeach
 		@endif
 		</select>
@@ -91,8 +90,9 @@
 				@if($proyecto->anio==$a)
 				<option value='{{$a}}' selected>{{$a}}</option>
 			@else
-			@endif
 				<option value='{{$a}}'>{{$a}}</option>
+			@endif
+
 			@endfor
 		@endif
 		</select>

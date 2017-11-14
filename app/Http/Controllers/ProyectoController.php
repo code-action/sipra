@@ -8,7 +8,7 @@ use App\Constancia;
 use App\Proyecto;
 use App\Http\Requests\ProyectoRequest;
 use App\Documento;
-use App\Enlace;
+use App\User;
 use App\Bitacora;
 
 
@@ -151,6 +151,13 @@ class ProyectoController extends Controller
         }else{
           $this->validate($request,$val,$m);
           $proyecto->fill($request->all());
+          if($v5==0){
+            $estudiantes=User::where('f_proyecto','=',$proyecto->id)->get();
+            foreach ($estudiantes as $est) {
+              $est->password=bcrypt($request['n_acuerdo']);
+              $est->save();
+            }
+          }
           $proyecto->save();
           Bitacora::bitacora('Proyecto editado');
           return redirect('/proyecto')->with('mensaje','Registro actualizado');
