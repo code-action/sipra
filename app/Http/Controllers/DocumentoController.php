@@ -124,7 +124,7 @@ class DocumentoController extends Controller
     public function update(Request $request, $id)
     {  $doc=Documento::find($id);
         $v1=$v2=0;
-        if( $doc->f_tipo!=2 && $doc->f_tipo!=4){
+        if($doc->f_tipo!=4){
           $v1=1;
         }elseif($request->n_acuerdo==$doc->n_acuerdo){
         $v1=1;

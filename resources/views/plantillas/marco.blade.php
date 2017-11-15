@@ -73,6 +73,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
       MAIN SIDEBAR MENU
       *********************************************************************************************************************************************************** -->
       <!--sidebar start-->
+      @if(Auth::user()->tipo!=3)
       <aside>
           <div id="sidebar"  class="nav-collapse">
               <!-- sidebar menu start-->
@@ -87,9 +88,14 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
               <!-- sidebar menu end-->
           </div>
       </aside>
+    @endif
       <!--sidebar end-->
       <center>
+        @if(Auth::user()->tipo!=3)
       <section id="main-content">
+      @else
+        <section id="main-content" style="margin-left: 0px;">
+      @endif
       	<section class="wrapper">
 @yield('contenidoPagina')
       <!--footer start-->
@@ -167,5 +173,4 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
   <body>
   </body>
   </html>
-
 @endif

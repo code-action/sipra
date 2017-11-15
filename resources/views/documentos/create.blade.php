@@ -2,8 +2,11 @@
 @section('contenidoPagina')
 	<div class="col-xs-6">
 		<div class="form-panel">
-
+			@if(Auth::user()->tipo!=3)
 			{!!Form::open(['route'=>'documento.store','method'=>'POST','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data','files'=>true,'autocomplete'=>'off', 'role'=>'form'])!!}
+		@else
+			{!!Form::open(['route'=>'accesoEstudiante.store','method'=>'POST','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data','files'=>true,'autocomplete'=>'off', 'role'=>'form'])!!}
+		@endif
 			<center><h4><i class="fa fa-file-pdf-o"></i> Documento nuevo para:
 				<?php use App\Tipo;
 							use App\Proyecto;

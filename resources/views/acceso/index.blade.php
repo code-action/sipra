@@ -29,11 +29,28 @@ $a[4]='Acuerdo de memoria';
   {!!Html::script('assets/libreriaSweetAlert/sweet-alert.min.js')!!}
 </head>
 <body>
+  @if(Session::has('mensaje'))
+
+<?php $men=Session::pull('mensaje');
+echo "<script>swal('$men', 'Click al botón!', 'success')</script>";?>
+@endif
+
+@if(Session::has('error'))
+
+<?php $men=Session::pull('error');
+echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
+
+@endif
   <section id="container" >
     <header class="header black-bg">
           <!--logo start-->
           <a href="#" class="logo"><b>Unidad de Proyección Social</b></a>
           <!--logo end-->
+          <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+                  <li><a class="logout" href='/sipra/public/logout'>Salir</a></li>
+            </ul>
+          </div>
       </header>
       <center>
         <section id="main-content" style="margin-left: 0px;">

@@ -2,9 +2,12 @@
 @section('contenidoPagina')
 	<div class="col-xs-6">
 		<div class="form-panel">
-
+		@if(Auth::user()->tipo!=3)
       {!! Form::model($doc,['route'=>['documento.update',$doc->id],'method'=>'PUT','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data','files'=>true,'autocomplete'=>'off', 'role'=>'form']) !!}
-      <center><h4><i class="fa fa-file-pdf-o"></i> Edición para:
+		@else
+			{!! Form::model($doc,['route'=>['accesoEstudiante.update',$doc->id],'method'=>'PUT','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data','files'=>true,'autocomplete'=>'off', 'role'=>'form']) !!}
+		@endif
+			<center><h4><i class="fa fa-file-pdf-o"></i> Edición para:
 				<?php use App\Tipo;
 							use App\Proyecto;
 				$ti=Tipo::nombreTipo($doc->f_tipo); ?>

@@ -13,10 +13,10 @@ $t=$t_doc;
     {!!Form::open(['route'=>['accesoEstudiante.destroy',$p->id],'method'=>'DELETE','class'=>'form-inline'])!!}
 
     <!-- Ver-->
-    <a  class="btn btn-success btn-sm" href="/sipra/public/enlace/{{(String)$p->id}}" target="_blank"><span class="fa fa-info-circle" style="color: white;"></a>
+    <a  class="btn btn-success btn-sm" href="/sipra/public/ver/{{(String)$p->id}}" target="_blank"><span class="fa fa-info-circle" style="color: white;"></a>
       &nbsp;&nbsp;
         <!-- Editar-->
-    <a  class="btn btn-primary btn-sm" href="/sipra/public/documento/{{(String)$p->id}}/edit"><span class="fa fa-pencil" style="color: white;"></a>
+    <a  class="btn btn-primary btn-sm" href="/sipra/public/accesoEstudiante/{{(String)$p->id}}/edit"><span class="fa fa-pencil" style="color: white;"></a>
     &nbsp;&nbsp;
 
     <button class="btn btn-danger btn-sm" type="button" onClick="return swal({

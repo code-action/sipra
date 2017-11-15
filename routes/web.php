@@ -49,6 +49,7 @@ Route::group(['middleware'=>'admin'], function(){ //SOLO ADMINISTRADOR
 });
 Route::group(['middleware'=>'estudiante'], function(){ //SOLO ESTUDIANTE
   Route::resource('accesoEstudiante','DocumentoEstudianteController');
+  Route::match(['get','post'],'/ver/{id}','DocumentoEstudianteController@verDocumento');
 });
 
 Route::resource('auxiliar','AuxiliarController');
