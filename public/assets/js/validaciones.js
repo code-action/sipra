@@ -71,5 +71,11 @@ function cambioBuscar(valor){
     s.setAttribute("style", "display:none");
     $("#titulo").val("");
   }
-
 }
+$(document).on('ready',function(){
+$("#mayuscula").keyup(function(){
+  cadena=$("#mayuscula").val();
+  cadena=cadena.toUpperCase();
+  $("#mayuscula").val(cadena);
+});
+});

@@ -53,7 +53,9 @@
                     showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
                     {!!Form::close()!!}
                   @else
-                    {{$nombre}}
+                    <div class="col-sm-9"><p>{{$est->name.":  "}}
+                      &nbsp;&nbsp;
+                    {{$nombre}}</div>
                   @endif
               </p>
             @endforeach

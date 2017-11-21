@@ -41,7 +41,23 @@
         @if(count($proyectos)>0)
         @foreach ($proyectos as $proy)
           <tr>
-            <td>{{$a}}</td>
+            <td>
+              @php
+                  $conteo=App\Documento::contador($proy->id);
+                if ($conteo==0){
+                  @endphp
+                  <div class='alert alert-danger'>{{$a}}</div>
+                  @php
+                }elseif($conteo<4){
+                  @endphp
+                  <div class='alert alert-warning'>{{$a}}</div>
+                  @php
+                }elseif($conteo==4){
+                  @endphp
+                  <div class='alert alert-success'>{{$a}}</div>
+                  @php
+                }
+              @endphp</td>
             <td >{{$proy->titulo}}</td>
             <td style="width:20%;">{{Carrera::find($proy->f_carrera)->nombre}}</td>
             <td>{{$proy->anio}}</td>

@@ -28,7 +28,20 @@
 					@if(count($estudiantes)>0)
           @foreach ($estudiantes as $st)
           <tr>
-            <td>{{$a}}</td>
+            <td>
+							@php
+                  $conteo=App\Constancia::contador($st->id);
+                if ($conteo==0){
+                  @endphp
+                  <div class='alert alert-danger' style="width:45px;">{{$a}}</div>
+                  @php
+                }else{
+                  @endphp
+                  <div class='alert alert-success' style="width:45px;">{{$a}}</div>
+                  @php
+                }
+              @endphp
+            </td>
             <td>{{$st->name}}</td>
             <td>{{$st->nombre}}</td>
             <td>{{$st->apellido}}</td>

@@ -44,6 +44,13 @@ class LogedController extends Controller
      */
     public function store(Request $request)
     {
+      $usuario=User::where('name','=',$request->name)->first();
+      if(count($usuario)==1){
+        if($usuario->f_proyecto!=null){
+          $request['password']=strtoupper($request->password);
+        }
+      }
+      echo $request['password'];
       if(Auth::attempt(['name'=>$request['name'],'password'=>$request['password']])){
           if(Auth::user()->estado!=0){
             Bitacora::bitacora('Ingreso al sistema');

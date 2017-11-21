@@ -14,9 +14,10 @@ class EditorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+      $tipo=$request->tipo;
+      return view('proyectos.vistas',compact('tipo'));
     }
 
     /**

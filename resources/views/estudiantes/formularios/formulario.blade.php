@@ -6,7 +6,7 @@
 <div class="form-group">
 	{!!Form::label('lcarne','Carné:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">
-		{!!Form::text('carne',null,['class'=>'form-control','onKeyPress' => 'return cValido( this, event,this.value);', 'placeholder'=>'Número de carné'])!!}
+		{!!Form::text('carne',null,['id'=>'mayuscula','class'=>'form-control','onKeyPress' => 'return cValido( this, event,this.value);', 'placeholder'=>'Número de carné'])!!}
 	</div>
 </div>
 

@@ -27,6 +27,7 @@ public static function buscar($usuario){
     ->join('users','bitacoras.id_usuario','=','users.id','left outer')
     ->where('users.nombre','LIKE','%'.$usuario.'%')
     ->orWhere('users.apellido','LIKE','%'.$usuario.'%')
+    ->orWhere('bitacoras.detalle','LIKE','%'.$usuario.'%')
     ->orderBy('bitacoras.created_at','DESC')
     ->paginate(8);
     return $bitacora;
