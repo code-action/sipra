@@ -30,7 +30,7 @@
           <tr>
             <td>{{$a}}</td>
             <td>{{$b->nombre." ".$b->apellido}}</td>
-            <td>{{ucwords($b->detalle)}}</td>
+            <td>{{$b->detalle}}</td>
 						<td style="width:20%;"><?php
 			$fecha=$b->created_at;
 			$aux1 = explode(' ', $fecha);

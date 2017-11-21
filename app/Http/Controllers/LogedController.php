@@ -47,6 +47,14 @@ class LogedController extends Controller
       if(Auth::attempt(['name'=>$request['name'],'password'=>$request['password']])){
           if(Auth::user()->estado!=0){
             Bitacora::bitacora('Ingreso al sistema');
+            $conteo=Bitacora::count();
+            if($conteo>300){
+              $diferencia=$conteo-300;
+              $borradores=DB::table('bitacoras')->take($diferencia)->orderBy('id')->get();
+              foreach ($borradores as $borrador) {
+                Bitacora::destroy($borrador->id);
+              }
+            }
             return redirect('/inicio');
           }else{
             Auth::logout();

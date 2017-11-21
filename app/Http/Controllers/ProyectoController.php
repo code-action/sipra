@@ -58,8 +58,9 @@ class ProyectoController extends Controller
      */
     public function store(ProyectoRequest $request)
     {
+        $request->n_acuerdo=$request->n_acuerdo;
         $proy=Proyecto::create($request->all());
-        Bitacora::bitacora('Nuevo proyecto creado');
+        Bitacora::bitacora('Nuevo proyecto creado número de acuerdo: '.$request->n_acuerdo);
         return redirect('/enlace/create?id='.$proy['id'])->with('mensaje','Registro Guardado');
     }
 
@@ -159,7 +160,7 @@ class ProyectoController extends Controller
             }
           }
           $proyecto->save();
-          Bitacora::bitacora('Proyecto editado');
+          Bitacora::bitacora('Proyecto editado número de acuerdo: '.$request->n_acuerdo);
           return redirect('/proyecto')->with('mensaje','Registro actualizado');
         }
     }

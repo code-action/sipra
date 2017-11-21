@@ -18,7 +18,7 @@
 <div class="form-group">
 	{!!Form::label('lacuerdo','N° de acuerdo del plan:',['class'=>'col-sm-4 control-label'])!!}
 	<div class="col-sm-7">
-		{!!Form::text('n_acuerdo',null,['class'=>'form-control', 'placeholder'=>'N° de acuerdo'])!!}
+		{!!Form::text('n_acuerdo',null,['id'=>'mayuscula','class'=>'form-control', 'placeholder'=>'N° de acuerdo'])!!}
 	</div>
 </div>
 @if($bandera!=1)
