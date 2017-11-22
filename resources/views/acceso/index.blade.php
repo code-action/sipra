@@ -87,33 +87,35 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
                     </td></tr>
                   </tbody>
                 </table>
+                @php
+                $estudiantes=User::where('f_proyecto','=',$proy->id)->get();
+                @endphp
+                @if(count($estudiantes)>0)
                 <table class="table">
                   <thead>
                     <th colspan="2"><center><h4><i class="fa fa-graduation-cap"></i> Constancias de estudiantes: </h4></center></th>
                   </thead>
                   <tbody>
-                    @php
-                      $estudiantes=User::where('f_proyecto','=',$proy->id)->get();
-                    @endphp
                       @foreach ($estudiantes as $estudiante)
-                        <tr><td>{{$estudiante->name.": ".$estudiante->apellido.", ".$estudiante->nombre}}
+                        <tr><td style="width:10%;">{{$estudiante->name.": ".$estudiante->apellido.", ".$estudiante->nombre}}
                           </td>
-                          <td>
+                          <td style="width:10%;">
                             @php
                               $constancia=Constancia::where('f_estudiante','=',$estudiante->id)->get();
                               foreach ($constancia as $cons)
                                 $co=$cons;
                             @endphp
                             @if(count($constancia)<1)
-                            <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$estudiante->id}}"><span class="fa fa-plus" style="color: white;"></span></a>
+                            Constancia no agregada.
                           @else
-                            @include('documentos.formularios.botones2')
+                            <a  class="btn btn-success btn-sm" href="/sipra/public/ver2/{{(String)$co->id}}" target="_blank"><span class="fa fa-info-circle" style="color: white;"></a>
                           @endif
                           </td>
                           </tr>
                       @endforeach
                   </tbody>
                 </table>
+              @endif
               </div>
             </div>
       </section>

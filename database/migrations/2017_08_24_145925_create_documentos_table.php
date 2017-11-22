@@ -18,9 +18,10 @@ class CreateDocumentosTable extends Migration
             $table->integer('f_proyecto')->unsigned();
             $table->foreign('f_proyecto')->references('id')->on('proyectos');
             $table->string('n_acuerdo')->default('null');
+            $table->string('carpeta')->default('null');
             $table->binary('archivo_binario');
-            $table->string('archivo_peso');
-            $table->string('archivo_tipo');
+            $table->string('archivo_peso')->default('null');
+            $table->string('archivo_tipo')->default('null');
             $table->integer('f_tipo')->unsigned();
             $table->foreign('f_tipo')->references('id')->on('tipos');
             $table->timestamps();

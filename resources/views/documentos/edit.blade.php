@@ -24,7 +24,7 @@
 				<p>{{Proyecto::find($doc->f_proyecto)->titulo}}</p>
 				@include('documentos.formularios.formulario')
 				<a class="btn btn-default" href={{$dir}}>Cancelar</a>
-			{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
+			{!!Form::submit('Guardar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 
 		</div>

@@ -116,11 +116,17 @@ class EnlaceController extends Controller
     public function show($id)
     {
         $var=Documento::find($id);
-
+        if($var->carpeta==null){
         /*header("Content-Disposition: attachment; filename=Hola.pdf"); Para descarga directa*/
         $contenido=stripslashes($var->archivo_binario);
         header("Content-type: $var->archivo_tipo");
         print $contenido;
+      }else {
+//         echo "
+// <embed src='/sipra/public/archivos/acuerdomemoria/".$var->carpeta."' width='100%' height='100%'>
+// ";
+return redirect("/archivos/acuerdomemoria/".$var->carpeta);
+      }
 
 
     }

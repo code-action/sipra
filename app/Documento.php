@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Documento extends Model
 {
-    protected $fillable = ['n_acuerdo','f_proyecto','archivo_binario','archivo_peso','archivo_tipo','f_tipo'];
+    protected $fillable = ['n_acuerdo','carpeta','f_proyecto','archivo_binario','archivo_peso','archivo_tipo','f_tipo'];
 
     public static function buscar($t){
       return Documento::f_tipo($t)->paginate(8);

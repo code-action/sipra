@@ -13,7 +13,7 @@
         @else
       <a class="btn btn-default" href="/sipra/public/usuario?estado=0">Cancelar</a>
         @endif
-			{!!Form::submit('Registrar',['class'=>'btn btn-info'])!!}
+			{!!Form::submit('Guardar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 
 		</div>

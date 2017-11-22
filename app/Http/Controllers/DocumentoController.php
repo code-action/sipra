@@ -84,8 +84,30 @@ class DocumentoController extends Controller
         ]);
         }
       }catch(\Exception $e){
-        return redirect('/enlace?doc='.(String)$request['f_proyecto'])->with('error','Lo sentimos el documento no pudo ser registrado');
-      }
+          try{
+          if($request['f_tipo']==4){
+            $fh=$hora = date('t').date('m').date('y').date('g').date('i').date('S').".pdf";
+            $request->file('archivo')->storeAs('acuerdomemoria', $fh);
+            Documento::create([
+              'f_proyecto'=>$request['f_proyecto'],
+              'n_acuerdo'=>$request['n_acuerdo'],
+              'carpeta'=>$fh,
+              'archivo_binario'=>"0",
+              'f_tipo'=>$request['f_tipo'],
+            ]);
+           }else{
+             Documento::create([
+              'f_proyecto'=>$request['f_proyecto'],
+              'archivo_binario'=>$binario_contenido,
+              'archivo_peso'=>$_FILES['archivo']['size'],
+              'archivo_tipo'=>$_FILES['archivo']['type'],
+              'f_tipo'=>$request['f_tipo'],
+            ]);
+            }
+          }catch(\Exception $e){
+            return redirect('/accesoEstudiante')->with('error','Lo sentimos el documento no pudo ser registrado');
+          }
+        }
       Bitacora::bitacora('Nuevo documento en: '.Tipo::find($request['f_tipo'])->nombre);
       return redirect('/enlace?doc='.(String)$request['f_proyecto'])->with('mensaje','Registro Guardado');
     }

@@ -11,7 +11,7 @@
 
       <a class="btn btn-default" href="/sipra/public/proyecto">Cancelar</a>
 
-			{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
+			{!!Form::submit('Guardar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 
 		</div>

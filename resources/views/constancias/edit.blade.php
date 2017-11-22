@@ -10,7 +10,7 @@
         <input name="bandera" type="hidden" value="2">
         <?php $id_p=App\User::find($constancia->f_estudiante)->f_proyecto;?>
       <a class="btn btn-default" href="/sipra/public/enlace?doc={{$id_p}}">Cancelar</a>
-			{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
+			{!!Form::submit('Guardar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 
 		</div>

@@ -8,6 +8,7 @@ use App\Proyecto;
 use App\Documento;
 use App\Bitacora;
 use App\Tipo;
+use App\Constancia;
 
 class DocumentoEstudianteController extends Controller
 {
@@ -59,7 +60,6 @@ class DocumentoEstudianteController extends Controller
         $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
         $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
         try{
-
         if($request['f_tipo']==4){
           Documento::create([
             'f_proyecto'=>$request['f_proyecto'],
@@ -79,7 +79,28 @@ class DocumentoEstudianteController extends Controller
           ]);
           }
         }catch(\Exception $e){
-          return redirect('/accesoEstudiante')->with('error','Lo sentimos el documento no pudo ser registrado');
+          try{
+          if($request['f_tipo']==4){
+            $dir = $request->file('archivo')->store('public/acuerdomemoria');
+            Documento::create([
+              'f_proyecto'=>$request['f_proyecto'],
+              'n_acuerdo'=>$request['n_acuerdo'],
+              'carpeta'=>$dir,
+              'archivo_binario'=>"0",
+              'f_tipo'=>$request['f_tipo'],
+            ]);
+           }else{
+             Documento::create([
+              'f_proyecto'=>$request['f_proyecto'],
+              'archivo_binario'=>$binario_contenido,
+              'archivo_peso'=>$_FILES['archivo']['size'],
+              'archivo_tipo'=>$_FILES['archivo']['type'],
+              'f_tipo'=>$request['f_tipo'],
+            ]);
+            }
+          }catch(\Exception $e){
+            return redirect('/accesoEstudiante')->with('error','Lo sentimos el documento no pudo ser registrado');
+          }
         }
         Bitacora::bitacora('Nuevo documento en: '.Tipo::find($request['f_tipo'])->nombre);
         return redirect('/accesoEstudiante')->with('mensaje','Registro Guardado');
@@ -179,6 +200,13 @@ class DocumentoEstudianteController extends Controller
       /*header("Content-Disposition: attachment; filename=Hola.pdf"); Para descarga directa*/
       $contenido=stripslashes($var->archivo_binario);
       header("Content-type: $var->archivo_tipo");
+      print $contenido;
+    }
+
+    public function verConstancia($id){
+      $var=Constancia::find($id);
+      $contenido=stripslashes($var->constancia_binario);
+      header("Content-type: $var->constancia_tipo");
       print $contenido;
     }
 }
