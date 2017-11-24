@@ -191,6 +191,9 @@ class DocumentoEstudianteController extends Controller
     public function destroy($id)
     {
       $documento=Documento::find($id);
+      if($documento->carpeta!=null){
+
+      }
       Bitacora::bitacora('Documento eliminado en: '.Tipo::find($documento->f_tipo)->nombre);
       Documento::destroy($id);
       return redirect('accesoEstudiante')->with('mensaje','Registro eliminado');

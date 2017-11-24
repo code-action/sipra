@@ -117,18 +117,20 @@ class EnlaceController extends Controller
     {
         $var=Documento::find($id);
         if($var->carpeta==null){
-        /*header("Content-Disposition: attachment; filename=Hola.pdf"); Para descarga directa*/
         $contenido=stripslashes($var->archivo_binario);
         header("Content-type: $var->archivo_tipo");
         print $contenido;
       }else {
-//         echo "
-// <embed src='/sipra/public/archivos/acuerdomemoria/".$var->carpeta."' width='100%' height='100%'>
-// ";
-return redirect("/archivos/acuerdomemoria/".$var->carpeta);
+        $guardar[1]="plan";
+        $guardar[2]="acuerdoplan";
+        $guardar[3]="memoria";
+        $guardar[4]="acuerdomemoria";
+        echo "
+        <html style='overflow:hidden;'>
+<embed src='/sipra/public/archivos/".$guardar[$var['f_tipo']]."/".$var->carpeta."' width='100%' height='100%'>
+        </html>
+";// return redirect("/archivos/acuerdomemoria/".$var->carpeta);
       }
-
-
     }
 
     /**

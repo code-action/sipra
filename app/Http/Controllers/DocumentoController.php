@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 use App\Documento;
 use App\Proyecto;
 use App\Http\Requests\DocumentoRequest;
@@ -63,49 +63,34 @@ class DocumentoController extends Controller
 
       $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
       $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
-      try{
-
+      $documento= new Documento;
       if($request['f_tipo']==4){
-        Documento::create([
-          'f_proyecto'=>$request['f_proyecto'],
-          'n_acuerdo'=>$request['n_acuerdo'],
-          'archivo_binario'=>$binario_contenido,
-          'archivo_peso'=>$_FILES['archivo']['size'],
-          'archivo_tipo'=>$_FILES['archivo']['type'],
-          'f_tipo'=>$request['f_tipo'],
-        ]);
-       }else{
-         Documento::create([
-          'f_proyecto'=>$request['f_proyecto'],
-          'archivo_binario'=>$binario_contenido,
-          'archivo_peso'=>$_FILES['archivo']['size'],
-          'archivo_tipo'=>$_FILES['archivo']['type'],
-          'f_tipo'=>$request['f_tipo'],
-        ]);
-        }
+        $documento['n_acuerdo']=$request['n_acuerdo'];
+      }
+      try{
+        $documento['f_proyecto']=$request['f_proyecto'];
+        $documento['archivo_binario']=$binario_contenido;
+        $documento['archivo_peso']=$_FILES['archivo']['size'];
+        $documento['archivo_tipo']=$_FILES['archivo']['type'];
+        $documento['f_tipo']=$request['f_tipo'];
+        $documento->save();
       }catch(\Exception $e){
           try{
-          if($request['f_tipo']==4){
-            $fh=$hora = date('t').date('m').date('y').date('g').date('i').date('S').".pdf";
-            $request->file('archivo')->storeAs('acuerdomemoria', $fh);
-            Documento::create([
-              'f_proyecto'=>$request['f_proyecto'],
-              'n_acuerdo'=>$request['n_acuerdo'],
-              'carpeta'=>$fh,
-              'archivo_binario'=>"0",
-              'f_tipo'=>$request['f_tipo'],
-            ]);
-           }else{
-             Documento::create([
-              'f_proyecto'=>$request['f_proyecto'],
-              'archivo_binario'=>$binario_contenido,
-              'archivo_peso'=>$_FILES['archivo']['size'],
-              'archivo_tipo'=>$_FILES['archivo']['type'],
-              'f_tipo'=>$request['f_tipo'],
-            ]);
-            }
+            $fh=$hora = date('d').date('m').date('y').date('G').date('i').date('s').".pdf";
+            $guardar[1]="plan";
+            $guardar[2]="acuerdoplan";
+            $guardar[3]="memoria";
+            $guardar[4]="acuerdomemoria";
+
+            $request->file('archivo')->storeAs($guardar[$request['f_tipo']],$fh);
+            $documento['f_proyecto']=$request['f_proyecto'];
+            $documento['carpeta']=$fh;
+            $documento['archivo_binario']="0";
+            $documento['f_tipo']=$request['f_tipo'];
+            $documento->save();
+
           }catch(\Exception $e){
-            return redirect('/accesoEstudiante')->with('error','Lo sentimos el documento no pudo ser registrado');
+            return redirect('/enlace?doc='.(String)$request['f_proyecto'])->with('error','Lo sentimos el documento no pudo ser registrado');
           }
         }
       Bitacora::bitacora('Nuevo documento en: '.Tipo::find($request['f_tipo'])->nombre);
@@ -154,6 +139,7 @@ class DocumentoController extends Controller
         $val['n_acuerdo']='required | unique:documentos';
         $mensaje['n_acuerdo.required']='El campo N° de acuerdo es obligatorio';
         $mensaje['n_acuerdo.unique']='El número de acuerdo ya esta ingresado';
+        $doc->n_acuerdo=$request['n_acuerdo'];
       }
       if($request->archivo!=null){
         $val['archivo']='required|file|between:1,14800|mimes:pdf';
@@ -170,20 +156,38 @@ class DocumentoController extends Controller
         $this->validate($request,$val,$mensaje);
         echo $v1.$v2;
         //Actualizar solo acuerdo
-        if($v1==0 && $v2==1){
-          $doc->n_acuerdo=$request['n_acuerdo'];
-        }else{
-          if($v1==0){
-          $doc->n_acuerdo=$request['n_acuerdo'];
+        if($v2==0){
+          $guardar[1]="plan";
+          $guardar[2]="acuerdoplan";
+          $guardar[3]="memoria";
+          $guardar[4]="acuerdomemoria";
+          if($doc->carpeta!=null){
+            $dir='archivos/'.$guardar[$doc['f_tipo']].'/'.$doc->carpeta;
+            \File::delete(public_path($dir));
           }
-          $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
-          $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
-          $doc->archivo_binario=$binario_contenido;
-          $doc->archivo_peso=$_FILES['archivo']['size'];
-          $doc->archivo_tipo=$_FILES['archivo']['type'];
+          try{
+            $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
+            $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
+            $doc->archivo_binario=$binario_contenido;
+            $doc->archivo_peso=$_FILES['archivo']['size'];
+            $doc->archivo_tipo=$_FILES['archivo']['type'];
+            $doc->save();
+          }catch(\Exception $e){
+            try{
+              $fh=$hora = date('d').date('m').date('y').date('G').date('i').date('s').".pdf";
+
+              $request->file('archivo')->storeAs($guardar[$doc['f_tipo']],$fh);
+              $doc['carpeta']=$fh;
+              $doc['archivo_binario']="0";
+              $doc->save();
+            }catch(\Exception $e){
+              return redirect('/enlace?doc='.(String)$request['f_proyecto'])->with('error','Lo sentimos el documento no pudo ser registrado');
+            }
+          }
+        }else{
+          $doc->save();
         }
         Bitacora::bitacora('Documento editado en: '.Tipo::find($doc->f_tipo)->nombre);
-        $doc->save();
         return redirect('/enlace?doc='.(String)$doc['f_proyecto'])->with('mensaje','Registro Editado');
       }
 
@@ -198,6 +202,14 @@ class DocumentoController extends Controller
     public function destroy($id)
     {
         $documento=Documento::find($id);
+        if($documento->carpeta!=null){
+          $guardar[1]="plan";
+          $guardar[2]="acuerdoplan";
+          $guardar[3]="memoria";
+          $guardar[4]="acuerdomemoria";
+          $dir='archivos/'.$guardar[$documento['f_tipo']].'/'.$documento->carpeta;
+          \File::delete(public_path($dir));
+        }
         Bitacora::bitacora('Documento eliminado en: '.Tipo::find($documento->f_tipo)->nombre);
         Documento::destroy($id);
         return redirect('/enlace?doc='.$documento->f_proyecto)->with('mensaje','Registro eliminado');
