@@ -56,8 +56,39 @@ class ProyectoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProyectoRequest $request)
-    {
+    public function store(Request $request)
+    {   $validar['titulo']='required|unique:proyectos|min:30|max:600';
+        $validar['n_acuerdo']='required|unique:proyectos|min:5';
+        $validar['cantidad']='required|integer';
+        $validar['f_carrera']='integer|required|not_in:0';
+        $validar['anio']='integer|required|not_in:0';
+        $validar['horas']='required|integer|min:1|max:'.(String)$request->limite;
+
+        $mensaje['titulo.required']='El campo título es obligatorio';
+        $mensaje['titulo.unique']='Título registrado, ingrese otro';
+        $mensaje['titulo.min']='El campo título debe contener 30 caracteres mínimo';
+        $mensaje['titulo.max']='El campo título debe contener 600 caracteres máximo';
+
+        $mensaje['n_acuerdo.required']='El campo n° de acuerdo es obligatorio';
+        $mensaje['n_acuerdo.unique']='N° de acuerdo ya ha sido registrado';
+        $mensaje['n_acuerdo.min']='El campo n° de acuerdo debe contener 5 caracteres mínimo';
+
+        $mensaje['cantidad.required']='El N° de estudiantes es obligatorio';
+        $mensaje['cantidad.integer']='El campo debe contener solamente números';
+
+        $mensaje['anio.integer']='El campo debe contener solamente números';
+        $mensaje['anio.required']='El campo año es obligatorio';
+        $mensaje['anio.not_in']='Seleccione una opción válida';
+
+        $mensaje['f_carrera.required']='El campo carrera es obligatorio';
+        $mensaje['f_carrera.not_in']='Seleccione una opción válida';
+
+        $mensaje['horas.required']='El campo horas es obligatorio';
+        $mensaje['horas.min']='El campo horas debe ser mayor que 0';
+        $mensaje['horas.max']='El campo horas no debe exceder las '.$request->limite.' horas';
+
+        $this->validate($request,$validar,$mensaje);
+
         $request->n_acuerdo=$request->n_acuerdo;
         $proy=Proyecto::create($request->all());
         Bitacora::bitacora('Nuevo proyecto creado número de acuerdo: '.$request->n_acuerdo);
@@ -175,11 +206,30 @@ class ProyectoController extends Controller
     {
         $documentos=Documento::where('f_proyecto',"=",$id)->get();
         foreach($documentos as $d){
+          if($d->carpeta!=null){
+            $guardar[1]="plan";
+            $guardar[2]="acuerdoplan";
+            $guardar[3]="memoria";
+            $guardar[4]="acuerdomemoria";
+            $dir='archivos/'.$guardar[$d['f_tipo']].'/'.$d->carpeta;
+            \File::delete(public_path($dir));
+          }
           Documento::destroy($d->id);
         }
         $estudiantes=User::where('f_proyecto',"=",$id)->get();
         foreach($estudiantes as $est){
-            Constancia::where('f_estudiante','=',$est->id)->delete();
+            $constancia=Constancia::where('f_estudiante','=',$est->id)->first();
+            if (count($constancia)>0) {
+              if($constancia->carpeta!=null){
+                $dir='archivos/constancias/'.$constancia->carpeta;
+                \File::delete(public_path($dir));
+              }
+              Constancia::destroy($constancia->id);
+            }
+            $bitacoras=Bitacora::where('id_usuario','=',$est->id)->get();
+            foreach ($bitacoras as $b) {
+              Bitacora::destroy($b->id);
+            }
             User::destroy($est->id);
         }
         Proyecto::destroy($id);

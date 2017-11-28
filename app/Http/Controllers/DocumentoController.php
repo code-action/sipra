@@ -68,11 +68,11 @@ class DocumentoController extends Controller
         $documento['n_acuerdo']=$request['n_acuerdo'];
       }
       try{
-        $documento['f_proyecto']=$request['f_proyecto'];
-        $documento['archivo_binario']=$binario_contenido;
-        $documento['archivo_peso']=$_FILES['archivo']['size'];
-        $documento['archivo_tipo']=$_FILES['archivo']['type'];
-        $documento['f_tipo']=$request['f_tipo'];
+        $documento->f_proyecto=$request['f_proyecto'];
+        $documento->archivo_binario=$binario_contenido;
+        $documento->archivo_peso=$_FILES['archivo']['size'];
+        $documento->archivo_tipo=$_FILES['archivo']['type'];
+        $documento->f_tipo=$request['f_tipo'];
         $documento->save();
       }catch(\Exception $e){
           try{
@@ -169,6 +169,7 @@ class DocumentoController extends Controller
             $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
             $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
             $doc->archivo_binario=$binario_contenido;
+            $doc->carpeta="null";
             $doc->archivo_peso=$_FILES['archivo']['size'];
             $doc->archivo_tipo=$_FILES['archivo']['type'];
             $doc->save();

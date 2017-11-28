@@ -31,7 +31,7 @@ use App\Documento;
       <tr>
         <th>N°</th>
         <th>Nombre</th>
-        @if ($tipo==2 || $tipo==4)
+        @if ($tipo==4)
           <th>N° de acuerdo</th>
         @endif
         <th>Año</th>
@@ -52,7 +52,7 @@ use App\Documento;
       <tr>
         <td>{{$a}}</td>
         <td>{{$proc->titulo}}</td>
-        @if ($tipo==2 || $tipo==4)
+        @if ($tipo==4)
           <td style="width:20%;">{{$doc->n_acuerdo}}</td>
         @endif
         <td>{{$proc->anio}}</td>

@@ -116,7 +116,7 @@ class EnlaceController extends Controller
     public function show($id)
     {
         $var=Documento::find($id);
-        if($var->carpeta==null){
+        if($var->carpeta!=null){
         $contenido=stripslashes($var->archivo_binario);
         header("Content-type: $var->archivo_tipo");
         print $contenido;
@@ -129,7 +129,7 @@ class EnlaceController extends Controller
         <html style='overflow:hidden;'>
 <embed src='/sipra/public/archivos/".$guardar[$var['f_tipo']]."/".$var->carpeta."' width='100%' height='100%'>
         </html>
-";// return redirect("/archivos/acuerdomemoria/".$var->carpeta);
+";
       }
     }
 
@@ -167,8 +167,12 @@ class EnlaceController extends Controller
         $estudiante=User::find($id);
         $carne=$estudiante->name;
         $id_proy=$estudiante->f_proyecto;
-        $constancia=Constancia::where('f_estudiante','=',$id);
+        $constancia=Constancia::where('f_estudiante','=',$id)->get();
         foreach ($constancia as $c) {
+          if($c->carpeta!=null){
+            $dir='archivos/constancias/'.$c->carpeta;
+            \File::delete(public_path($dir));
+          }
           Constancia::destroy($c->id);
           Bitacora::bitacora('Constancia eliminada, carné: '.$carne);
         }

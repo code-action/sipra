@@ -1,4 +1,5 @@
 <?php use App\User;?>
+<input type="hidden" name="limite" id="limite" value="">
 @foreach ($errors->get('titulo') as $error)
 	<div class="alert-d">
 		{{$error}}
@@ -51,7 +52,7 @@
 <div class="form-group">
 	{!!Form::label('lcarrera','Carrera:',['class'=>'col-sm-4 control-label'])!!}
 	<div class="col-sm-7">
-		<select class="form-control" name="f_carrera">
+		<select class="form-control" name="f_carrera" id="carrera">
 			<option value='0'>[Seleccione una opción]</option>
 		  <?php use App\Carrera;
 			$carr=Carrera::TodasCarrera(null,'1');?>
@@ -69,6 +70,17 @@
 			@endforeach
 		@endif
 		</select>
+	</div>
+</div>
+@foreach ($errors->get('horas') as $error)
+	<div class="alert-d">
+		{{$error}}
+	</div>
+@endforeach
+<div class="form-group">
+	{!!Form::label('lhoras','Horas del proyecto por estudiante:',['class'=>'col-sm-4 control-label'])!!}
+	<div class="col-sm-7">
+		{!!Form::number('horas',null,['id'=>'horas','class'=>'form-control', 'readonly'=>'readonly'])!!}
 	</div>
 </div>
 @foreach ($errors->get('anio') as $error)

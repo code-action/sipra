@@ -51,7 +51,17 @@ class ConstanciaController extends Controller
             'constancia_peso'=>$_FILES['archivo']['size'],
           ]);
         }catch(\Exception $e){
-          return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
+          try{
+            $fh=$hora = date('d').date('m').date('y').date('G').date('i').date('s').".pdf";
+            $request->file('archivo')->storeAs('constancias',$fh);
+            $constancia = new Constancia;
+            $constancia->f_estudiante=$request['f_estudiante'];
+            $constancia->constancia_binario="0";
+            $constancia->carpeta=$fh;
+            $constancia->save();
+          }catch(\Exception $e){
+            return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
+          }
       }
       Bitacora::bitacora('Nueva constancia, estudiante: '.User::find($request['f_estudiante'])->name);
       return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro guaradado');
@@ -66,9 +76,16 @@ class ConstanciaController extends Controller
     public function show($id)
     {
       $var=Constancia::find($id);
-      $contenido=stripslashes($var->constancia_binario);
-      header("Content-type: $var->constancia_tipo");
-      print $contenido;
+      if($var->carpeta!=null){
+        $contenido=stripslashes($var->constancia_binario);
+        header("Content-type: $var->constancia_tipo");
+        print $contenido;
+      }else{
+        echo "
+        <html style='overflow:hidden;'>
+<embed src='/sipra/public/archivos/constancias/".$var->carpeta."' width='100%' height='100%'>
+        </html>";
+      }
     }
 
     /**
@@ -97,13 +114,26 @@ class ConstanciaController extends Controller
       $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
       $id_proy=User::find($constancia->f_estudiante)->f_proyecto;
 
+      if($constancia->carpeta!=null){
+        $dir='archivos/constancias/'.$constancia->carpeta;
+        \File::delete(public_path($dir));
+      }
      try{
           $constancia->constancia_binario=$binario_contenido;
           $constancia->constancia_tipo=$_FILES['archivo']['type'];
           $constancia->constancia_peso=$_FILES['archivo']['size'];
+          $constancia->carpeta="null";
           $constancia->save();
         }catch(\Exception $e){
-          return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
+          try{
+            $fh=$hora = date('d').date('m').date('y').date('G').date('i').date('s').".pdf";
+            $request->file('archivo')->storeAs('constancias',$fh);
+            $constancia->constancia_binario="0";
+            $constancia->carpeta=$fh;
+            $constancia->save();
+          }catch(\Exception $e){
+            return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
+          }
       }
       Bitacora::bitacora('Constancia editada, estudiante: '.$constancia->f_estudiante);
       return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro guaradado');
@@ -117,6 +147,10 @@ class ConstanciaController extends Controller
      */
     public function destroy($id)
     {   $constancia=Constancia::find($id);
+      if($constancia->carpeta!=null){
+        $dir='archivos/constancias/'.$constancia->carpeta;
+        \File::delete(public_path($dir));
+      }
         $id_proy=User::find($constancia->f_estudiante)->f_proyecto;
         Constancia::destroy($id);
         Bitacora::bitacora('Constancia eliminada, estudiante: '.$constancia->f_estudiante);

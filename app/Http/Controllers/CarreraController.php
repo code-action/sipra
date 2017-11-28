@@ -140,4 +140,8 @@ class CarreraController extends Controller
   }
 }
     }
+    public function horas($id){
+      $carrera=Carrera::find($id);
+      return $carrera->horas;
+    }
 }

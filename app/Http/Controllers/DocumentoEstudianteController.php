@@ -59,51 +59,39 @@ class DocumentoEstudianteController extends Controller
 
         $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
         $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
-        try{
+        $documento= new Documento;
         if($request['f_tipo']==4){
-          Documento::create([
-            'f_proyecto'=>$request['f_proyecto'],
-            'n_acuerdo'=>$request['n_acuerdo'],
-            'archivo_binario'=>$binario_contenido,
-            'archivo_peso'=>$_FILES['archivo']['size'],
-            'archivo_tipo'=>$_FILES['archivo']['type'],
-            'f_tipo'=>$request['f_tipo'],
-          ]);
-         }else{
-           Documento::create([
-            'f_proyecto'=>$request['f_proyecto'],
-            'archivo_binario'=>$binario_contenido,
-            'archivo_peso'=>$_FILES['archivo']['size'],
-            'archivo_tipo'=>$_FILES['archivo']['type'],
-            'f_tipo'=>$request['f_tipo'],
-          ]);
-          }
-        }catch(\Exception $e){
-          try{
-          if($request['f_tipo']==4){
-            $dir = $request->file('archivo')->store('public/acuerdomemoria');
-            Documento::create([
-              'f_proyecto'=>$request['f_proyecto'],
-              'n_acuerdo'=>$request['n_acuerdo'],
-              'carpeta'=>$dir,
-              'archivo_binario'=>"0",
-              'f_tipo'=>$request['f_tipo'],
-            ]);
-           }else{
-             Documento::create([
-              'f_proyecto'=>$request['f_proyecto'],
-              'archivo_binario'=>$binario_contenido,
-              'archivo_peso'=>$_FILES['archivo']['size'],
-              'archivo_tipo'=>$_FILES['archivo']['type'],
-              'f_tipo'=>$request['f_tipo'],
-            ]);
-            }
-          }catch(\Exception $e){
-            return redirect('/accesoEstudiante')->with('error','Lo sentimos el documento no pudo ser registrado');
-          }
+          $documento['n_acuerdo']=$request['n_acuerdo'];
         }
+        try{
+          $documento['f_proyecto']=$request['f_proyecto'];
+          $documento['archivo_binario']=$binario_contenido;
+          $documento['archivo_peso']=$_FILES['archivo']['size'];
+          $documento['archivo_tipo']=$_FILES['archivo']['type'];
+          $documento['f_tipo']=$request['f_tipo'];
+          $documento->save();
+        }catch(\Exception $e){
+            try{
+              $fh=$hora = date('d').date('m').date('y').date('G').date('i').date('s').".pdf";
+              $guardar[1]="plan";
+              $guardar[2]="acuerdoplan";
+              $guardar[3]="memoria";
+              $guardar[4]="acuerdomemoria";
+
+              $request->file('archivo')->storeAs($guardar[$request['f_tipo']],$fh);
+              $documento['f_proyecto']=$request['f_proyecto'];
+              $documento['carpeta']=$fh;
+              $documento['archivo_binario']="0";
+              $documento['f_tipo']=$request['f_tipo'];
+              $documento->save();
+
+            }catch(\Exception $e){
+              return redirect('accesoEstudiante')->with('error','Lo sentimos el documento no pudo ser registrado');
+            }
+          }
         Bitacora::bitacora('Nuevo documento en: '.Tipo::find($request['f_tipo'])->nombre);
-        return redirect('/accesoEstudiante')->with('mensaje','Registro Guardado');
+        return redirect('accesoEstudiante')->with('mensaje','Registro Guardado');
+
     }
 
     /**
@@ -137,49 +125,68 @@ class DocumentoEstudianteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-      $doc=Documento::find($id);
-        $v1=$v2=0;
-        if($doc->f_tipo!=4){
+    {  $doc=Documento::find($id);
+          $v1=$v2=0;
+          if($doc->f_tipo!=4){
+            $v1=1;
+          }elseif($request->n_acuerdo==$doc->n_acuerdo){
           $v1=1;
-        }elseif($request->n_acuerdo==$doc->n_acuerdo){
-        $v1=1;
-        }else{
-        $val['n_acuerdo']='required | unique:documentos';
-        $mensaje['n_acuerdo.required']='El campo N° de acuerdo es obligatorio';
-        $mensaje['n_acuerdo.unique']='El número de acuerdo ya esta ingresado';
-      }
-      if($request->archivo!=null){
-        $val['archivo']='required|file|between:1,14800|mimes:pdf';
-        $mensaje['archivo.required']='El archivo es obligatorio';
-        $mensaje['archivo.file']='El archivo no fue subido correctamente';
-        $mensaje['archivo.between']='El peso permitido es de 1 KB a 14MB';
-        $mensaje['archivo.mimes']='Tipo de archivo no válido';
-      }else{
-        $v2=1;
-      }
-      if($v1==1 && $v2==1){
-        return redirect('/accesoEstudiante')->with('mensaje','No hay cambios');
-      }else{
-        $this->validate($request,$val,$mensaje);
-        echo $v1.$v2;
-        //Actualizar solo acuerdo
-        if($v1==0 && $v2==1){
+          }else{
+          $val['n_acuerdo']='required | unique:documentos';
+          $mensaje['n_acuerdo.required']='El campo N° de acuerdo es obligatorio';
+          $mensaje['n_acuerdo.unique']='El número de acuerdo ya esta ingresado';
           $doc->n_acuerdo=$request['n_acuerdo'];
-        }else{
-          if($v1==0){
-          $doc->n_acuerdo=$request['n_acuerdo'];
-          }
-          $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
-          $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
-          $doc->archivo_binario=$binario_contenido;
-          $doc->archivo_peso=$_FILES['archivo']['size'];
-          $doc->archivo_tipo=$_FILES['archivo']['type'];
         }
-        Bitacora::bitacora('Documento editado en: '.Tipo::find($doc->f_tipo)->nombre);
-        $doc->save();
-        return redirect('/accesoEstudiante')->with('mensaje','Registro Editado');
-      }
+        if($request->archivo!=null){
+          $val['archivo']='required|file|between:1,14800|mimes:pdf';
+          $mensaje['archivo.required']='El archivo es obligatorio';
+          $mensaje['archivo.file']='El archivo no fue subido correctamente';
+          $mensaje['archivo.between']='El peso permitido es de 1 KB a 14MB';
+          $mensaje['archivo.mimes']='Tipo de archivo no válido';
+        }else{
+          $v2=1;
+        }
+        if($v1==1 && $v2==1){
+          return redirect('accesoEstudiante')->with('mensaje','No hay cambios');
+        }else{
+          $this->validate($request,$val,$mensaje);
+          echo $v1.$v2;
+          //Actualizar solo acuerdo
+          if($v2==0){
+            $guardar[1]="plan";
+            $guardar[2]="acuerdoplan";
+            $guardar[3]="memoria";
+            $guardar[4]="acuerdomemoria";
+            if($doc->carpeta!=null){
+              $dir='archivos/'.$guardar[$doc['f_tipo']].'/'.$doc->carpeta;
+              \File::delete(public_path($dir));
+            }
+            try{
+              $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
+              $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
+              $doc->archivo_binario=$binario_contenido;
+              $doc->carpeta="null";
+              $doc->archivo_peso=$_FILES['archivo']['size'];
+              $doc->archivo_tipo=$_FILES['archivo']['type'];
+              $doc->save();
+            }catch(\Exception $e){
+              try{
+                $fh=$hora = date('d').date('m').date('y').date('G').date('i').date('s').".pdf";
+
+                $request->file('archivo')->storeAs($guardar[$doc['f_tipo']],$fh);
+                $doc['carpeta']=$fh;
+                $doc['archivo_binario']="0";
+                $doc->save();
+              }catch(\Exception $e){
+                return redirect('accesoEstudiante')->with('error','Lo sentimos el documento no pudo ser registrado');
+              }
+            }
+          }else{
+            $doc->save();
+          }
+          Bitacora::bitacora('Documento editado en: '.Tipo::find($doc->f_tipo)->nombre);
+          return redirect('accesoEstudiante')->with('mensaje','Registro Editado');
+        }
     }
 
     /**
@@ -192,24 +199,47 @@ class DocumentoEstudianteController extends Controller
     {
       $documento=Documento::find($id);
       if($documento->carpeta!=null){
-
+        $guardar[1]="plan";
+        $guardar[2]="acuerdoplan";
+        $guardar[3]="memoria";
+        $guardar[4]="acuerdomemoria";
+        $dir='archivos/'.$guardar[$documento['f_tipo']].'/'.$documento->carpeta;
+        \File::delete(public_path($dir));
       }
       Bitacora::bitacora('Documento eliminado en: '.Tipo::find($documento->f_tipo)->nombre);
       Documento::destroy($id);
       return redirect('accesoEstudiante')->with('mensaje','Registro eliminado');
     }
     public function verDocumento($id){
-      $var=Documento::find($id);
-      /*header("Content-Disposition: attachment; filename=Hola.pdf"); Para descarga directa*/
-      $contenido=stripslashes($var->archivo_binario);
-      header("Content-type: $var->archivo_tipo");
-      print $contenido;
+          $var=Documento::find($id);
+          if($var->carpeta==null){
+          $contenido=stripslashes($var->archivo_binario);
+          header("Content-type: $var->archivo_tipo");
+          print $contenido;
+        }else {
+          $guardar[1]="plan";
+          $guardar[2]="acuerdoplan";
+          $guardar[3]="memoria";
+          $guardar[4]="acuerdomemoria";
+          echo "
+          <html style='overflow:hidden;'>
+    <embed src='/sipra/public/archivos/".$guardar[$var['f_tipo']]."/".$var->carpeta."' width='100%' height='100%'>
+          </html>
+    ";
+        }
     }
 
     public function verConstancia($id){
       $var=Constancia::find($id);
-      $contenido=stripslashes($var->constancia_binario);
-      header("Content-type: $var->constancia_tipo");
-      print $contenido;
+      if($var->carpeta==null){
+        $contenido=stripslashes($var->constancia_binario);
+        header("Content-type: $var->constancia_tipo");
+        print $contenido;
+      }else{
+        echo "
+        <html style='overflow:hidden;'>
+<embed src='/sipra/public/archivos/constancias/".$var->carpeta."' width='100%' height='100%'>
+        </html>";
+      }
     }
 }

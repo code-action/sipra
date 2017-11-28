@@ -67,7 +67,6 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
                 <hr>
 		        </div>
             {!!Form::close()!!}
-
           <!-- Modal -->
           <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
               {!!Form::open(['url'=>'correo','method'=>'POST','autocomplete'=>'off'])!!}
@@ -93,6 +92,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
           <!-- modal -->
 
 	  	</div>
+
 	  </div>
 
     <!-- js placed at the end of the document so the pages load faster -->

@@ -73,9 +73,24 @@ function cambioBuscar(valor){
   }
 }
 $(document).on('ready',function(){
-$("#mayuscula").keyup(function(){
-  cadena=$("#mayuscula").val();
-  cadena=cadena.toUpperCase();
-  $("#mayuscula").val(cadena);
-});
+  $("#mayuscula").keyup(function(){
+    cadena=$("#mayuscula").val();
+    cadena=cadena.toUpperCase();
+    $("#mayuscula").val(cadena);
+  });
+  $('#carrera').on('change',function(e){
+    $("#horas").removeAttr("readonly");
+    var obtener=$("#carrera").find('option:selected');
+    idcarrera=obtener.val();
+    if(idcarrera!=0){
+      ruta="/sipra/public/obtenerhoras/"+idcarrera;
+      $.get(ruta,function(res){
+        $('#horas').val(res);
+        $('#limite').val(res);
+    });
+  }else{
+    $('#horas').val("");
+    $("#horas").attr("readonly","readonly");
+  }
+  });
 });

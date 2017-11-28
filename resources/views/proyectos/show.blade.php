@@ -63,6 +63,11 @@
           </td>
         </tr>
         <tr>
+          <td><b>Horas del proyecto por estudiante:</b></td>
+          <td>{{$proy->horas}}
+          </td>
+        </tr>
+        <tr>
           <td><b>Carrera:</b></td>
           <td>{{Carrera::nombreCarrera($proy->f_carrera)}}
       </td>

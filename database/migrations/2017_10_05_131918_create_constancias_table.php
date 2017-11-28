@@ -19,8 +19,8 @@ class CreateConstanciasTable extends Migration
             $table->foreign('f_estudiante')->references('id')->on('users');
             $table->string('carpeta')->default('null');
             $table->binary('constancia_binario');
-            $table->string('constancia_peso');
-            $table->string('constancia_tipo');
+            $table->string('constancia_peso')->default('null');
+            $table->string('constancia_tipo')->default('null');;
             $table->timestamps();
         });
     }

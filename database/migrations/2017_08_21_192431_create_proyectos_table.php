@@ -21,6 +21,7 @@ class CreateProyectosTable extends Migration
             $table->integer('anio');
             $table->integer('f_carrera')->unsigned();
             $table->foreign('f_carrera')->references('id')->on('carreras');
+            $table->double('horas');
             $table->timestamps();
         });
     }

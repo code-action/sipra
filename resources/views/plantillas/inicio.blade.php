@@ -27,11 +27,14 @@
           $completo=$completo+1;
         }
       }
+      @endphp
+      <center><h3 style='color:green;'><i class="fa fa-file-pdf-o"></i> SIPRA-UPS</H3></center>
+    @php
       if($sin>0){
         echo "<a href='/sipra/public/proyecto'><div class='alert alert-danger'>No se encontró ningún documento en <b>".$sin."</b> proyecto/s. </div></a>";
       }
       if($medio>0){
-        echo "<a href='/sipra/public/proyecto'><div class='alert alert-warning'>Hay <b>".$sin."</b> proyecto/s que no tiene/n los documentos completos. </div></a>";
+        echo "<a href='/sipra/public/proyecto'><div class='alert alert-warning'>Hay <b>".$medio."</b> proyecto/s que no tiene/n los documentos completos. </div></a>";
       }
       if($completo>0){
         echo "<a href='/sipra/public/proyecto'><div class='alert alert-success'>Hay <b>".$completo."</b> proyecto/s con los documentos completos. </div></a>";
