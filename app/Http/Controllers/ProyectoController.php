@@ -13,6 +13,7 @@ use App\Bitacora;
 use App\Carrera;
 
 
+
 class ProyectoController extends Controller
 {
     /**
@@ -58,10 +59,13 @@ class ProyectoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   $validar['titulo']='required|unique:proyectos|min:30|max:600';
+    {   if($request->limite=="" && $request->f_carrera!=""){
+        $request->limite=Carrera::find($request->f_carrera)->horas;
+        }
+        $validar['titulo']='required|unique:proyectos|min:30|max:600';
         $validar['n_acuerdo']='required|unique:proyectos|min:5';
         $validar['cantidad']='required|integer';
-        $validar['f_carrera']='integer|required|not_in:0';
+        $validar['f_carrera']='required';
         $validar['anio']='integer|required|not_in:0';
         $validar['horas']='required|integer|min:1|max:'.(String)$request->limite;
 
@@ -130,7 +134,9 @@ class ProyectoController extends Controller
      */
     public function update(Request $request, $id)
     {
-      echo $request->limite;
+      if($request->limite=="" && $request->f_carrera!=""){
+          $request->limite=Carrera::find($request->f_carrera)->horas;
+      }
       $m['titulo.required']='El campo título es obligatorio';
       $m['titulo.unique']='Título registrado, ingrese otro';
       $m['titulo.min']='El campo título debe contener 30 caracteres mínimo';

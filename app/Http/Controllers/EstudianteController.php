@@ -9,6 +9,7 @@ use App\Bitacora;
 use App\Enlace;
 use App\Proyecto;
 use App\Http\Requests\EstudianteRequest;
+use App\Union;
 
 class EstudianteController extends Controller
 {
@@ -47,13 +48,17 @@ class EstudianteController extends Controller
       $proy=Proyecto::find($request['id_proy']);
       $proy->cantidad=$proy->cantidad+1;
       $proy->save();
-      User::create([
+      $nuevoe=User::create([
         'f_proyecto'=>$request['id_proy'],
         'name'=>$request['carne'],
         'nombre'=>$request['nombre'],
         'apellido'=>$request['apellido'],
         'tipo'=>'3',
         'password'=>bcrypt($proy->n_acuerdo),
+      ]);
+      Union::create([
+        'f_estudiante'=>$nuevoe->id,
+        'f_proyecto'=>$request['id_proy'],
       ]);
       Bitacora::bitacora('Nuevo estudiante agregado, carné: '.$request['carne']);
       return redirect('/proyecto')->with('mensaje','Registro Guardado');

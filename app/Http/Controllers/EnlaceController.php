@@ -10,6 +10,7 @@ use App\Estudiante;
 use App\Bitacora;
 use App\User;
 use App\Http\Requests\EnlaceRequest;
+use App\Union;
 
 class EnlaceController extends Controller
 {
@@ -92,15 +93,17 @@ class EnlaceController extends Controller
       $valorn='nombre'.(String)$a;
       $valora='apellido'.(String)$a;
 
-      User::create([
+      $nuevoe=User::create([
         'f_proyecto'=>$id,
         'name'=>$request[$valor],
         'nombre'=>$request[$valorn],
         'apellido'=>$request[$valora],
         'tipo'=>'3',
         'password'=>bcrypt($bproy->n_acuerdo),
-
-
+      ]);
+      Union::create([
+        'f_estudiante'=>$nuevoe->id,
+        'f_proyecto'=>$id,
       ]);
       Bitacora::bitacora('Nuevo estudiante agregado, carné: '.$request[$valor]);
     }
@@ -177,6 +180,11 @@ class EnlaceController extends Controller
           Bitacora::bitacora('Constancia eliminada, carné: '.$carne);
         }
         $proy=Proyecto::find($id_proy);
+
+        $uniones=Union::where('f_estudiante','=',$id)->get();
+        foreach($uniones as $union){
+          Union::destroy($union->id);
+        }
           User::destroy($estudiante->id);
     $proy['cantidad']=$proy['cantidad']-1;
     $proy->save();
