@@ -10,6 +10,7 @@ use App\Http\Requests\ProyectoRequest;
 use App\Documento;
 use App\User;
 use App\Bitacora;
+use App\Carrera;
 
 
 class ProyectoController extends Controller
@@ -129,6 +130,7 @@ class ProyectoController extends Controller
      */
     public function update(Request $request, $id)
     {
+      echo $request->limite;
       $m['titulo.required']='El campo título es obligatorio';
       $m['titulo.unique']='Título registrado, ingrese otro';
       $m['titulo.min']='El campo título debe contener 30 caracteres mínimo';
@@ -148,11 +150,15 @@ class ProyectoController extends Controller
       $m['f_carrera.required']='El campo carrera es obligatorio';
       $m['f_carrera.not_in']='Seleccione una opción válida';
 
+      $m['horas.required']='El campo horas es obligatorio';
+      $m['horas.min']='El campo horas debe ser mayor que 0';
+      $m['horas.max']='El campo horas no debe exceder las '.$request->limite.' horas';
+
         $proyecto=proyecto::find($id);
         if($request->vc=='no'){
           $request->cantidad=$proyecto->cantidad;
         }
-        $v1=$v2=$v3=$v4=$v5=0;
+        $v1=$v2=$v3=$v4=$v5=$v6=0;
         if($request->titulo==$proyecto->titulo){
           $v1=1;
         }else{
@@ -178,7 +184,12 @@ class ProyectoController extends Controller
         }else{
           $val['f_carrera']='integer|required|not_in:0';
         }
-        if($v1==1 && $v2==1 && $v3==1 && $v4==1 && $v5==1){
+        if($request->f_carrera==$proyecto->f_carrera && $request->horas==$proyecto->horas){
+          $v6=1;
+        }else{
+          $val['horas']='required|integer|min:1|max:'.(String)$request->limite;
+        }
+        if($v1==1 && $v2==1 && $v3==1 && $v4==1 && $v5==1 && $v6==1){
           return redirect('/proyecto')->with('mensaje','No hay cambios');
         }else{
           $this->validate($request,$val,$m);

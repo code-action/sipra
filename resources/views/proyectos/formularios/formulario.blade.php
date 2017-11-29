@@ -1,5 +1,12 @@
 <?php use App\User;?>
+@if($bandera==1)
 <input type="hidden" name="limite" id="limite" value="">
+@else
+	@php
+		echo $limite=App\Carrera::find($proyecto->f_carrera)->horas;
+	@endphp
+	<input type="hidden" name="limite" id="limite" value={{$limite}}>
+@endif
 @foreach ($errors->get('titulo') as $error)
 	<div class="alert-d">
 		{{$error}}
@@ -52,24 +59,9 @@
 <div class="form-group">
 	{!!Form::label('lcarrera','Carrera:',['class'=>'col-sm-4 control-label'])!!}
 	<div class="col-sm-7">
-		<select class="form-control" name="f_carrera" id="carrera">
-			<option value='0'>[Seleccione una opción]</option>
-		  <?php use App\Carrera;
-			$carr=Carrera::TodasCarrera(null,'1');?>
-			@if($bandera==1)
-			@foreach ($carr as $c)
-				<option value='{{$c->id}}'>{{$c->nombre}}</option>
-			@endforeach
-		@else
-			@foreach ($carr as $c)
-				@if($proyecto->f_carrera==$c->id)
-					<option value='{{$c->id}}' selected>{{$c->nombre}}</option>
-				@else
-				<option value='{{$c->id}}'>{{$c->nombre}}</option>
-			@endif
-			@endforeach
-		@endif
-		</select>
+		{!!Form::select('f_carrera',
+          App\Carrera::arrayCarrera()
+          ,null, ['placeholder' => 'Seleccione una opción','class'=>'form-control has-feedback-left','id'=>'carrera'])!!}
 	</div>
 </div>
 @foreach ($errors->get('horas') as $error)
@@ -80,7 +72,11 @@
 <div class="form-group">
 	{!!Form::label('lhoras','Horas del proyecto por estudiante:',['class'=>'col-sm-4 control-label'])!!}
 	<div class="col-sm-7">
+		@if(count($errors)>0 || $bandera==2)
+		{!!Form::number('horas',null,['id'=>'horas','class'=>'form-control'])!!}
+	@else
 		{!!Form::number('horas',null,['id'=>'horas','class'=>'form-control', 'readonly'=>'readonly'])!!}
+	@endif
 	</div>
 </div>
 @foreach ($errors->get('anio') as $error)
