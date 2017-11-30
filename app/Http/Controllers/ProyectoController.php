@@ -49,7 +49,7 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        return view('proyectos.create');
+        return view('proyectos.create2');
     }
 
     /**

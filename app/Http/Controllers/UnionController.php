@@ -13,7 +13,7 @@ class UnionController extends Controller
      */
     public function index()
     {
-        //
+        return view('proyectos.create');
     }
 
     /**
