@@ -7,9 +7,11 @@
 				<?php $bandera=1;?>
 				@include('proyectos.formularios.formulario2')
 				<input name="bandera" type="hidden" value="1">
+				<center>
 				<a class="btn btn-default" href="/sipra/public/proyecto">Cancelar</a>
-				{!!Form::submit('Continuar',['class'=>'btn btn-theme'])!!}
+				{!!Form::submit('Guardar',['class'=>'btn btn-theme'])!!}
 				{!!Form::close()!!}
+				</center>
 
 		</div>
 @stop

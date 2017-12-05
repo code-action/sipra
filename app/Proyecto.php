@@ -47,4 +47,7 @@ class Proyecto extends Model
       }
         return false;
     }
+    public function carrera(){
+    return $this->belongsTo('App\Carrera','f_carrera');
+  }
 }

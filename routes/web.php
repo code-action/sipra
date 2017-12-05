@@ -39,6 +39,7 @@ Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
   Route::match(['get','post'],'/obtenerhoras/{id}','CarreraController@horas');
 
   Route::resource('proyecto','ProyectoController');
+  Route::match(['get','post'],'/buscarEstudiante/{id}','ProyectoController@estudiante');
   Route::resource('documento','DocumentoController');
   Route::resource('enlace','EnlaceController');
   Route::resource('constancia','ConstanciaController');

@@ -11,6 +11,7 @@ use App\Documento;
 use App\User;
 use App\Bitacora;
 use App\Carrera;
+use App\Union;
 
 
 
@@ -252,5 +253,27 @@ class ProyectoController extends Controller
         Proyecto::destroy($id);
         Bitacora::bitacora('Proyecto eliminado');
         return redirect('/proyecto')->with('mensaje','Proyecto eliminado');
+    }
+
+    public static function estudiante($carne){
+      $acumulado=0;
+        $estudiante=User::where('name','=',$carne)->get();
+        if(count($estudiante)>0){
+          foreach ($estudiante as $e) {
+            $uniones=Union::where('f_estudiante','=',$e->id)->get();
+            foreach ($uniones as $u){
+              $proy=Proyecto::find($u->f_proyecto);
+              $acumulado=$acumulado+$proy->horas;
+              $total=$proy->carrera->horas;
+            }
+            if($acumulado<$total){
+              return $e;
+            }else{
+              return 'n';
+            }
+          }
+        }else{
+          return '0';
+        }
     }
 }

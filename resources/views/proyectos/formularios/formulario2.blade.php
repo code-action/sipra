@@ -109,25 +109,28 @@
 			<div class="content-panel">
 				<div class="panel-body">
 					<h5><i class="fa fa-book"></i> Estudiantes</h5>
+
 					<div id="hero-area" class="graph">
 						<div class="form-group">
-							{!!Form::label('lcarne','Carné:',['class'=>'col-sm-4 control-label'])!!}
+							{!!Form::label('lcarne','Carné: ',['class'=>'col-sm-4 control-label'])!!}
 							<div class="col-sm-7">
-								{!!Form::text('t_carne',null,['id'=>'mayuscula','class'=>'form-control', 'placeholder'=>'Carné'])!!}
+								{!!Form::text('t_carne',null,['id'=>'t_carne','class'=>'form-control', 'placeholder'=>'Carné'])!!}
 							</div>
 						</div>
 						<div class="form-group">
-							{!!Form::label('lnombre','Nombre:',['class'=>'col-sm-4 control-label'])!!}
+							{!!Form::label('lnombre','Nombre: ',['class'=>'col-sm-4 control-label'])!!}
 							<div class="col-sm-7">
-								{!!Form::text('t_nombre',null,['id'=>'mayuscula','class'=>'form-control', 'placeholder'=>'Nombre'])!!}
+								{!!Form::text('t_nombre',null,['id'=>'t_nombre','class'=>'form-control', 'placeholder'=>'Nombre'])!!}
 							</div>
 						</div>
 						<div class="form-group">
-							{!!Form::label('lapellido','N° de acuerdo del plan:',['class'=>'col-sm-4 control-label'])!!}
+							{!!Form::label('lapellido','Apellido: ',['class'=>'col-sm-4 control-label'])!!}
 							<div class="col-sm-7">
-								{!!Form::text('t_apellido',null,['id'=>'mayuscula','class'=>'form-control', 'placeholder'=>'Carné'])!!}
+								{!!Form::text('t_apellido',null,['id'=>'t_apellido','class'=>'form-control', 'placeholder'=>'Apellido'])!!}
 							</div>
 						</div>
+						<a class="btn btn-default" id="limpiar">Limpiar</a>
+						<a class="btn btn-default" id="agregar">Agregar</a>
 					</div>
 				</div>
 			</div>
@@ -136,11 +139,12 @@
 			<div class="content-panel">
 				<div class="panel-body">
 					<div id="hero-donut" class="graph">
-						<table class="table table-hover">
+						<table class="table table-hover" id="tablaEstudiantes">
 							<tr>
 								<th>Carné</th>
 								<th>Nombre</th>
 								<th>Apellido</th>
+								<th>Opción</th>
 							</tr>
 						</table>
 
