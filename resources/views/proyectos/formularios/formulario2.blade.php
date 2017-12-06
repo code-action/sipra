@@ -7,18 +7,12 @@
 	@endphp
 	<input type="hidden" name="limite" id="limite" value={{$limite}}>
 @endif
-
 <div id="morris">
 	<div class="row mt">
 		<div class="col-lg-6">
 			<div class="content-panel">
 				<div class="panel-body">
 					<div id="hero-graph" class="graph">
-						@foreach ($errors->get('titulo') as $error)
-							<div class="alert-d">
-								{{$error}}
-							</div>
-						@endforeach
 						<div class="form-group">
 							{!!Form::label('ltitulo','Título:',['class'=>'col-sm-2 control-label'])!!}
 							<div class="col-sm-9">
@@ -33,22 +27,12 @@
 			<div class="content-panel">
 				<div class="panel-body">
 					<div id="hero-graph" class="graph">
-						@foreach ($errors->get('n_acuerdo') as $error)
-							<div class="alert-d">
-								{{$error}}
-							</div>
-						@endforeach
 						<div class="form-group">
 							{!!Form::label('lacuerdo','N° de acuerdo del plan:',['class'=>'col-sm-4 control-label'])!!}
 							<div class="col-sm-7">
 								{!!Form::text('n_acuerdo',null,['id'=>'mayuscula','class'=>'form-control', 'placeholder'=>'N° de acuerdo'])!!}
 							</div>
 						</div>
-						@foreach ($errors->get('f_carrera') as $error)
-							<div class="alert-d">
-								{{$error}}
-							</div>
-						@endforeach
 						<div class="form-group">
 							{!!Form::label('lcarrera','Carrera:',['class'=>'col-sm-4 control-label'])!!}
 							<div class="col-sm-7">
@@ -57,11 +41,6 @@
 						          ,null, ['placeholder' => 'Seleccione una opción','class'=>'form-control has-feedback-left','id'=>'carrera'])!!}
 							</div>
 						</div>
-						@foreach ($errors->get('horas') as $error)
-							<div class="alert-d">
-								{{$error}}
-							</div>
-						@endforeach
 						<div class="form-group">
 							{!!Form::label('lhoras','Horas del proyecto por estudiante:',['class'=>'col-sm-4 control-label'])!!}
 							<div class="col-sm-7">
@@ -72,11 +51,6 @@
 							@endif
 							</div>
 						</div>
-						@foreach ($errors->get('anio') as $error)
-							<div class="alert-d">
-								{{$error}}
-							</div>
-						@endforeach
 						<div class="form-group">
 							{!!Form::label('lanio','Año:',['class'=>'col-sm-4 control-label'])!!}
 							<div class="col-sm-7">
@@ -109,7 +83,7 @@
 			<div class="content-panel">
 				<div class="panel-body">
 					<h5><i class="fa fa-book"></i> Estudiantes</h5>
-
+					<input type="hidden" id='auxiliar' value=""/>
 					<div id="hero-area" class="graph">
 						<div class="form-group">
 							{!!Form::label('lcarne','Carné: ',['class'=>'col-sm-4 control-label'])!!}
@@ -146,8 +120,24 @@
 								<th>Apellido</th>
 								<th>Opción</th>
 							</tr>
+							@if(isset($carne))
+								@for ($i=0; $i < count($carne); $i++)
+									<tr>
+										<td>{{$carne[$i]}}</td>
+										<td>{{$nombre[$i]}}</td>
+										<td>{{$apellido[$i]}}</td>
+										<td><input type='hidden' name='id[]' value={{$id[$i]}}>
+				            <input type='hidden' name='carne[]' value={{$carne[$i]}}>
+				            <input type='hidden' name='nombre[]' value={{$nombre[$i]}}>
+				            <input type='hidden' name='apellido[]' value={{$apellido[$i]}}>
+				            <button type='button' name='button' class='btn btn-xs btn-danger' id='eliminar_estudiante'>
+				            <i class='fa fa-trash-o'></i>
+				            </button>
+				            </td>
+									</tr>
+								@endfor
+							@endif
 						</table>
-
 					</div>
 				</div>
 			</div>

@@ -12,6 +12,8 @@ use App\User;
 use App\Bitacora;
 use App\Carrera;
 use App\Union;
+use Validator;
+use DB;
 
 
 
@@ -65,10 +67,10 @@ class ProyectoController extends Controller
         }
         $validar['titulo']='required|unique:proyectos|min:30|max:600';
         $validar['n_acuerdo']='required|unique:proyectos|min:5';
-        $validar['cantidad']='required|integer';
         $validar['f_carrera']='required';
         $validar['anio']='integer|required|not_in:0';
         $validar['horas']='required|integer|min:1|max:'.(String)$request->limite;
+        $validar['carne']='required';
 
         $mensaje['titulo.required']='El campo título es obligatorio';
         $mensaje['titulo.unique']='Título registrado, ingrese otro';
@@ -79,12 +81,9 @@ class ProyectoController extends Controller
         $mensaje['n_acuerdo.unique']='N° de acuerdo ya ha sido registrado';
         $mensaje['n_acuerdo.min']='El campo n° de acuerdo debe contener 5 caracteres mínimo';
 
-        $mensaje['cantidad.required']='El N° de estudiantes es obligatorio';
-        $mensaje['cantidad.integer']='El campo debe contener solamente números';
-
         $mensaje['anio.integer']='El campo debe contener solamente números';
         $mensaje['anio.required']='El campo año es obligatorio';
-        $mensaje['anio.not_in']='Seleccione una opción válida';
+        $mensaje['anio.not_in']='Seleccione una opción válida en año';
 
         $mensaje['f_carrera.required']='El campo carrera es obligatorio';
         $mensaje['f_carrera.not_in']='Seleccione una opción válida';
@@ -93,12 +92,60 @@ class ProyectoController extends Controller
         $mensaje['horas.min']='El campo horas debe ser mayor que 0';
         $mensaje['horas.max']='El campo horas no debe exceder las '.$request->limite.' horas';
 
-        $this->validate($request,$validar,$mensaje);
+        $mensaje['carne.required']='No se ha ingresado ningún estudiante';
 
-        $request->n_acuerdo=$request->n_acuerdo;
-        $proy=Proyecto::create($request->all());
+          $valida= Validator::make($request->all(),$validar,$mensaje);
+
+          $titulo=$request->titulo;
+          $n_acuerdo=$request->n_acuerdo;
+          $anio=$request->anio;
+          $f_carrera=$request->f_carrera;
+          $horas=$request->horas;
+
+          $id=$request->id;
+          $carne=$request->carne;
+          $nombre=$request->nombre;
+          $apellido=$request->apellido;
+
+          if($valida->fails()){
+            return view('proyectos.create2',compact('titulo','n_acuerdo','anio','f_carrera','horas','id','carne','nombre','apellido'))->withErrors($valida->errors());
+          }else{
+              DB::beginTransaction();
+              try{
+                  $proy=Proyecto::create([
+                    'titulo'=>$titulo,
+                    'n_acuerdo'=>$n_acuerdo,
+                    'anio'=>$anio,
+                    'f_carrera'=>$f_carrera,
+                    'horas'=>$horas,
+                  ]);
+
+                  for ($i=0; $i <count($carne) ; $i++) {
+                    if($id[$i]==""){
+                    $nuevoe=User::create([
+                      'f_proyecto'=>$proy->id,
+                      'name'=>$carne[$i],
+                      'nombre'=>$nombre[$i],
+                      'apellido'=>$apellido[$i],
+                      'tipo'=>'3',
+                      'password'=>bcrypt($proy->n_acuerdo),
+                    ]);
+                  }else{
+                    $nuevoe->id=$id[$i];
+                  }
+
+                    Union::create([
+                      'f_estudiante'=>$nuevoe->id,
+                      'f_proyecto'=>$proy->id,
+                    ]);
+                  }
+
+              }catch(\Exception $e){
+
+              }
         Bitacora::bitacora('Nuevo proyecto creado número de acuerdo: '.$request->n_acuerdo);
         return redirect('/enlace/create?id='.$proy['id'])->with('mensaje','Registro Guardado');
+        }
     }
 
     /**

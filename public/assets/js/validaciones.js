@@ -99,11 +99,13 @@ $(document).on('ready',function(){
     if(validar()==true && !carne_agregados.includes(carne)){
     var nombre= $('#t_nombre').val();
     var apellido= $('#t_apellido').val();
+    var id=$('#auxiliar').val();
     var tabla= $('#tablaEstudiantes');
     agregar="<tr><td>"+carne+"</td>"+
             "<td>"+nombre+"</td>"+
             "<td>"+apellido+"</td>"+
-            "<td>"+"<input type='hidden' name='carne[]' value='"+carne+"'/>"+
+            "<td>"+"<input type='hidden' name='id[]' value='"+id+"'/>"+
+            "<input type='hidden' name='carne[]' value='"+carne+"'/>"+
             "<input type='hidden' name='nombre[]' value='"+nombre+"'/>"+
             "<input type='hidden' name='apellido[]' value='"+apellido+"'/>"+
             "<button type='button' name='button' class='btn btn-xs btn-danger' id='eliminar_estudiante'>"+
@@ -113,6 +115,21 @@ $(document).on('ready',function(){
     carne_agregados.push(carne);
     tabla.append(agregar);
     limpiar();
+  }else if(carne_agregados.includes(carne)){
+    var unique_id = $.gritter.add({
+      // (string | mandatory) the heading of the notification
+      title: 'Carné ya existe!',
+      // (string | mandatory) the text inside the notification
+      text: 'Estudiante con ese carné ya fue agregado',
+      // (string | optional) the image to display on the left
+      image: '',
+      // (bool | optional) if you want it to fade out on its own or just sit there
+      sticky: false,
+      // (int | optional) the time you want it to be alive for before fading out
+      time: '7000',
+      // (string | optional) the class name you want to apply to that specific message
+      class_name: 'gritter-light'
+  });
   }
   });
     $('#limpiar').click(function(){
@@ -120,7 +137,7 @@ $(document).on('ready',function(){
     });
     $("#tablaEstudiantes").on('click','#eliminar_estudiante',function(e){
       e.preventDefault();
-      var carne = $(this).parents('tr').find('input:eq(0)').val();
+      var carne = $(this).parents('tr').find('input:eq(1)').val();
       var indice = carne_agregados.indexOf(carne);
     carne_agregados.splice(indice);
       $(this).parent('td').parent('tr').remove();
@@ -131,7 +148,7 @@ $(document).on('ready',function(){
       $('#t_carne').val(carne);
       var ruta="/sipra/public/buscarEstudiante/"+carne;
       $.get(ruta,function(res){
-        if(res!='0' && res!='n'){
+        if(res!='0' && res!='n' && !carne_agregados.includes(carne)){
           var nombre= $('#t_nombre').val(res.nombre);
           var apellido= $('#t_apellido').val(res.apellido);
           var unique_id = $.gritter.add({
@@ -148,6 +165,7 @@ $(document).on('ready',function(){
             // (string | optional) the class name you want to apply to that specific message
             class_name: 'gritter-light'
         });
+        $('#auxiliar').val(res.id);
         }
         if(res=='n'){
           var unique_id = $.gritter.add({
@@ -165,6 +183,9 @@ $(document).on('ready',function(){
             class_name: 'gritter-light'
         });
         limpiar();
+        }
+        if(res=='0'){
+          $('#auxiliar').val("");
         }
       });
     });
