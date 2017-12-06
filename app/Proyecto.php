@@ -50,4 +50,14 @@ class Proyecto extends Model
     public function carrera(){
     return $this->belongsTo('App\Carrera','f_carrera');
   }
+  public function uniones(){
+        return $this->hasMany('App\Union','f_proyecto');
+    }
+  public static function arrayAnio(){
+    $arrayA= [];
+    for($a=1991;$a<=date("Y");$a++){
+      $arrayA[$a]=$a;
+    }
+    return $arrayA;
+  }
 }

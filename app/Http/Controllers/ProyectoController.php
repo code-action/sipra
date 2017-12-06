@@ -52,7 +52,7 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        return view('proyectos.create2');
+        return view('proyectos.create');
     }
 
     /**
@@ -108,18 +108,18 @@ class ProyectoController extends Controller
           $apellido=$request->apellido;
 
           if($valida->fails()){
-            return view('proyectos.create2',compact('titulo','n_acuerdo','anio','f_carrera','horas','id','carne','nombre','apellido'))->withErrors($valida->errors());
+            return view('proyectos.create',compact('titulo','n_acuerdo','anio','f_carrera','horas','id','carne','nombre','apellido'))->withErrors($valida->errors());
           }else{
-              DB::beginTransaction();
+              // DB::beginTransaction();
+              $proy=Proyecto::create([
+                'titulo'=>$titulo,
+                'n_acuerdo'=>$n_acuerdo,
+                'anio'=>$anio,
+                'f_carrera'=>$f_carrera,
+                'horas'=>$horas,
+                'cantidad'=>count($carne),
+              ]);
               try{
-                  $proy=Proyecto::create([
-                    'titulo'=>$titulo,
-                    'n_acuerdo'=>$n_acuerdo,
-                    'anio'=>$anio,
-                    'f_carrera'=>$f_carrera,
-                    'horas'=>$horas,
-                  ]);
-
                   for ($i=0; $i <count($carne) ; $i++) {
                     if($id[$i]==""){
                     $nuevoe=User::create([
@@ -131,6 +131,7 @@ class ProyectoController extends Controller
                       'password'=>bcrypt($proy->n_acuerdo),
                     ]);
                   }else{
+                    $nuevoe= new User;
                     $nuevoe->id=$id[$i];
                   }
 
@@ -139,12 +140,13 @@ class ProyectoController extends Controller
                       'f_proyecto'=>$proy->id,
                     ]);
                   }
-
+              DB::commit();
               }catch(\Exception $e){
-
+                  DB::rollback();
+                  return redirect('/proyecto')->with('error','No se pudo guardar');
               }
         Bitacora::bitacora('Nuevo proyecto creado número de acuerdo: '.$request->n_acuerdo);
-        return redirect('/enlace/create?id='.$proy['id'])->with('mensaje','Registro Guardado');
+        return redirect('/proyecto')->with('mensaje','Registro Guardado');
         }
     }
 
@@ -194,9 +196,6 @@ class ProyectoController extends Controller
       $m['n_acuerdo.unique']='N° de acuerdo ya ha sido registrado';
       $m['n_acuerdo.min']='El campo n° de acuerdo debe contener 5 caracteres mínimo';
 
-      $m['cantidad.required']='El N° de estudiantes es obligatorio';
-      $m['cantidad.integer']='El campo debe contener solamente números';
-
       $m['anio.integer']='El campo debe contener solamente números';
       $m['anio.required']='El campo año es obligatorio';
       $m['anio.not_in']='Seleccione una opción válida';
@@ -209,56 +208,47 @@ class ProyectoController extends Controller
       $m['horas.max']='El campo horas no debe exceder las '.$request->limite.' horas';
 
         $proyecto=proyecto::find($id);
-        if($request->vc=='no'){
-          $request->cantidad=$proyecto->cantidad;
-        }
-        $v1=$v2=$v3=$v4=$v5=$v6=0;
-        if($request->titulo==$proyecto->titulo){
-          $v1=1;
-        }else{
+        $v=0;
+        if(!$request->titulo==$proyecto->titulo){
           $val['titulo']='required|unique:proyectos|min:30|max:600';
         }
-        if($request->n_acuerdo==$proyecto->n_acuerdo){
-          $v5=1;
-        }else{
+        if(!$request->n_acuerdo==$proyecto->n_acuerdo){
           $val['n_acuerdo']='required|unique:proyectos|min:5';
-        }
-        if($request->cantidad==$proyecto->cantidad){
-          $v2=1;
-        }else{
-          $val['cantidad']='required|integer';
-        }
-        if($request->anio==$proyecto->anio){
-          $v3=1;
-        }else{
-          $val['anio']='integer|required|not_in:0';
-        }
-        if($request->f_carrera==$proyecto->f_carrera){
-          $v4=1;
-        }else{
-          $val['f_carrera']='integer|required|not_in:0';
+          $v=1;
         }
         if($request->f_carrera==$proyecto->f_carrera && $request->horas==$proyecto->horas){
-          $v6=1;
         }else{
           $val['horas']='required|integer|min:1|max:'.(String)$request->limite;
         }
-        if($v1==1 && $v2==1 && $v3==1 && $v4==1 && $v5==1 && $v6==1){
-          return redirect('/proyecto')->with('mensaje','No hay cambios');
-        }else{
+        $val['anio']='integer|required|not_in:0';
+        $val['f_carrera']='integer|required|not_in:0';
+
+
           $this->validate($request,$val,$m);
-          $proyecto->fill($request->all());
-          if($v5==0){
+          $proyecto->fill([
+            'titulo'=>$request->titulo,
+            'n_acuerdo'=>$request->n_acuerdo,
+            'anio'=>$request->anio,
+            'f_carrera'=>$request->f_carrera,
+            'horas'=>$request->horas,
+          ]);
+          if($v==1){
             $estudiantes=User::where('f_proyecto','=',$proyecto->id)->get();
             foreach ($estudiantes as $est) {
               $est->password=bcrypt($request['n_acuerdo']);
               $est->save();
             }
           }
+          $eliminados=$request->eliminado;
+          $idProy=$proyecto->id;
+          if(count($eliminados)>0){
+            Bitacora::bitacora('Proyecto editado número de acuerdo: '.$request->n_acuerdo);
+            return view('proyectos.eliminados',compact('eliminados','idProy'));
+          }else{
           $proyecto->save();
           Bitacora::bitacora('Proyecto editado número de acuerdo: '.$request->n_acuerdo);
           return redirect('/proyecto')->with('mensaje','Registro actualizado');
-        }
+          }
     }
 
     /**
@@ -322,5 +312,11 @@ class ProyectoController extends Controller
         }else{
           return '0';
         }
+    }
+    public function eliminar(Request $request){
+      $idPro=$request->idProy;
+      $idEst=$request->id;
+      $coment=$request->comentario;
+      
     }
 }

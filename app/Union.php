@@ -11,4 +11,7 @@ class Union extends Model
     public function proyecto(){
     return $this->belongsTo('App\Proyecto','f_proyecto');
   }
+  public function estudiante(){
+  return $this->belongsTo('App\User','f_estudiante');
+}
 }

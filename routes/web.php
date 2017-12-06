@@ -40,6 +40,7 @@ Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
 
   Route::resource('proyecto','ProyectoController');
   Route::match(['get','post'],'/buscarEstudiante/{id}','ProyectoController@estudiante');
+  Route::match(['get','post'],'/proyecto/eliminar','ProyectoController@eliminar');
   Route::resource('documento','DocumentoController');
   Route::resource('enlace','EnlaceController');
   Route::resource('constancia','ConstanciaController');

@@ -74,6 +74,11 @@ function cambioBuscar(valor){
 }
 $(document).on('ready',function(){
   var carne_agregados=[];
+  var contador = $("#contador").val();
+  for (i = 0; i <= contador; i++) {
+    var c_tmp = $("#ya_agregados"+i).val();
+    carne_agregados.push(c_tmp);
+  }
   $("#mayuscula").keyup(function(){
     cadena=$("#mayuscula").val();
     cadena=cadena.toUpperCase();
@@ -137,10 +142,19 @@ $(document).on('ready',function(){
     });
     $("#tablaEstudiantes").on('click','#eliminar_estudiante',function(e){
       e.preventDefault();
+      var id = $(this).parents('tr').find('input:eq(0)').val();
       var carne = $(this).parents('tr').find('input:eq(1)').val();
       var indice = carne_agregados.indexOf(carne);
     carne_agregados.splice(indice);
       $(this).parent('td').parent('tr').remove();
+      if(id!='' && $('#bandera').val()==2){
+        var eliminado ="<input type='hidden' name='eliminado[]' value='"+id+"'>";
+        $('#eliminados').append(eliminado);
+      }
+    });
+    $("#borrador").on('click','#salvar_estudiante',function(e){
+      e.preventDefault();
+      $(this).parent('div').parent('td').parent('tr').remove();
     });
     $("#t_carne").keyup(function(){
       carne=$('#t_carne').val();
