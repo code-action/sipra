@@ -15,6 +15,7 @@
       </td>
         </tr>
         <tr>
+          <td><b>Estudiantes: {{$proy->cantidad}}</b></td>
           @php
             $uniones=App\Union::where('f_proyecto','=',$proy->id)->get();
           @endphp
