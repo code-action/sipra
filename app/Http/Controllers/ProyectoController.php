@@ -7,6 +7,7 @@ use App\Estudiante;
 use App\Constancia;
 use App\Proyecto;
 use App\Http\Requests\ProyectoRequest;
+use App\Http\Requests\EliminarRequest;
 use App\Documento;
 use App\User;
 use App\Bitacora;
@@ -14,8 +15,7 @@ use App\Carrera;
 use App\Union;
 use Validator;
 use DB;
-
-
+use Session;
 
 class ProyectoController extends Controller
 {
@@ -110,7 +110,7 @@ class ProyectoController extends Controller
           if($valida->fails()){
             return view('proyectos.create',compact('titulo','n_acuerdo','anio','f_carrera','horas','id','carne','nombre','apellido'))->withErrors($valida->errors());
           }else{
-              // DB::beginTransaction();
+              DB::beginTransaction();
               $proy=Proyecto::create([
                 'titulo'=>$titulo,
                 'n_acuerdo'=>$n_acuerdo,
@@ -223,7 +223,7 @@ class ProyectoController extends Controller
         $val['anio']='integer|required|not_in:0';
         $val['f_carrera']='integer|required|not_in:0';
 
-
+          $total=count($request->carne)+count($request->eliminado);
           $this->validate($request,$val,$m);
           $proyecto->fill([
             'titulo'=>$request->titulo,
@@ -231,6 +231,7 @@ class ProyectoController extends Controller
             'anio'=>$request->anio,
             'f_carrera'=>$request->f_carrera,
             'horas'=>$request->horas,
+            'cantidad'=>$total,
           ]);
           if($v==1){
             $estudiantes=User::where('f_proyecto','=',$proyecto->id)->get();
@@ -239,10 +240,48 @@ class ProyectoController extends Controller
               $est->save();
             }
           }
+          $id=$request->id;
+          $carne=$request->carne;
+          $nombre=$request->nombre;
+          $apellido=$request->apellido;
+          try{
+              for ($i=0; $i <count($carne) ; $i++) {
+                if($id[$i]==""){
+                $nuevoe=User::create([
+                  'f_proyecto'=>$proyecto->id,
+                  'name'=>$carne[$i],
+                  'nombre'=>$nombre[$i],
+                  'apellido'=>$apellido[$i],
+                  'tipo'=>'3',
+                  'password'=>bcrypt($proyecto->n_acuerdo),
+                ]);
+                Union::create([
+                  'f_estudiante'=>$nuevoe->id,
+                  'f_proyecto'=>$proyecto->id,
+                ]);
+              }else{
+                $conteo=Union::where('f_proyecto','=',$proyecto->id)->where('f_estudiante','=',$id[$i])->count();
+                if($conteo==0){
+                $nuevoe= new User;
+                $nuevoe->id=$id[$i];
+                Union::create([
+                  'f_estudiante'=>$nuevoe->id,
+                  'f_proyecto'=>$proyecto->id,
+                ]);
+                }
+              }
+              }
+          DB::commit();
+          }catch(\Exception $e){
+              DB::rollback();
+              return redirect('/proyecto')->with('error','No se pudo editar');
+          }
           $eliminados=$request->eliminado;
           $idProy=$proyecto->id;
           if(count($eliminados)>0){
+            $proyecto->save();
             Bitacora::bitacora('Proyecto editado número de acuerdo: '.$request->n_acuerdo);
+            Session::flash('mensaje','Cambios actualizado');
             return view('proyectos.eliminados',compact('eliminados','idProy'));
           }else{
           $proyecto->save();
@@ -313,10 +352,11 @@ class ProyectoController extends Controller
           return '0';
         }
     }
-    public function eliminar(Request $request){
+    public function eliminar(EliminarRequest $request){
       $idPro=$request->idProy;
       $idEst=$request->id;
       $coment=$request->comentario;
-      
+      echo "Submmit";
+
     }
 }

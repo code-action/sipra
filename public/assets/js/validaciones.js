@@ -203,6 +203,33 @@ $(document).on('ready',function(){
         }
       });
     });
+      $("#eliminar").on('click',function(e){
+        var cuenta=0;
+        var vacio=0;
+        $('.task').each(function(){
+          cuenta=cuenta+1;
+          if($(this).val().trim()==""){
+            vacio=vacio+1;
+            var unique_id = $.gritter.add({
+              // (string | mandatory) the heading of the notification
+              title: 'El '+cuenta+'° comentario esta vacío!',
+              // (string | mandatory) the text inside the notification
+              text: 'El comentario es obligatorio',
+              // (string | optional) the image to display on the left
+              image: '',
+              // (bool | optional) if you want it to fade out on its own or just sit there
+              sticky: false,
+              // (int | optional) the time you want it to be alive for before fading out
+              time: '7000',
+              // (string | optional) the class name you want to apply to that specific message
+              class_name: 'gritter-light'
+          });
+          }
+        });
+        if(vacio==0){
+          $('#formEliminar').submit();
+        }
+      });
 });
 function validar(){
   var carne= $('#t_carne').val();

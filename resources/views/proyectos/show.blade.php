@@ -15,53 +15,20 @@
       </td>
         </tr>
         <tr>
-          <?php use App\User;
-                use App\Carrera;
-          $estudiantes=User::where('f_proyecto','=',$proy->id)->get();
-          $conteo=count($estudiantes);
-           ?>
-          <td><b>N° de estudiantes:{{$proy->cantidad}}</b>
-            @if($conteo!=0)
-            <br>
-            <a href="/sipra/public/estudiante/create?id={{$proy->id}}" class="btn btn-info"><i class="fa fa-plus"></i></a>
-            @endif
-          </td>
-
+          @php
+            $uniones=App\Union::where('f_proyecto','=',$proy->id)->get();
+          @endphp
           <td>
-            @if($conteo==0)
-              <a href="/sipra/public/enlace/create?id={{$proy->id}}">Agregar datos de estudiante/s</a>
-            @endif
-            @foreach ($estudiantes as $est)
-              <?php $nombre=$est->apellido.", ".$est->nombre;?>
-                  @if($conteo>1)
-                  {!!Form::open(['route'=>['enlace.destroy',$est->id],'method'=>'DELETE','class'=>'form-inline'])!!}
-                  <div class="col-sm-9"><p>{{$est->name.":  "}}
-                    &nbsp;&nbsp;
-                  {{$nombre}}</div>
-                  <button class="btn btn-danger btn-sm" type="button" onClick="return swal({
-                    title: '¿Desea eliminar el documento?',
-                    text: 'Ya no estara disponible !',   type: 'warning',
-                    showCancelButton: true,   confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Si, enviar!',
-                    cancelButtonText: 'No, Cancelar!',   closeOnConfirm: true,
-                    closeOnCancel: false }, function(isConfirm){
-                    if (isConfirm) { submit();
-                        swal('Deleted!', 'El Registro enviado', 'success');
-                      } else {
-                    swal({   title: 'El Registro se mantiene',type:'info',
-                    text: 'Se Cerrará en 2 Segundos',   timer: 2000,
-                    showConfirmButton: false });} });"><i class="fa fa-minus-circle "></i></button>
-                    {!!Form::close()!!}
-                  @else
-                    <div class="col-sm-9"><p>{{$est->name.":  "}}
-                      &nbsp;&nbsp;
-                    {{$nombre}}</div>
-                  @endif
-              </p>
+            @if(count($uniones)>0)
+            @foreach ($uniones as $union)
+              {{$union->estudiante->name.": ".$union->estudiante->nombre." ".$union->estudiante->apellido}}<br>
             @endforeach
-
+          @else
+            No se ha registrado ningún estudiante
+          @endif
           </td>
         </tr>
+
         <tr>
           <td><b>Horas del proyecto por estudiante:</b></td>
           <td>{{$proy->horas}}
@@ -69,7 +36,7 @@
         </tr>
         <tr>
           <td><b>Carrera:</b></td>
-          <td>{{Carrera::nombreCarrera($proy->f_carrera)}}
+          <td>{{App\Carrera::nombreCarrera($proy->f_carrera)}}
       </td>
         </tr>
         <tr>
