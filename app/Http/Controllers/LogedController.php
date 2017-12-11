@@ -46,8 +46,15 @@ class LogedController extends Controller
     {
       $usuario=User::where('name','=',$request->name)->first();
       if(count($usuario)==1){
-        if($usuario->f_proyecto!=null){
+        if($usuario->f_tipo==3){
           $request['password']=strtoupper($request->password);
+          $existe=User::comprobar($usuario->id,$request['password']);
+          if($existe==true){
+            $request['password']==$request->name;
+          }else{
+              return redirect('/')->with('error','Usuario o contraseña incorrecta');
+          }
+
         }
       }
       echo $request['password'];

@@ -7,7 +7,6 @@ use App\Estudiante;
 use App\Constancia;
 use App\Proyecto;
 use App\Http\Requests\ProyectoRequest;
-use App\Http\Requests\EliminarRequest;
 use App\Documento;
 use App\User;
 use App\Bitacora;
@@ -16,6 +15,7 @@ use App\Union;
 use Validator;
 use DB;
 use Session;
+use App\Comentario;
 
 class ProyectoController extends Controller
 {
@@ -128,7 +128,7 @@ class ProyectoController extends Controller
                       'nombre'=>$nombre[$i],
                       'apellido'=>$apellido[$i],
                       'tipo'=>'3',
-                      'password'=>bcrypt($proy->n_acuerdo),
+                      'password'=>bcrypt($carne[$i]),
                     ]);
                   }else{
                     $nuevoe= new User;
@@ -233,13 +233,6 @@ class ProyectoController extends Controller
             'horas'=>$request->horas,
             'cantidad'=>$total,
           ]);
-          if($v==1){
-            $estudiantes=User::where('f_proyecto','=',$proyecto->id)->get();
-            foreach ($estudiantes as $est) {
-              $est->password=bcrypt($request['n_acuerdo']);
-              $est->save();
-            }
-          }
           $id=$request->id;
           $carne=$request->carne;
           $nombre=$request->nombre;
@@ -253,7 +246,7 @@ class ProyectoController extends Controller
                   'nombre'=>$nombre[$i],
                   'apellido'=>$apellido[$i],
                   'tipo'=>'3',
-                  'password'=>bcrypt($proyecto->n_acuerdo),
+                  'password'=>bcrypt($carne[$i]),
                 ]);
                 Union::create([
                   'f_estudiante'=>$nuevoe->id,
@@ -352,11 +345,29 @@ class ProyectoController extends Controller
           return '0';
         }
     }
-    public function eliminar(EliminarRequest $request){
+    public function eliminar(Request $request){
       $idPro=$request->idProy;
       $idEst=$request->id;
       $coment=$request->comentario;
-      echo "Submmit";
-
+      $p=Proyecto::find($idProy);
+      $p->cantidad=$p->cantidad-count($idEst);
+      $p->save();
+      for($i=0;$i<count($idEst);$i++){
+        $union=Union::where('f_proyecto','=',$idPro)->where('f_estudiante','=',$idEst[$i])->first();
+        Union::destroy($union->id);
+        $est=User::find($idEst[$i]);
+        $datos=$est->name.": ".$est->nombre." ".$est->apellido;
+        Comentario::create([
+          'f_proyecto'=>$idPro,
+          'comentario'=>$coment[$i],
+          'estudiante'=>$datos,
+        ]);
+        $existe=Union::where('f_estudiante','=',$idEst[$i])->first();
+        if(count($existe)==0){
+          Constancia::eliminarConstancia($est->id);
+          Bitacora::eliminarBitacora($est->id);
+          $est->delete();
+        }
+      }
     }
 }

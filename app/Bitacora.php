@@ -41,4 +41,10 @@ public static function buscar($usuario){
       ->get();
       return $bitacora;
     }
+    public static function eliminarBitacora($idUsuario){
+      $bitacoras=Bitacora::where('id_usuario','=',$idUsuario)->get();
+      foreach ($bitacoras as $b) {
+        $b->delete();
+      }
+    }
 }

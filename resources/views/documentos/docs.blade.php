@@ -47,19 +47,19 @@ $a[4]='Acuerdo de memoria';
         </thead>
         <tbody>
           @php
-            $estudiantes=User::where('f_proyecto','=',$proy->id)->get();
+            $uniones=App\Union::where('f_proyecto','=',$proy->id)->get();
           @endphp
-            @foreach ($estudiantes as $estudiante)
-              <tr><td>{{$estudiante->name.": ".$estudiante->apellido.", ".$estudiante->nombre}}
+            @foreach ($uniones as $union)
+              <tr><td>{{$union->estudiante->name.": ".$union->estudiante->apellido.", ".$union->estudiante->nombre}}
                 </td>
                 <td>
                   @php
-                    $constancia=Constancia::where('f_estudiante','=',$estudiante->id)->get();
+                    $constancia=Constancia::where('f_estudiante','=',$union->estudiante->id)->get();
                     foreach ($constancia as $cons)
                       $co=$cons;
                   @endphp
                   @if(count($constancia)<1)
-                  <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$estudiante->id}}"><span class="fa fa-plus" style="color: white;"></span></a>
+                  <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$union->estudiante->id}}"><span class="fa fa-plus" style="color: white;"></span></a>
                 @else
                   @include('documentos.formularios.botones2')
                 @endif

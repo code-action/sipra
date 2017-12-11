@@ -56,4 +56,14 @@ class User extends Authenticatable
        $proy=Proyecto::find($estudiante->f_proyecto);
        return Carrera::nombreCarrera($proy->f_carrera);
      }
+
+     public function comprobar($id,$n_acuerdo){
+       $uniones=Union::where('f_estudiante','=',$id)->get();
+       foreach ($uniones as $u) {
+         if($u->proyecto->n_acuerdo==$n_acuerdo){
+           return true;
+         }
+       }
+       return false;
+     }
 }
