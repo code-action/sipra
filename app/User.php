@@ -25,12 +25,12 @@ class User extends Authenticatable
      protected $hidden = ['password', 'remember_token'];
      public static function buscarEstudiantes($nombre){
        return User::nombre($nombre)->estado(1)
-       ->where('f_proyecto','!=',null)
+       ->where('tipo','=',3)
        ->orderBy('name')->paginate(8);
      }
      public static function buscar($nombre,$estado){
        return User::nombre($nombre)->estado($estado)
-       ->where('f_proyecto','=',null)
+       ->where('tipo','!=',3)
        ->orderBy('name')->paginate(8);
      }
      public function scopeNombre($query, $nombre){
@@ -65,5 +65,14 @@ class User extends Authenticatable
          }
        }
        return false;
+     }
+     public static function eliminarEstudiante($id){
+       $est=User::find();
+       $existe=Union::where('f_estudiante','=',$id)->first();
+       if(count($existe)==0){
+         Constancia::eliminarConstancia($id);
+         Bitacora::eliminarBitacora($id);
+         $est->delete();
+       }
      }
 }

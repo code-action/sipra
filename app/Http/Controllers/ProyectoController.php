@@ -291,34 +291,15 @@ class ProyectoController extends Controller
      */
     public function destroy($id)
     {
-        $documentos=Documento::where('f_proyecto',"=",$id)->get();
-        foreach($documentos as $d){
-          if($d->carpeta!=null){
-            $guardar[1]="plan";
-            $guardar[2]="acuerdoplan";
-            $guardar[3]="memoria";
-            $guardar[4]="acuerdomemoria";
-            $dir='archivos/'.$guardar[$d['f_tipo']].'/'.$d->carpeta;
-            \File::delete(public_path($dir));
-          }
-          Documento::destroy($d->id);
+        Documento::eliminarDocumento($id);
+
+        $uniones=Union::where('f_proyecto',"=",$id)->get();
+        foreach ($uniones as $union) {
+          $est=$union->f_estudiante;
+          $union->delete();
+          User::eliminarEstudiante($est);
         }
-        $estudiantes=User::where('f_proyecto',"=",$id)->get();
-        foreach($estudiantes as $est){
-            $constancia=Constancia::where('f_estudiante','=',$est->id)->first();
-            if (count($constancia)>0) {
-              if($constancia->carpeta!=null){
-                $dir='archivos/constancias/'.$constancia->carpeta;
-                \File::delete(public_path($dir));
-              }
-              Constancia::destroy($constancia->id);
-            }
-            $bitacoras=Bitacora::where('id_usuario','=',$est->id)->get();
-            foreach ($bitacoras as $b) {
-              Bitacora::destroy($b->id);
-            }
-            User::destroy($est->id);
-        }
+        Comentario::eliminarComentario($id);
         Proyecto::destroy($id);
         Bitacora::bitacora('Proyecto eliminado');
         return redirect('/proyecto')->with('mensaje','Proyecto eliminado');
@@ -362,12 +343,7 @@ class ProyectoController extends Controller
           'comentario'=>$coment[$i],
           'estudiante'=>$datos,
         ]);
-        $existe=Union::where('f_estudiante','=',$idEst[$i])->first();
-        if(count($existe)==0){
-          Constancia::eliminarConstancia($est->id);
-          Bitacora::eliminarBitacora($est->id);
-          $est->delete();
-        }
+        User::eliminarEstudiante($idEst[$i]);
       }
     }
     public function proyectosEstudiante(Request $request){

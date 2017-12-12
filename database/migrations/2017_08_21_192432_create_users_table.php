@@ -16,8 +16,6 @@ class CreateUsersTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('users', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('f_proyecto')->unsigned()->nullable();
-          $table->foreign('f_proyecto')->references('id')->on('proyectos');
           $table->string('name'); //usuario/carné
           $table->string('nombre');
           $table->string('apellido');

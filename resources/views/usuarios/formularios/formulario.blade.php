@@ -1,44 +1,21 @@
-@foreach ($errors->get('name') as $error)
-	<div class="alert-d">
-		<br>{{$error}}
-	</div>
-@endforeach
-
 <div class="form-group">
 	{!!Form::label('lusuario','Usuario:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">
 		{!!Form::text('name',null,['class'=>'form-control', 'placeholder'=>'Usuario'])!!}
 	</div>
 </div>
-@foreach ($errors->get('nombre') as $error)
-	<div class="alert-d">
-		<br>{{$error}}
-	</div>
-@endforeach
-
 <div class="form-group">
 	{!!Form::label('lnombre','Nombre:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">
 		{!!Form::text('nombre',null,['class'=>'form-control','onKeyPress' => 'return noNumeros( this, event,this.value);', 'placeholder'=>'Nombre del usuario'])!!}
 	</div>
 </div>
-@foreach ($errors->get('apellido') as $error)
-	<div class="alert-d">
-		<br>{{$error}}
-	</div>
-@endforeach
-
 <div class="form-group">
 	{!!Form::label('lapellido','Apellido:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">
 		{!!Form::text('apellido',null,['class'=>'form-control','onKeyPress' => 'return noNumeros( this, event,this.value);', 'placeholder'=>'Apellido del usuario'])!!}
 	</div>
 </div>
-@foreach ($errors->get('tipo') as $error)
-	<div class="alert-d">
-		<br>{{$error}}
-	</div>
-@endforeach
 <div class="form-group">
 {!!Form::label('Ltipo','Tipo de usuario:',['class'=>'col-sm-2 control-label'])!!}
 <div class="col-sm-9">
@@ -73,39 +50,18 @@
 		</select>
 	</div>
 </div>
-
-@foreach ($errors->get('email') as $error)
-	<div class="alert-d">
-		<br>{{$error}}
-	</div>
-@endforeach
-
 <div class="form-group">
 	{!!Form::label('lcorreo','Correo:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">
 		{!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Ingrese su correo'])!!}
 	</div>
 </div>
-
-@foreach ($errors->get('password') as $error)
-	<div class="alert-d">
-		<br>{{$error}}
-	</div>
-@endforeach
-
 <div class="form-group">
 	{!!Form::label('lpasswprd','Contraseña:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">
 		{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Password'])!!}
 	</div>
 </div>
-
-@foreach ($errors->get('password_confirmation') as $error)
-	<div class="alert-d">
-		<br>{{$error}}
-	</div>
-@endforeach
-
 <div class="form-group">
 	{!!Form::label('lpasswprd','Confirmar contraseña:',['class'=>'col-sm-2 control-label'])!!}
 	<div class="col-sm-9">

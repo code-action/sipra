@@ -34,4 +34,18 @@ class Documento extends Model
     public static function contador($id){
       return Documento::where('f_proyecto','=',$id)->count();
     }
+    public static function eliminarDocumento($id){
+      $documentos=Documento::where('f_proyecto',"=",$id)->get();
+      foreach($documentos as $d){
+        if($d->carpeta!=null){
+          $guardar[1]="plan";
+          $guardar[2]="acuerdoplan";
+          $guardar[3]="memoria";
+          $guardar[4]="acuerdomemoria";
+          $dir='archivos/'.$guardar[$d['f_tipo']].'/'.$d->carpeta;
+          \File::delete(public_path($dir));
+        }
+        Documento::destroy($d->id);
+      }
+    }
 }

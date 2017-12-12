@@ -29,7 +29,19 @@
           @endif
           </td>
         </tr>
-
+        @php
+          $comentarios=App\Comentario::where('f_proyecto',$proy->id)->get();
+        @endphp
+        @if ($condition)
+        <tr>
+          <td><b>Estudiantes eliminados:</b></td>
+          <td>
+            @foreach ($comentarios as $comentario)
+              {{$comentario->estudiante." ".$comentario->comentario}}<br>
+            @endforeach
+          </td>
+        </tr>
+        @endif
         <tr>
           <td><b>Horas del proyecto por estudiante:</b></td>
           <td>{{$proy->horas}}
