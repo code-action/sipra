@@ -370,4 +370,8 @@ class ProyectoController extends Controller
         }
       }
     }
+    public function proyectosEstudiante(Request $request){
+      $uniones=Union::where('f_estudiante','=',$request->doc)->get();
+      return view('proyectos.docs2',compact('uniones'));
+    }
 }

@@ -21,8 +21,15 @@ class EnlaceController extends Controller
      */
     public function index(Request $request)
     {
-        $proy=Proyecto::find($request['doc']);
-        return view('documentos.docs',compact('proy'));
+        $uniones=Union::where('f_estudiante',$request->est)->get();
+        if(count($uniones)>1){
+          $est=User::find($request->est);
+          return view('documentos.varios',compact('est','uniones'));
+        }elseif(count($uniones)==1){
+          foreach ($uniones as $proy) {
+            return view('documentos.docs',compact('proy'));
+          }
+        }
     }
 
     /**
@@ -144,7 +151,8 @@ class EnlaceController extends Controller
      */
     public function edit($id)
     {
-        //
+      $proy=Proyecto::find($id);
+        return view('documentos.docs',compact('proy'));
     }
 
     /**
