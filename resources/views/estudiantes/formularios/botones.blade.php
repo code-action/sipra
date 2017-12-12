@@ -3,6 +3,7 @@
       $ver=$cad.(string)$st->id;
       $editar=$cad.(string)$st->id."/edit";
       $id_p=$st->f_proyecto;
+      $doc="/sipra/public/enlace?est=".(string)$st->id;
 ?>
 <a class="btn btn-success btn-sm" href="{{$ver}}">
   <span class="fa fa-info-circle" style="color: white;"></span>
