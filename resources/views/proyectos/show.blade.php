@@ -32,7 +32,7 @@
         @php
           $comentarios=App\Comentario::where('f_proyecto',$proy->id)->get();
         @endphp
-        @if ($condition)
+        @if (count($comentarios)>0)
         <tr>
           <td><b>Estudiantes eliminados:</b></td>
           <td>

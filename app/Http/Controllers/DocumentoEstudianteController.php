@@ -9,6 +9,8 @@ use App\Documento;
 use App\Bitacora;
 use App\Tipo;
 use App\Constancia;
+use App\Union;
+use App\User;
 
 class DocumentoEstudianteController extends Controller
 {
@@ -19,8 +21,16 @@ class DocumentoEstudianteController extends Controller
      */
     public function index()
     {
-      $proy=Proyecto::find(Auth::user()->f_proyecto);
-        return view('acceso.index',compact('proy'));
+      $uniones=Union::where('f_estudiante',Auth::user()->id)->get();
+      if(count($uniones)>1){
+        $est=User::find(Auth::user()->id);
+        return view('acceso.varios',compact('est','uniones'));
+      }elseif(count($uniones)==1){
+        foreach ($uniones as $union) {
+          $proy=$union->proyecto;
+          return view('acceso.index',compact('proy'));
+        }
+      }
     }
 
     /**
@@ -102,7 +112,8 @@ class DocumentoEstudianteController extends Controller
      */
     public function show($id)
     {
-        //
+      $proy=Proyecto::find($id);
+        return view('acceso.index',compact('proy'));
     }
 
     /**

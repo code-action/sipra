@@ -123,7 +123,6 @@ class ProyectoController extends Controller
                   for ($i=0; $i <count($carne) ; $i++) {
                     if($id[$i]==""){
                     $nuevoe=User::create([
-                      'f_proyecto'=>$proy->id,
                       'name'=>$carne[$i],
                       'nombre'=>$nombre[$i],
                       'apellido'=>$apellido[$i],

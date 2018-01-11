@@ -88,20 +88,20 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
                   </tbody>
                 </table>
                 @php
-                $estudiantes=User::where('f_proyecto','=',$proy->id)->get();
+                $uniones=App\Union::where('f_proyecto','=',$proy->id)->get();
                 @endphp
-                @if(count($estudiantes)>0)
+                @if(count($uniones)>0)
                 <table class="table">
                   <thead>
                     <th colspan="2"><center><h4><i class="fa fa-graduation-cap"></i> Constancias de estudiantes: </h4></center></th>
                   </thead>
                   <tbody>
-                      @foreach ($estudiantes as $estudiante)
-                        <tr><td style="width:10%;">{{$estudiante->name.": ".$estudiante->apellido.", ".$estudiante->nombre}}
+                      @foreach ($uniones as $union)
+                        <tr><td style="width:10%;">{{$union->estudiante->name.": ".$union->estudiante->apellido.", ".$union->estudiante->nombre}}
                           </td>
                           <td style="width:10%;">
                             @php
-                              $constancia=Constancia::where('f_estudiante','=',$estudiante->id)->get();
+                              $constancia=Constancia::where('f_estudiante','=',$union->estudiante->id)->get();
                               foreach ($constancia as $cons)
                                 $co=$cons;
                             @endphp
