@@ -12,7 +12,7 @@ class Carrera extends Model
     return Carrera::nombre($nombre)->estado($estado)->orderBy('nombre')->get();
   }
   public static function buscar($nombre,$estado){
-    return Carrera::nombre($nombre)->estado($estado)->orderBy('nombre')->paginate(8);
+    return Carrera::nombre($nombre)->estado($estado)->orderBy('nombre')->paginate(10);
   }
   public function scopeNombre($query, $nombre){
     if (trim($nombre)!="") {

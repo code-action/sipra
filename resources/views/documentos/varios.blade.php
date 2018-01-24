@@ -12,7 +12,7 @@
 @foreach ($uniones as $union)
         <tr>
           <td>
-            <a href="/sipra/public/enlace/{{$union->proyecto->id}}/edit">{{$union->proyecto->titulo}}</a>
+            <a href="/sipra/public/enlace?doc={{$union->proyecto->id}}">{{$union->proyecto->titulo}}</a>
           </td>
         </tr>
   @endforeach

@@ -9,24 +9,24 @@
       <table class="table table-hover">
         <h4><i class="fa fa-book"></i> Datos estudiante carné: <b>{{$est->name}}</b></h4>
         <tr>
-          <td>Nombre:</td>
-          <td><b>{{$est->nombre}}</b></td>
+          <td><b>Nombre:</b></td>
+          <td>{{$est->nombre}}</td>
         </tr>
         <tr>
-          <td>Apellido:</td>
-          <td><b>{{$est->apellido}}</b></td>
+          <td><b>Apellido:</b></td>
+          <td>{{$est->apellido}}</td>
         </tr>
         <tr>
-          <td>Carrera:</td>
-          <td><b>{{App\User::carreraEstudiante($est->id)}}</b></td>
+          <td><b>Carrera:</b></td>
+          <td>{{App\User::carreraEstudiante($est->id)}}</td>
         </tr>
         <tr>
-          <td>Fecha de creación:</td>
-          <td><b>{{$est->created_at->format('d-m-Y g:i:s a')}}</b></td>
+          <td><b>Fecha de creación:</b></td>
+          <td>{{$est->created_at->format('d-m-Y g:i:s a')}}</td>
         </tr>
         <tr>
-          <td>Fecha de última edición:</td>
-          <td><b>{{ $est->updated_at->format('d-m-Y g:i:s a') }}</b></td>
+          <td><b>Fecha de última edición:</b></td>
+          <td>{{ $est->updated_at->format('d-m-Y g:i:s a') }}</td>
         </tr>
       </table>
     </div>

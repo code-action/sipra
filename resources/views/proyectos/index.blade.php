@@ -47,19 +47,19 @@
                 if ($conteo==0){
                   @endphp
                   <div class="tooltips" data-placement="right" data-original-title="No se encontró ningún documento">
-                    <div class='alert alert-danger'>{{$a}}</div>
+                    <div class='alert-danger'>{{$a}}</div>
                   </div>
                   @php
                 }elseif($conteo<4){
                   @endphp
                   <div class="tooltips" data-placement="right" data-original-title="Documentos incompletos">
-                  <div class='alert alert-warning'>{{$a}}</div>
+                  <div class='alert-warning'>{{$a}}</div>
                 </div>
                   @php
                 }elseif($conteo==4){
                   @endphp
                   <div class="tooltips" data-placement="right" data-original-title="Documentos completos">
-                  <div class='alert alert-success'>{{$a}}</div>
+                  <div class='alert-success'>{{$a}}</div>
                 </div>
                   @php
                 }

@@ -4,9 +4,9 @@
     <div class="content-panel">
 
       <table class="table table-hover">
-        <h4><i class="fa fa-user"></i> Datos de proyecto de servicio social:</h4>
+        <h4><i class="fa fa-folder-open"></i> Datos de proyecto de servicio social:</h4>
         <tr>
-          <td><b>Nombre:</b></td>
+          <td width="25%"><b>Nombre:</b></td>
           <td>{{$proy->titulo}}</td>
         </tr>
         <tr>

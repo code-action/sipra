@@ -55,8 +55,7 @@ $a[4]='Acuerdo de memoria';
                 <td>
                   @php
                     $constancia=Constancia::where('f_estudiante','=',$union->estudiante->id)->get();
-                    foreach ($constancia as $cons)
-                      $co=$cons;
+
                   @endphp
                   @if(count($constancia)<1)
                   <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$union->estudiante->id}}"><span class="fa fa-plus" style="color: white;"></span></a>

@@ -64,7 +64,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<div class="row mt">
 		<div class="col-lg-6">
 			<div class="content-panel">
@@ -113,21 +112,21 @@
 										<td>{{$carne[$i]}}</td>
 										<td>{{$nombre[$i]}}</td>
 										<td>{{$apellido[$i]}}</td>
-										<td><input type='hidden' name='id[]' value={{$id[$i]}}>
-				            <input type='hidden' name='carne[]' value={{$carne[$i]}}>
-				            <input type='hidden' name='nombre[]' value={{$nombre[$i]}}>
-				            <input type='hidden' name='apellido[]' value={{$apellido[$i]}}>
+										<td><input type='hidden' name='id[]' value='{{$id[$i]}}'>
+				            <input type='hidden' name='carne[]' value='{{$carne[$i]}}'>
+				            <input type='hidden' name='nombre[]' value='{{$nombre[$i]}}'>
+				            <input type='hidden' name='apellido[]' value='{{$apellido[$i]}}'>
 				            <button type='button' name='button' class='btn btn-xs btn-danger' id='eliminar_estudiante'>
 				            <i class='fa fa-trash-o'></i>
 				            </button>
 				            </td>
 									</tr>
-									<input type='hidden' id={{"ya_agregados".$i}} value ={{$carne[$i]}}>
+									<input type='hidden' id='{{"ya_agregados".$i}}' value ='{{$carne[$i]}}'>
               		@php
                 		$conteo=$i;
               		@endphp
 								@endfor
-								<input type='hidden' id='contador' value ={{$conteo}}>
+								<input type='hidden' id='contador' value ='{{$conteo}}'>
 							@endif
 							{{-- Editado y no errores --}}
 							@if (isset($proyecto))
@@ -140,22 +139,22 @@
 									<tr><td>{{$union->estudiante->name}}</td>
 											<td>{{$union->estudiante->nombre}}</td>
 											<td>{{$union->estudiante->apellido}}</td>
-											<td><input type='hidden' name='id[]' value={{$union->estudiante->id}}>
-					            <input type='hidden' name='carne[]' value={{$union->estudiante->name}}>
-					            <input type='hidden' name='nombre[]' value={{$union->estudiante->nombre}}>
-					            <input type='hidden' name='apellido[]' value={{$union->estudiante->apellido}}>
+											<td><input type='hidden' name='id[]' value='{{$union->estudiante->id}}'>
+					            <input type='hidden' name='carne[]' value='{{$union->estudiante->name}}'>
+					            <input type='hidden' name='nombre[]' value='{{$union->estudiante->nombre}}'>
+					            <input type='hidden' name='apellido[]' value='{{$union->estudiante->apellido}}'>
 					            <button type='button' name='button' class='btn btn-xs btn-danger' id='eliminar_estudiante'>
 					            <i class='fa fa-trash-o'></i>
 					            </button>
 					            </td>
 								</tr>
-								<input type='hidden' id={{"ya_agregados".$i}} value ={{$union->estudiante->name}}>
+								<input type='hidden' id={{"ya_agregados".$i}} value ='{{$union->estudiante->name}}'>
 								@php
 									$conteo=$i;
 									$i++;
 								@endphp
 								@endforeach
-								<input type='hidden' id='contador' value ={{$conteo}}>
+								<input type='hidden' id='contador' value ='{{$conteo}}'>
 							@endif
 						</table>
 						<div id="eliminados"></div>

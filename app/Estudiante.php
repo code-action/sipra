@@ -9,7 +9,7 @@ class Estudiante extends Model
   protected $fillable = ['carne','nombre','apellido'];
 
   public static function buscar($nombre){
-    return Estudiante::nombre($nombre)->orderBy('nombre')->paginate(8);
+    return Estudiante::nombre($nombre)->orderBy('nombre')->paginate(10);
   }
   public function scopeNombre($query, $nombre){
     if (trim($nombre)!="") {

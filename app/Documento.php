@@ -10,7 +10,7 @@ class Documento extends Model
     protected $fillable = ['n_acuerdo','carpeta','f_proyecto','archivo_binario','archivo_peso','archivo_tipo','f_tipo'];
 
     public static function buscar($t){
-      return Documento::f_tipo($t)->paginate(8);
+      return Documento::f_tipo($t)->paginate(10);
     }
     public function scopeF_tipo($query, $t){
       $query->where('f_tipo', $t);
@@ -27,7 +27,7 @@ class Documento extends Model
     ->where('documentos.f_tipo','=',$tipo)
     ->where('proyectos.titulo','LIKE','%'.$busqueda.'%')
     ->orWhere('documentos.n_acuerdo', 'LIKE','%'.$busqueda.'%')
-    ->paginate(8);
+    ->paginate(10);
     return $proyectos;
     }
 

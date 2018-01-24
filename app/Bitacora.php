@@ -29,7 +29,7 @@ public static function buscar($usuario){
     ->orWhere('users.apellido','LIKE','%'.$usuario.'%')
     ->orWhere('bitacoras.detalle','LIKE','%'.$usuario.'%')
     ->orderBy('bitacoras.created_at','DESC')
-    ->paginate(8);
+    ->paginate(10);
     return $bitacora;
   }
   public static function buscar2($usuario){

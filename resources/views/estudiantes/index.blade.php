@@ -33,11 +33,11 @@
                   $conteo=App\Constancia::contador($st->id);
                 if ($conteo==0){
                   @endphp
-                  <div class='alert alert-danger' style="width:45px; margin-bottom: 1px;">{{$a}}</div>
+                  <div class='alert-danger'>{{$a}}</div>
                   @php
                 }else{
                   @endphp
-                  <div class='alert alert-success' style="width:45px; margin-bottom: 1px;">{{$a}}</div>
+                  <div class='alert-success'>{{$a}}</div>
                   @php
                 }
               @endphp

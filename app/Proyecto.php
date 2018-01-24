@@ -10,7 +10,7 @@ class Proyecto extends Model
 
 
     public static function buscar($titulo){
-      return Proyecto::titulo($titulo)->orderBy('titulo')->paginate(8);
+      return Proyecto::titulo($titulo)->orderBy('titulo')->paginate(10);
     }
     public function scopeTitulo($query, $titulo){
       if (trim($titulo)!="") {
@@ -18,7 +18,7 @@ class Proyecto extends Model
       }
     }
     public static function buscar2($titulo){
-      return Proyecto::anio($titulo)->orderBy('titulo')->paginate(8);
+      return Proyecto::anio($titulo)->orderBy('titulo')->paginate(10);
     }
     public function scopeAnio($query, $titulo){
       if (trim($titulo)!="") {
@@ -26,7 +26,7 @@ class Proyecto extends Model
       }
     }
     public static function buscar3($f_carrera){
-      return Proyecto::f_carrera($f_carrera)->orderBy('titulo')->paginate(8);
+      return Proyecto::f_carrera($f_carrera)->orderBy('titulo')->paginate(10);
     }
     public function scopeF_carrera($query, $f_carrera){
       if (trim($f_carrera)!="") {

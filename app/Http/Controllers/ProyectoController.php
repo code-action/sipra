@@ -68,7 +68,7 @@ class ProyectoController extends Controller
         $validar['titulo']='required|unique:proyectos|min:30|max:600';
         $validar['n_acuerdo']='required|unique:proyectos|min:5';
         $validar['f_carrera']='required';
-        $validar['anio']='integer|required|not_in:0';
+        $validar['anio']='required|not_in:0';
         $validar['horas']='required|integer|min:1|max:'.(String)$request->limite;
         $validar['carne']='required';
 
@@ -81,7 +81,6 @@ class ProyectoController extends Controller
         $mensaje['n_acuerdo.unique']='N° de acuerdo ya ha sido registrado';
         $mensaje['n_acuerdo.min']='El campo n° de acuerdo debe contener 5 caracteres mínimo';
 
-        $mensaje['anio.integer']='El campo debe contener solamente números';
         $mensaje['anio.required']='El campo año es obligatorio';
         $mensaje['anio.not_in']='Seleccione una opción válida en año';
 
@@ -329,7 +328,7 @@ class ProyectoController extends Controller
       $idPro=$request->idProy;
       $idEst=$request->id;
       $coment=$request->comentario;
-      $p=Proyecto::find($idProy);
+      $p=Proyecto::find($idPro);
       $p->cantidad=$p->cantidad-count($idEst);
       $p->save();
       for($i=0;$i<count($idEst);$i++){
@@ -344,6 +343,7 @@ class ProyectoController extends Controller
         ]);
         User::eliminarEstudiante($idEst[$i]);
       }
+      return redirect('/proyecto')->with('mensaje','Proyecto actualizado');
     }
     public function proyectosEstudiante(Request $request){
       $uniones=Union::where('f_estudiante','=',$request->doc)->get();

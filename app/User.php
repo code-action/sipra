@@ -26,12 +26,12 @@ class User extends Authenticatable
      public static function buscarEstudiantes($nombre){
        return User::nombre($nombre)->estado(1)
        ->where('tipo','=',3)
-       ->orderBy('name')->paginate(8);
+       ->orderBy('name')->paginate(10);
      }
      public static function buscar($nombre,$estado){
        return User::nombre($nombre)->estado($estado)
        ->where('tipo','!=',3)
-       ->orderBy('name')->paginate(8);
+       ->orderBy('name')->paginate(10);
      }
      public function scopeNombre($query, $nombre){
        if (trim($nombre)!="") {
@@ -66,7 +66,7 @@ class User extends Authenticatable
        return false;
      }
      public static function eliminarEstudiante($id){
-       $est=User::find();
+       $est=User::find($id);
        $existe=Union::where('f_estudiante','=',$id)->first();
        if(count($existe)==0){
          Constancia::eliminarConstancia($id);

@@ -34,6 +34,10 @@ Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
   Route::get('/inicio', function () {
       return view('plantillas.inicio');
   });
+  Route::get('/ayudar', function () {
+      return view('Ayudas.Carrera.create');
+  });
+
   Route::resource('carrera','CarreraController');
   Route::resource('estudiante','EstudianteController');
   Route::match(['get','post'],'/obtenerhoras/{id}','CarreraController@horas');

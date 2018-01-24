@@ -26,9 +26,13 @@ class EnlaceController extends Controller
           $est=User::find($request->est);
           return view('documentos.varios',compact('est','uniones'));
         }elseif(count($uniones)==1){
-          foreach ($uniones as $proy) {
+          foreach ($uniones as $un) {
+            $proy=Proyecto::find($un->f_proyecto);
             return view('documentos.docs',compact('proy'));
           }
+        }else{
+          $proy=Proyecto::find($request->doc);
+          return view('documentos.docs',compact('proy'));
         }
     }
 
@@ -126,7 +130,7 @@ class EnlaceController extends Controller
     public function show($id)
     {
         $var=Documento::find($id);
-        if($var->carpeta!=null){
+        if($var->carpeta==null){
         $contenido=stripslashes($var->archivo_binario);
         header("Content-type: $var->archivo_tipo");
         print $contenido;
@@ -151,8 +155,7 @@ class EnlaceController extends Controller
      */
     public function edit($id)
     {
-      $proy=Proyecto::find($id);
-        return view('documentos.docs',compact('proy'));
+      //
     }
 
     /**
