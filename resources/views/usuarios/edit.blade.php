@@ -4,7 +4,7 @@
 		<div class="form-panel">
 
       {!! Form::model($usuario,['route'=>['usuario.update',$usuario->id],'method'=>'PUT','class'=>'form-horizontal style-form','autocomplete'=>'off']) !!}
-			<center><h4><i class="fa fa-user"></i> Modificar usuario </h4></center><hr>
+			<center><h4><a href={!! asset('/ayudar/18') !!} target="blank_"><i class="fa fa-user"></i></a> Modificar usuario </h4></center><hr>
 				<?php $bandera=2;?>
 				@include('usuarios.formularios.formulario')
         <input name="bandera" type="hidden" value="2">

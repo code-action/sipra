@@ -1,10 +1,10 @@
-{!!Form::open(['route'=>['constancia.destroy',$co->id],'method'=>'DELETE','class'=>'form-inline'])!!}
+{!!Form::open(['route'=>['constancia.destroy',$constancia->id],'method'=>'DELETE','class'=>'form-inline'])!!}
 
 <!-- Ver-->
-<a  class="btn btn-success btn-sm" href="/sipra/public/constancia/{{(String)$co->id}}" target="_blank"><span class="fa fa-info-circle" style="color: white;"></a>
+<a  class="btn btn-success btn-sm" href="/sipra/public/constancia/{{(String)$constancia->id}}" target="_blank"><span class="fa fa-info-circle" style="color: white;"></a>
   &nbsp;&nbsp;
     <!-- Editar-->
-<a  class="btn btn-primary btn-sm" href="/sipra/public/constancia/{{(String)$co->id}}/edit"><span class="fa fa-pencil" style="color: white;"></a>
+<a  class="btn btn-primary btn-sm" href="/sipra/public/constancia/{{(String)$constancia->id}}-{{$proy->id}}/edit"><span class="fa fa-pencil" style="color: white;"></a>
 &nbsp;&nbsp;
 
 <button class="btn btn-danger btn-sm" type="button" onClick="return swal({

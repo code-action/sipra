@@ -3,7 +3,7 @@
 		<div class="form-panel">
 
 			{!!Form::open(['route'=>'proyecto.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
-			<center><h4><i class="fa fa-folder-open"></i> Nuevo proyecto </h4></center><hr>
+			<center><h4><a href={!! asset('/ayudar/3') !!} target="blank_"><i class="fa fa-folder-open"></i></a> Nuevo proyecto </h4></center><hr>
 				<?php $bandera=1;?>
 				@include('proyectos.formularios.formulario')
 				<input name="bandera" id="bandera" type="hidden" value="1">

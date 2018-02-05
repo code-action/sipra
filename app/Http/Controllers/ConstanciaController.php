@@ -7,6 +7,7 @@ use App\Estudiante;
 use App\User;
 use App\Constancia;
 use App\Bitacora;
+use App\Union;
 use App\Http\Requests\ConstanciaRequest;
 
 class ConstanciaController extends Controller
@@ -29,7 +30,8 @@ class ConstanciaController extends Controller
     public function create(Request $request)
     {
         $id_estudiante=$request->id;
-        return view('constancias.create',compact('id_estudiante'));
+        $idp=$request->idp;
+        return view('constancias.create',compact('id_estudiante','idp'));
     }
 
     /**
@@ -40,9 +42,9 @@ class ConstanciaController extends Controller
      */
     public function store(ConstanciaRequest $request)
     {
+      $idp=$request->idp;
       $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
       $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
-      $id_proy=User::find($request->f_estudiante)->f_proyecto;
      try{
           Constancia::create([
             'f_estudiante'=>$request['f_estudiante'],
@@ -60,11 +62,11 @@ class ConstanciaController extends Controller
             $constancia->carpeta=$fh;
             $constancia->save();
           }catch(\Exception $e){
-            return redirect('/enlace?doc='.$id_proy)->with('error','Lo sentimos el documento no pudo ser registrado');
+            return redirect('/enlace?doc='.$idp)->with('error','Lo sentimos el documento no pudo ser registrado');
           }
       }
       Bitacora::bitacora('Nueva constancia, estudiante: '.User::find($request['f_estudiante'])->name);
-      return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro guaradado');
+      return redirect('/enlace?doc='.$idp)->with('mensaje','Registro guaradado');
     }
 
     /**
@@ -76,7 +78,7 @@ class ConstanciaController extends Controller
     public function show($id)
     {
       $var=Constancia::find($id);
-      if($var->carpeta!=null){
+      if($var->carpeta==null){
         $contenido=stripslashes($var->constancia_binario);
         header("Content-type: $var->constancia_tipo");
         print $contenido;
@@ -94,10 +96,13 @@ class ConstanciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($omb)
     {
+      $omb=explode('-',$omb);
+      $id=$omb[0];
+      $idp=$omb[1];
         $constancia=Constancia::find($id);
-        return view('constancias.edit',compact('constancia'));
+        return view('constancias.edit',compact('constancia','idp'));
     }
 
     /**
@@ -112,7 +117,7 @@ class ConstanciaController extends Controller
       $constancia=Constancia::find($id);
       $binario_nombre_temporal=$_FILES['archivo']['tmp_name'] ;
       $binario_contenido = addslashes(fread(fopen($binario_nombre_temporal, "rb"), filesize($binario_nombre_temporal)));
-      $id_proy=User::find($constancia->f_estudiante)->f_proyecto;
+      $id_proy=$request->idp;
 
       if($constancia->carpeta!=null){
         $dir='archivos/constancias/'.$constancia->carpeta;
@@ -151,9 +156,10 @@ class ConstanciaController extends Controller
         $dir='archivos/constancias/'.$constancia->carpeta;
         \File::delete(public_path($dir));
       }
-        $id_proy=User::find($constancia->f_estudiante)->f_proyecto;
+      $est=$constancia->f_estudiante;
+      $union=Union::where('f_estudiante','=',$est)->get()->last();
         Constancia::destroy($id);
         Bitacora::bitacora('Constancia eliminada, estudiante: '.$constancia->f_estudiante);
-        return redirect('/enlace?doc='.$id_proy)->with('mensaje','Registro eliminado');
+        return redirect('/enlace?doc='.$union->f_proyecto)->with('mensaje','Registro eliminado');
     }
 }

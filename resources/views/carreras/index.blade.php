@@ -9,9 +9,9 @@
         <div class="content-panel">
       {!!Form::open(['route'=>'carrera.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
         @if(!$cam)
-          <h4><i class="fa fa-graduation-cap"></i> Carreras activas </h4>
+          <h4><a href={!! asset('/ayudar/11') !!} target="blank_"><i class="fa fa-graduation-cap"></i></a> Carreras activas </h4>
         @else
-          <h4><i class="fa fa-graduation-cap"></i> Carreras inactivas </h4>
+          <h4><a href={!! asset('/ayudar/12') !!} target="blank_"><i class="fa fa-graduation-cap"></i></a> Carreras inactivas </h4>
           <input name="estado" type="hidden" value="0">
         @endif
       {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Carrera']) !!}

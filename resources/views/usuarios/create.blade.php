@@ -5,7 +5,7 @@
 		<div class="form-panel">
 
 			{!!Form::open(['route'=>'usuario.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
-			<center><h4><i class="fa fa-user"></i> Crear usuario </h4></center><hr>
+			<center><h4><a href={!! asset('/ayudar/17') !!} target="blank_"><i class="fa fa-user"></i></a> Crear usuario </h4></center><hr>
 
 				<?php $bandera=1;?>
 				@include('usuarios.formularios.formulario')

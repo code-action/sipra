@@ -7,7 +7,7 @@
 		@else
 			{!! Form::model($doc,['route'=>['accesoEstudiante.update',$doc->id],'method'=>'PUT','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data','files'=>true,'autocomplete'=>'off', 'role'=>'form']) !!}
 		@endif
-			<center><h4><i class="fa fa-file-pdf-o"></i> Edición para:
+			<center><h4><a href={!! asset('/ayudar/9') !!} target="blank_"><i class="fa fa-file-pdf-o"></i></a> Edición para:
 				<?php use App\Tipo;
 							use App\Proyecto;
 				$ti=Tipo::nombreTipo($doc->f_tipo); ?>

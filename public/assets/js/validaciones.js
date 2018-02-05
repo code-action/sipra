@@ -162,14 +162,14 @@ $(document).on('ready',function(){
       $('#t_carne').val(carne);
       var ruta="/sipra/public/buscarEstudiante/"+carne;
       $.get(ruta,function(res){
-        if(res!='0' && res!='n' && !carne_agregados.includes(carne)){
+        if(res!='0' && !carne_agregados.includes(carne)){
           var nombre= $('#t_nombre').val(res.nombre);
           var apellido= $('#t_apellido').val(res.apellido);
           var unique_id = $.gritter.add({
             // (string | mandatory) the heading of the notification
             title: 'Coincidencia encontrada!',
             // (string | mandatory) the text inside the notification
-            text: 'Este estudiante ya esta en otro proyecto, si desea agregarlo haga click sobre el botón "Agregar"',
+            text: 'Este estudiante ya esta en otro proyecto, si desea añadirlo haga click sobre el botón "Agregar"',
             // (string | optional) the image to display on the left
             image: '',
             // (bool | optional) if you want it to fade out on its own or just sit there
@@ -180,23 +180,6 @@ $(document).on('ready',function(){
             class_name: 'gritter-light'
         });
         $('#auxiliar').val(res.id);
-        }
-        if(res=='n'){
-          var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Coincidencia encontrada!',
-            // (string | mandatory) the text inside the notification
-            text: 'Este estudiante ya esta en otro proyecto, ya estan completas las horas',
-            // (string | optional) the image to display on the left
-            image: '',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: false,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '7000',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'gritter-light'
-        });
-        limpiar();
         }
         if(res=='0'){
           $('#auxiliar').val("");

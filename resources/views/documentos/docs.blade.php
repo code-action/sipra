@@ -14,7 +14,7 @@ $a[4]='Acuerdo de memoria';
       <table class="table table-hover">
         <thead>
           <th>
-      <center><h4><i class="fa fa-file"></i> Documentos del proyecto: </h4></center>
+      <center><h4><a href={!! asset('/ayudar/4') !!} target="blank_"><i class="fa fa-file"></i></a> Documentos del proyecto: </h4></center>
           </th>
         </thead>
 
@@ -54,11 +54,11 @@ $a[4]='Acuerdo de memoria';
                 </td>
                 <td>
                   @php
-                    $constancia=Constancia::where('f_estudiante','=',$union->estudiante->id)->get();
+                    $constancia=Constancia::where('f_estudiante','=',$union->estudiante->id)->get()->first();
 
                   @endphp
                   @if(count($constancia)<1)
-                  <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$union->estudiante->id}}"><span class="fa fa-plus" style="color: white;"></span></a>
+                  <a  class="btn btn-info btn-sm" href="/sipra/public/constancia/create?id={{$union->estudiante->id."&idp=".$proy->id}}"><span class="fa fa-plus" style="color: white;"></span></a>
                 @else
                   @include('documentos.formularios.botones2')
                 @endif

@@ -7,7 +7,7 @@
 <div class="col-xs-12">
   <div class="content-panel">
     {!!Form::open(['route'=>'proyecto.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline','id'=>'formulario'])!!}
-      <h4><i class="fa fa-folder-open"></i> Proyectos registrados </h4>
+      <h4><a href={!! asset('/ayudar/1') !!} target="blank_"><i class="fa fa-folder-open"></i></a> Proyectos registrados</h4>
             <div id="cambio">
               @if ($busqueda!=3)
                 {!!Form::select('busqueda',['1'=>'Título','3'=>'Carrera','2'=>'Año'],$busqueda, ['placeholder' => 'Buscar por...','class'=>'form-control','onChange'=>'cambioBuscar(this.value);'])!!}

@@ -34,9 +34,7 @@ Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
   Route::get('/inicio', function () {
       return view('plantillas.inicio');
   });
-  Route::get('/ayudar', function () {
-      return view('Ayudas.Carrera.create');
-  });
+  Route::match(['get','post'],'/ayudar/{numero}','UnionController@ayuda');
 
   Route::resource('carrera','CarreraController');
   Route::resource('estudiante','EstudianteController');

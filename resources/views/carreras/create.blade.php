@@ -4,7 +4,7 @@
 		<div class="form-panel">
 
 			{!!Form::open(['route'=>'carrera.store','method'=>'POST','class'=>'form-horizontal style-form','autocomplete'=>'off', 'role'=>'form'])!!}
-			<center><h4><i class="fa fa-graduation-cap"></i> Crear carrera </h4></center><hr>
+			<center><h4><a href={!! asset('/ayudar/14') !!} target="blank_"><i class="fa fa-graduation-cap"></i></a> Crear carrera </h4></center><hr>
 
 				<?php $bandera=1;?>
 				@include('carreras.formularios.formulario')

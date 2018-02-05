@@ -7,7 +7,7 @@
 		@else
 			{!!Form::open(['route'=>'accesoEstudiante.store','method'=>'POST','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data','files'=>true,'autocomplete'=>'off', 'role'=>'form'])!!}
 		@endif
-			<center><h4><i class="fa fa-file-pdf-o"></i> Documento nuevo para:
+			<center><h4><a href={!! asset('/ayudar/8') !!} target="blank_"><i class="fa fa-file-pdf-o"></i></a> Documento nuevo para:
 				<?php use App\Tipo;
 							use App\Proyecto;
 				$ti=Tipo::nombreTipo($t); ?>
@@ -25,7 +25,7 @@
 				<input name="f_proyecto" type="hidden" value='{{$id}}'>
 				<input name="f_tipo" type="hidden" value='{{$t}}'>
 				<a class="btn btn-default" href={{$dir}}>Cancelar</a>
-			{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
+			{!!Form::submit('Guardar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 
 		</div>

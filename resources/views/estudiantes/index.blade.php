@@ -4,7 +4,7 @@
         <div class="content-panel">
       {!!Form::open(['route'=>'estudiante.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
 
-          <h4><i class="fa fa-book"></i> Estudiantes</h4>
+          <h4><a href={!! asset('/ayudar/6') !!} target="blank_"><i class="fa fa-book"></i></a> Estudiantes</h4>
 
       {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
       {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}

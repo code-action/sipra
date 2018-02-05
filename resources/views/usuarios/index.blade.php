@@ -9,9 +9,9 @@
         <div class="content-panel">
       {!!Form::open(['route'=>'usuario.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
         @if(!$cam)
-          <h4><i class="fa fa-user"></i> Usuarios activos </h4>
+          <h4><a href={!! asset('/ayudar/15') !!} target="blank_"><i class="fa fa-user"></i></a> Usuarios activos </h4>
         @else
-          <h4><i class="fa fa-user"></i> Usuarios inactivos </h4>
+          <h4><a href={!! asset('/ayudar/16') !!} target="blank_"><i class="fa fa-user"></i></a> Usuarios inactivos </h4>
         @endif
       {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
       {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}

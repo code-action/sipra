@@ -16,8 +16,8 @@
 				@include('constancias.formularios.formulario')
 				<input name="f_estudiante" type="hidden" value='{{$id_estudiante}}'>
 				<input name="bandera" type="hidden" value='{{$bandera}}'>
-				<?php $id_p=$est->f_proyecto;?>
-      <a class="btn btn-default" href="/sipra/public/enlace?doc={{$id_p}}">Cancelar</a>
+				<input name="idp" type="hidden" value='{{$idp}}'>
+      <a class="btn btn-default" href="/sipra/public/enlace?doc={{$idp}}">Cancelar</a>
 			{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 
