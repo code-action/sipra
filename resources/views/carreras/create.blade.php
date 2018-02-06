@@ -10,7 +10,7 @@
 				@include('carreras.formularios.formulario')
 				<input name="bandera" type="hidden" value="1">
         <a class="btn btn-default" href="/sipra/public/carrera?estado=1">Cancelar</a>
-			{!!Form::submit('Registrar',['class'=>'btn btn-theme'])!!}
+			{!!Form::submit('Guardar',['class'=>'btn btn-theme'])!!}
 			{!!Form::close()!!}
 
 		</div>

@@ -6,7 +6,7 @@
 
 		          <h4><a href={!! asset('/ayudar/20') !!} target="blank_"><i class="fa fa-archive"></i></a> Bitácora de usuarios </h4>
 
-		      {!! Form::text('usuario',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
+		      {!! Form::text('usuario',null,['class'=>'form-control','placeholder'=>'Búsqueda']) !!}
 		      {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}
 		      {!! Form::close() !!}
 		      <br>
@@ -14,8 +14,8 @@
           <thead>
           <tr>
             <th>#</th>
+						<th>Actividad</th>
             <th>Usuario</th>
-            <th>Actividad</th>
             <th>Fecha</th>
           </tr>
           </thead>
@@ -29,8 +29,8 @@
           @foreach ($bitacoras as $b)
           <tr>
             <td>{{$a}}</td>
+						<td>{{$b->detalle}}</td>
             <td>{{$b->nombre." ".$b->apellido}}</td>
-            <td>{{$b->detalle}}</td>
 						<td style="width:20%;"><?php
 			$fecha=$b->created_at;
 			$aux1 = explode(' ', $fecha);
