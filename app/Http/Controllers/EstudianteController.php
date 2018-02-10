@@ -33,8 +33,6 @@ class EstudianteController extends Controller
      */
     public function create(Request $request)
     {
-        $id_proy=$request['id'];
-        return view('estudiantes.create',compact('id_proy'));
     }
 
     /**

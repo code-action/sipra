@@ -29,6 +29,7 @@
           <td>{{ $est->updated_at->format('d-m-Y g:i:s a') }}</td>
         </tr>
       </table>
+      <a href={!! asset('/estudiante') !!}><i class="fa fa-arrow-circle-left"></i> Estdudiantes</a>
     </div>
   </div>
 @stop

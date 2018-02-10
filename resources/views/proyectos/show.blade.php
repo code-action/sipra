@@ -66,6 +66,7 @@
           <td>{{ $proy->updated_at->format('d-m-Y g:i:s a') }}</td>
         </tr>
       </table>
+      <a href={!! asset('/proyecto') !!}><i class="fa fa-arrow-circle-left"></i> Proyectos</a>
     </div>
   </div>
 @stop

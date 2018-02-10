@@ -67,6 +67,9 @@ $a[4]='Acuerdo de memoria';
             @endforeach
         </tbody>
       </table>
+      <center>
+        <a href={!! asset('/proyecto') !!}><i class="fa fa-arrow-circle-left"></i> Proyectos</a>
+      </center>
     </div>
   </div>
 @stop

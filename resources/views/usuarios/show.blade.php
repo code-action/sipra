@@ -50,6 +50,7 @@
           <td><b>{{ $usuario->updated_at->format('d-m-Y g:i:s a') }}</b></td>
         </tr>
       </table>
+      <a href={!! asset('/usuario?estado='.$usuario->estado) !!}><i class="fa fa-arrow-circle-left"></i> Usuarios</a>
     </div>
   </div>
 @stop
