@@ -21,14 +21,23 @@ class Documento extends Model
     }
 
     public static function buscarUnion($tipo,$busqueda){
+      if (trim($busqueda)!="") {
       $proyectos = DB::table('proyectos')
-    ->select('proyectos.*','documentos.n_acuerdo')
+    ->select('proyectos.titulo','proyectos.anio','documentos.*')
     ->join('documentos','proyectos.id','=','documentos.f_proyecto','left outer')
     ->where('documentos.f_tipo','=',$tipo)
-    ->where('proyectos.titulo','LIKE','%'.$busqueda.'%')
-    ->orWhere('documentos.n_acuerdo', 'LIKE','%'.$busqueda.'%')
+    ->where('proyectos.titulo','ILIKE','%'.$busqueda.'%')
+    ->orWhere('documentos.n_acuerdo', 'ILIKE','%'.$busqueda.'%')
     ->paginate(10);
     return $proyectos;
+  }else{
+    $proyectos = DB::table('proyectos')
+  ->select('proyectos.titulo','proyectos.anio','documentos.*')
+  ->join('documentos','proyectos.id','=','documentos.f_proyecto','left outer')
+  ->where('documentos.f_tipo','=',$tipo)
+  ->paginate(10);
+  return $proyectos;
+  }
     }
 
     public static function contador($id){

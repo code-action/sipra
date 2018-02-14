@@ -51,7 +51,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 	  	<div class="container">
 
             {!!Form::open(['route'=>'loged.store','method'=>'POST','class'=>'form-login','autocomplete'=>'off','style'=>'filter:alpha(opacity=30); opacity:0.9;'])!!}
-		        <h2 class="form-login-heading">INICIAR SESIÓN</h2>
+		        <h2 class="form-login-heading"><i class="fa fa-lock"></i> INICIAR SESIÓN</h2>
 		        <div class="login-wrap">
 		            {!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre de usuario','autofocus'=>'autofocus'])!!}
 		            <br>
@@ -64,6 +64,13 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
 
 		                </span>
 		            </label>
+                <hr>
+		            <div class="login-social-link centered">
+		            <p>Otras páginas relacionadas</p>
+		                <a class="btn btn-facebook btn-lg btn-block" href="https://www.facebook.com/Proyecci%C3%B3n-Socialfmp-Ues-138710453252253/?ref=br_rs" target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
+                    <br>
+                    <a class="btn btn-danger btn-lg btn-block" href="http://fmp.ues.edu.sv/ups/" target="_blank"><i class="fa fa-info"></i> UPS</a>
+		            </div>
                 <hr>
 		        </div>
             {!!Form::close()!!}

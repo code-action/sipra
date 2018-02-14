@@ -1,6 +1,6 @@
 @extends('plantillas.menuc')
 @section('contenidoPagina')
-			<div class="col-xs-9">
+			<div class="col-xs-10">
         <div class="content-panel">
 					{!!Form::open(['route'=>'bitacora.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
 

@@ -20,13 +20,9 @@ class DocumentoController extends Controller
     public function index(Request $request)
     {   $tipo=$request['tipo'];
         $titulo = $request['titulo'];
-        if(trim($titulo)!=""){
-            //$proyectos= Proyecto::buscar($titulo);
             $proyectos=Documento::buscarUnion($tipo,$titulo);
-          }else{
-            $proyectos=Proyecto::orderBy('titulo')->paginate(8);
-        }
-        return view('documentos.index',compact('tipo','proyectos','titulo'));
+            echo $proyectos;
+      return view('documentos.index',compact('tipo','proyectos','titulo'));
     }
 
     /**

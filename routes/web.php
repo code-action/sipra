@@ -48,6 +48,11 @@ Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
   Route::resource('constancia','ConstanciaController');
   Route::resource('editor','EditorController');
   Route::resource('union','UnionController');
+  Route::get('/vermanual',function(){
+      echo "<html style='overflow:hidden;'>
+<embed src='/sipra/public/archivos/manual/manual.pdf' width='100%' height='100%'>
+      </html>";
+    });
 });
 Route::group(['middleware'=>'admin'], function(){ //SOLO ADMINISTRADOR
   Route::resource('usuario','UserController');

@@ -79,5 +79,17 @@ Tipo::llenarTabla();
       </a>
     </li>
   @endif
+  <li class="sub-menu">
+    <a href="javascript:;" >
+      <i class="fa fa-info-circle"></i>
+      <span>Ayuda</span>
+    </a>
+    <ul class="sub">
+      <li><a  >Ver ayuda</a></li>
+    </ul>
+    <ul class="sub">
+      <li><a  href="/sipra/public/vermanual">Manual de usuario</a></li>
+    </ul>
+  </li>
   @endif
 @endsection
