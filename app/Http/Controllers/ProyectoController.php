@@ -239,7 +239,6 @@ class ProyectoController extends Controller
               for ($i=0; $i <count($carne) ; $i++) {
                 if($id[$i]==""){
                 $nuevoe=User::create([
-                  'f_proyecto'=>$proyecto->id,
                   'name'=>$carne[$i],
                   'nombre'=>$nombre[$i],
                   'apellido'=>$apellido[$i],
@@ -265,7 +264,7 @@ class ProyectoController extends Controller
           DB::commit();
           }catch(\Exception $e){
               DB::rollback();
-              return redirect('/proyecto')->with('error','No se pudo editar');
+              return redirect('/proyecto')->with('error','No se puede editar');
           }
           $eliminados=$request->eliminado;
           $idProy=$proyecto->id;

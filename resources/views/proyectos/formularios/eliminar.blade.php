@@ -6,7 +6,7 @@
   title: '¿Esta seguro de eliminar?',
   text: 'Serán eliminados los documentos de este proyecto !',   type: 'warning',
   showCancelButton: true,   confirmButtonColor: '#DD6B55',
-  confirmButtonText: 'Si, enviar!',
+  confirmButtonText: 'Si, eliminar!',
   cancelButtonText: 'No, Cancelar!',   closeOnConfirm: true,
   closeOnCancel: false }, function(isConfirm){
   if (isConfirm) { submit();

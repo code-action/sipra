@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>Ejemplo jQuery slider de imágenes - EjemploCodigo</title>
+<title>Ayuda</title>
 {!!Html::style('assets/css/bootstrap.css')!!}
 <!-- Bootstrap core CSS -->
 {!!Html::style('assets/css/bootstrap.css')!!}

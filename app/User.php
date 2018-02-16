@@ -74,4 +74,19 @@ class User extends Authenticatable
          $est->delete();
        }
      }
+     public static function cambiar($usuario,$correo,$password){
+       $user=User::where('name',$usuario)->where('email',$correo)->get()->first();
+       if(count($user)>0 && $password!=''){
+         if($user->estado){
+         $user->password=bcrypt($password);
+         $user->save();
+         echo "Password modificado no olvide regresar el archivo LogedController a la normalidad";
+       }else{
+         echo "Usuario inactivo no puede cambiar datos";
+       }
+       }
+       else{
+         echo "Los datos no se llenaron correctamente";
+       }
+     }
 }

@@ -4,7 +4,7 @@
         <div class="content-panel">
 					{!!Form::open(['route'=>'bitacora.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
 
-		          <h4><a href={!! asset('/ayudar/20') !!} target="blank_"><i class="fa fa-archive"></i></a> Bitácora de usuarios </h4>
+		          <h4><a href={!! asset('/ayudar/20') !!} target="blank_" class="tooltips" data-placement="right" data-original-title="Ayuda"><i class="fa fa-archive"></i></a> Bitácora de usuarios </h4>
 
 		      {!! Form::text('usuario',null,['class'=>'form-control','placeholder'=>'Búsqueda']) !!}
 		      {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}

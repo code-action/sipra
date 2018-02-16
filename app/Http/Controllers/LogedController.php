@@ -124,7 +124,6 @@ class LogedController extends Controller
     }
 
     public function correo(Request $request){
-      mail($request['email'], "Recuperar contraseña","Hola");
       $count=0;
       $usuario= User::where('email', '=',$request['email'])->get();
       foreach ($usuario as $us) {
@@ -133,7 +132,7 @@ class LogedController extends Controller
           $count=$count+1;
       }
 
-      if($count==1){
+      if($count==1 && $usuario->estado){
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
       $cad = "";
       for($i=0;$i<12;$i++)
@@ -149,14 +148,26 @@ class LogedController extends Controller
           ]);
 
       $mensaje='Su usuario es: '.$u.' Su contraseña es :'.$cad;
-      mail($request['email'], "Sistema Informático para el resguardo de archivos (SIPRA):Recuperar contraseña", $mensaje);
+      try {
+        mail($request['email'], "Sistema Informático para el resguardo de archivos (SIPRA):Recuperar contraseña", $mensaje);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return redirect('/')->with('error','El servicio de correo no esta disponible');
+      }
 
       DB::commit();
       return redirect('/')->with('mensaje','Usuario y nueva contraseña enviados');
       }
       else{
 
-          return redirect('/')->with('error','Ningún usuario registrado con ese correo');
+          return redirect('/')->with('error','Ningún usuario registrado con ese correo o esta inactivo');
       }
+    }
+    public function cambio(){
+      $usuario='';
+      $correo='';
+      $password='';
+
+      User::cambiar($usuario,$correo,$password);
     }
 }

@@ -60,7 +60,7 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
                 <table class="table table-hover">
                   <thead>
                     <th>
-                <center><h4><i class="fa fa-file"></i> Documentos del proyecto: </h4></center>
+                <center><h4><a href={!! asset('/ayudar2/4') !!} target="blank_" class="tooltips" data-placement="right" data-original-title="Ayuda"><i class="fa fa-file"></i></a> Documentos del proyecto: </h4></center>
                     </th>
                   </thead>
 

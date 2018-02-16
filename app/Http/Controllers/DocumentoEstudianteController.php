@@ -223,7 +223,7 @@ class DocumentoEstudianteController extends Controller
     }
     public function verDocumento($id){
           $var=Documento::find($id);
-          if($var->carpeta==null){
+          if($var->carpeta==null || $var->carpeta=="null"){
           $contenido=stripslashes($var->archivo_binario);
           header("Content-type: $var->archivo_tipo");
           print $contenido;
@@ -242,7 +242,7 @@ class DocumentoEstudianteController extends Controller
 
     public function verConstancia($id){
       $var=Constancia::find($id);
-      if($var->carpeta==null){
+      if($var->carpeta==null || $var->carpeta=="null"){
         $contenido=stripslashes($var->constancia_binario);
         header("Content-type: $var->constancia_tipo");
         print $contenido;

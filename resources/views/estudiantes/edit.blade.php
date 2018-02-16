@@ -4,7 +4,7 @@
 		<div class="form-panel">
 
       {!! Form::model($estudiante,['route'=>['estudiante.update',$estudiante->id],'method'=>'PUT','autocomplete'=>'off','class'=>'form-horizontal style-form']) !!}
-      <center><h4><a href={!! asset('/ayudar/7') !!} target="blank_"><i class="fa fa-book"></i></a> Modificar Estudiante </h4></center><hr>
+      <center><h4><a href={!! asset('/ayudar/7') !!} target="blank_" class="tooltips" data-placement="right" data-original-title="Ayuda"><i class="fa fa-book"></i></a> Modificar Estudiante </h4></center><hr>
 				<?php $bandera=2;?>
 				@include('estudiantes.formularios.formulario')
         <input name="bandera" type="hidden" value="2">

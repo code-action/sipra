@@ -219,6 +219,20 @@ function validar(){
   var nombre= $('#t_nombre').val();
   var apellido= $('#t_apellido').val();
   if(carne.length!=7 || nombre.length<3 || apellido.length<3){
+    var unique_id = $.gritter.add({
+      // (string | mandatory) the heading of the notification
+      title: 'Datos incorrectos!',
+      // (string | mandatory) the text inside the notification
+      text: 'Carné debe contener 7 cacteres, nombre y apellido un mínimo de 3',
+      // (string | optional) the image to display on the left
+      image: '',
+      // (bool | optional) if you want it to fade out on its own or just sit there
+      sticky: false,
+      // (int | optional) the time you want it to be alive for before fading out
+      time: '7000',
+      // (string | optional) the class name you want to apply to that specific message
+      class_name: 'gritter-light'
+  });
     return false;
   }else{
     return true;

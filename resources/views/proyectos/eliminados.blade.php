@@ -12,7 +12,7 @@
           <tr><th>Carné</th>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Comentario de eliminación</th>
+          <th>Justificación</th>
           <th>Opción</th></tr>
           @foreach ($eliminados as $eliminado)
             @php

@@ -4,7 +4,7 @@
         <div class="content-panel">
       {!!Form::open(['route'=>'estudiante.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
 
-          <h4><a href={!! asset('/ayudar/6') !!} target="blank_"><i class="fa fa-book"></i></a> Estudiantes</h4>
+          <h4><a href={!! asset('/ayudar/6') !!} target="blank_" class="tooltips" data-placement="right" data-original-title="Ayuda"><i class="fa fa-book"></i></a> Estudiantes</h4>
 
       {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Nombre']) !!}
       {!! Form::submit('Buscar',['class'=>'btn btn-theme']) !!}
@@ -33,11 +33,15 @@
                   $conteo=App\Constancia::contador($st->id);
                 if ($conteo==0){
                   @endphp
+									<div class="tooltips" data-placement="right" data-original-title="No posee constancia">
                   <div class='alert-danger'>{{$a}}</div>
+								</div>
                   @php
                 }else{
                   @endphp
+									<div class="tooltips" data-placement="right" data-original-title="Posee constancia">
                   <div class='alert-success'>{{$a}}</div>
+								</div>
                   @php
                 }
               @endphp

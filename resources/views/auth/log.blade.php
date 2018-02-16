@@ -28,8 +28,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
-  <body>
+<body>
     @if(Session::has('mensaje'))
 
 <?php $men=Session::pull('mensaje');
@@ -46,11 +45,11 @@ echo "<script>swal('$men', 'Click al botón!', 'error')</script>";?>
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
-
 	  <div id="login-page">
 	  	<div class="container">
 
-            {!!Form::open(['route'=>'loged.store','method'=>'POST','class'=>'form-login','autocomplete'=>'off','style'=>'filter:alpha(opacity=30); opacity:0.9;'])!!}
+            {!!Form::open(['route'=>'loged.store','method'=>'POST','class'=>'form-login','autocomplete'=>'off'])!!}
+            {{--  opacidad ,'style'=>'filter:alpha(opacity=30); opacity:0.8;'--}}
 		        <h2 class="form-login-heading"><i class="fa fa-lock"></i> INICIAR SESIÓN</h2>
 		        <div class="login-wrap">
 		            {!!Form::text('name',null,['class'=>'form-control','placeholder'=>'Nombre de usuario','autofocus'=>'autofocus'])!!}

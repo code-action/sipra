@@ -7,7 +7,7 @@
 		@else
 			{!!Form::open(['route'=>'accesoEstudiante.store','method'=>'POST','class'=>'form-horizontal style-form','enctype'=>'multipart/form-data','files'=>true,'autocomplete'=>'off', 'role'=>'form'])!!}
 		@endif
-			<center><h4><a href={!! asset('/ayudar/8') !!} target="blank_"><i class="fa fa-file-pdf-o"></i></a> Documento nuevo para:
+			<center><h4><a href={!! asset('/ayudar/8') !!} target="blank_" class="tooltips" data-placement="right" data-original-title="Ayuda"><i class="fa fa-file-pdf-o"></i></a> Documento nuevo para:
 				<?php use App\Tipo;
 							use App\Proyecto;
 				$ti=Tipo::nombreTipo($t); ?>

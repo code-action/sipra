@@ -85,10 +85,10 @@ Tipo::llenarTabla();
       <span>Ayuda</span>
     </a>
     <ul class="sub">
-      <li><a  >Ver ayuda</a></li>
+      <li><a href={!! asset('/ayudar/21') !!} target="blank_">Ver ayuda</a></li>
     </ul>
     <ul class="sub">
-      <li><a  href="/sipra/public/vermanual">Manual de usuario</a></li>
+      <li><a  href="/sipra/public/vermanual" target="_blank">Manual de usuario</a></li>
     </ul>
   </li>
   @endif

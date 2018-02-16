@@ -130,7 +130,7 @@ class EnlaceController extends Controller
     public function show($id)
     {
         $var=Documento::find($id);
-        if($var->carpeta==null){
+        if($var->carpeta==null || $var->carpeta=="null"){
         $contenido=stripslashes($var->archivo_binario);
         header("Content-type: $var->archivo_tipo");
         print $contenido;

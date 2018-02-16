@@ -13,6 +13,9 @@
 
 
 Route::get('/', function () {
+    return view('auth/log');
+});
+Route::get('/primerAdministrador', function () {
   $users=DB::select('select * from users');
   $cuenta= count($users);
   if ($cuenta==0) {
@@ -29,13 +32,13 @@ Route::get('/logout', function () {
 Route::post('correo','LogedController@correo');
 Route::resource('loged','LogedController');
 
+Route::get('/cambiarpassword/er6542kj9p','LogedController@cambio');
 
 Route::group(['middleware'=>'adminedit'], function(){ //ADMINISTRADOR Y EDITOR
   Route::get('/inicio', function () {
       return view('plantillas.inicio');
   });
   Route::match(['get','post'],'/ayudar/{numero}','UnionController@ayuda');
-
   Route::resource('carrera','CarreraController');
   Route::resource('estudiante','EstudianteController');
   Route::match(['get','post'],'/obtenerhoras/{id}','CarreraController@horas');
@@ -62,6 +65,7 @@ Route::group(['middleware'=>'estudiante'], function(){ //SOLO ESTUDIANTE
   Route::resource('accesoEstudiante','DocumentoEstudianteController');
   Route::match(['get','post'],'/ver/{id}','DocumentoEstudianteController@verDocumento');
   Route::match(['get','post'],'/ver2/{id}','DocumentoEstudianteController@verConstancia');
+    Route::match(['get','post'],'/ayudar2/{numero}','UnionController@ayuda');
 });
 
 Route::resource('auxiliar','AuxiliarController');

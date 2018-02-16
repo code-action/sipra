@@ -8,7 +8,7 @@ use App\Documento;
     <div class="content-panel">
   {!!Form::open(['route'=>'documento.index','method'=>'GET','role'=>'search','autocomplete'=>'off','class'=>'form-inline'])!!}
 
-      <h4><a href={!! asset('/ayudar/5') !!} target="blank_"><i class="fa fa-file"></i></a>
+      <h4><a href={!! asset('/ayudar/5') !!} target="blank_" class="tooltips" data-placement="right" data-original-title="Ayuda"><i class="fa fa-file"></i></a>
         <?php use App\Tipo;
           $nomb=Tipo::nombreTipo($tipo);
          ?>
