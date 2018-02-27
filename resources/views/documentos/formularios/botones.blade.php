@@ -23,11 +23,11 @@ $t=$t_doc;
       title: '¿Desea eliminar el documento?',
       text: 'Ya no estara disponible !',   type: 'warning',
       showCancelButton: true,   confirmButtonColor: '#DD6B55',
-      confirmButtonText: 'Si, enviar!',
+      confirmButtonText: 'Si, eliminar!',
       cancelButtonText: 'No, Cancelar!',   closeOnConfirm: true,
       closeOnCancel: false }, function(isConfirm){
       if (isConfirm) { submit();
-          swal('Deleted!', 'El Registro enviado', 'success');
+          swal('Deleted!', 'El Registro fue eliminado', 'success');
         } else {
       swal({   title: 'El Registro se mantiene',type:'info',
       text: 'Se Cerrará en 2 Segundos',   timer: 2000,
