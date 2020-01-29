@@ -130,9 +130,10 @@ class LogedController extends Controller
           $u=$us->name;
           $c=$us->password;
           $count=$count+1;
+          $estado=$us->estado;
       }
 
-      if($count==1 && $usuario->estado){
+      if($count==1 && $estado){
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
       $cad = "";
       for($i=0;$i<12;$i++)

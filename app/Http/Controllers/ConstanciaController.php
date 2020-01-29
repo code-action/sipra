@@ -79,8 +79,8 @@ class ConstanciaController extends Controller
     {
       $var=Constancia::find($id);
       if($var->carpeta==null || $var->carpeta=="null"){
-        $contenido=stripslashes($var->constancia_binario);
-        header("Content-type: $var->constancia_tipo");
+        $contenido=stripslashes($var->constancia_binario);//campo que guarda el archivo
+        header("Content-type: $var->constancia_tipo");//si tienes guardados el tipo de archivo si no pon pdf
         print $contenido;
       }else{
         echo "
